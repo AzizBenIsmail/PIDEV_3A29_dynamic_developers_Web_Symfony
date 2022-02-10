@@ -1,38 +1,8 @@
+{% extends '/Front/Base.html.twig' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Travel me</title>
-
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('Front/img/travel.ico')}}">
-
-    <link rel="stylesheet" href="{{ asset('Front/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('Front/css/bootstrap-theme.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('Front/css/fontAwesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('Front/css/light-box.css') }}">
-    <link rel="stylesheet" href="{{ asset('Front/css/owl-carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('Front/css/templatemo-style.css') }}">
-
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <script src="{{ asset('Front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js')}}"></script>
-    <style>
-        div.polaroid {
-            width: 80%;
-            background-color: white;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            margin-bottom: 25px;
-        }
-    </style>
-
-</head>
+{% block body %}
 
 <body>
-
-
 
 <header class="nav-down responsive-nav hidden-lg hidden-md">
     <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
@@ -45,12 +15,14 @@
     <div id="main-nav" class="collapse navbar-collapse">
         <nav>
             <ul class="nav navbar-nav">
+
                 <li><a href="#top">Home</a></li>
                 <li><a href="#featured">Featured</a></li>
                 <li><a href="#projects">Recent Projects</a></li>
                 <li><a href="#video">Presentation</a></li>
                 <li><a href="#blog">Blog Entries</a></li>
                 <li><a href="#contact">Contact Us</a></li>
+
             </ul>
         </nav>
     </div>
@@ -65,6 +37,7 @@
     <nav>
         <ul>
             <li>
+                <h1>{{ block('title') }}</h1>
                 <a href="#top">
                     <span class="rect"></span>
                     <span class="circle"></span>
@@ -125,7 +98,26 @@
                 <div class="image"></div>
                 <div class="info">
                     <div>
-                        <h1>Beautiful Template<br>Sentra</h1>
+                        <h1>Voyager
+                            <br>pour vivre .</h1>
+                        <p>Sentra is free Bootstrap CSS Template by templatemo website.<br>
+                            Please share our site link to your friends.</p>
+                        <div class="white-button button">
+                            <a href="#featured">Discover More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Item -->
+
+        <div class="item item-4">
+            <div class="img-fill">
+                <div class="image"></div>
+                <div class="info">
+                    <div>
+                        <h1>Laisse-toi
+                            <br>derrière toi.</h1>
                         <p>Sentra is free Bootstrap CSS Template by templatemo website.<br>
                             Please share our site link to your friends.</p>
                         <div class="white-button button">
@@ -142,7 +134,7 @@
                 <div class="image"></div>
                 <div class="info">
                     <div>
-                        <h1>Please tell <br>your friends</h1>
+                        <h1>Voyager <br>en seule clic </h1>
                         <p>Support templatemo by sharing a link to your friends.
                             <br>Thank you for helping us.</p>
 
@@ -160,7 +152,8 @@
                 <div class="image"></div>
                 <div class="info">
                     <div>
-                        <h1>Suspendisse suscipit<br>nulla sed</h1>
+                        <h1>Les choix
+                            <br>que vous faites</h1>
                         <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices <br>posuere cubilia Curae; Sed at massa turpis.</p>
 
                         <div class="white-button button">
@@ -687,3 +680,4 @@
 
 </body>
 </html>
+{% endblock %}
