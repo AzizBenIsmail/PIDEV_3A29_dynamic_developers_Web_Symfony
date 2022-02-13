@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Excursion index{% endblock %}
+
+{% block body %}
+    <h1>Excursion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom_Excursion</th>
+                <th>Description_Excursion</th>
+                <th>Date</th>
+                <th>Type_Excursion</th>
+                <th>Lieu</th>
+                <th>Valabilite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for excursion in excursions %}
+            <tr>
+                <td>{{ excursion.id }}</td>
+                <td>{{ excursion.NomExcursion }}</td>
+                <td>{{ excursion.DescriptionExcursion }}</td>
+                <td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</td>
+                <td>{{ excursion.TypeExcursion }}</td>
+                <td>{{ excursion.Lieu }}</td>
+                <td>{{ excursion.valabilite }}</td>
+                <td>
+                    <a href="{{ path('excursion_show', {'id': excursion.id}) }}">show</a>
+                    <a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('excursion_new') }}">Create new</a>
+{% endblock %}

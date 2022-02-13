@@ -53,6 +53,11 @@ class Excursion
      */
     private $valabilite;
 
+    public function __toString()
+    {
+        return (string) $this->Nom_Excursion;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
