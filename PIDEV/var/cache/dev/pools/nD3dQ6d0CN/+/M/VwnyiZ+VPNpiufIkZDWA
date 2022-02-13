@@ -1,0 +1,28 @@
+<?php //App%255CEntity%255CVoyage%2524Duree_Voyage
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (\Symfony\Component\VarExporter\Internal\Registry::$prototypes['Doctrine\\ORM\\Mapping\\Column'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Column')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'type' => [
+                'string',
+            ],
+            'length' => [
+                255,
+            ],
+            'precision' => [
+                null,
+            ],
+            'scale' => [
+                null,
+            ],
+        ],
+    ],
+    [
+        $o[0],
+    ],
+    []
+); }];
