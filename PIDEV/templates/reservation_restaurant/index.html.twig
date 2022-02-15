@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReservationRestaurant index{% endblock %}
+
+{% block body %}
+    <h1>ReservationRestaurant index</h1>
+
+    <table class="table" border="8">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_Reservation</th>
+                <th>Nbr_Personne</th>
+                <th>Client</th>
+                <th>Restaurant</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation_restaurant in reservation_restaurants %}
+            <tr>
+                <td>{{ reservation_restaurant.id }}</td>
+                <td>{{ reservation_restaurant.DateReservation ? reservation_restaurant.DateReservation|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation_restaurant.NbrPersonne }}</td>
+                <td>{{ reservation_restaurant.IDClient.Nom}}</td>
+                <td>{{ reservation_restaurant.IDRestaurant.NomRestaurant }}</td>
+            </tr>
+                <td>
+                    <a href="{{ path('reservation_restaurant_show', {'id': reservation_restaurant.id}) }}">show</a>
+                    <a href="{{ path('reservation_restaurant_edit', {'id': reservation_restaurant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('reservation_restaurant_new') }}">Create new</a>
+{% endblock %}

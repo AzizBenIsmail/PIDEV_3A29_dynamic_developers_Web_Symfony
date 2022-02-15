@@ -155,7 +155,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FirstProject" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CoHeal-Web-main" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -166,13 +166,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\PIDEV\templates\reservation_voyage" />
       <recent name="C:\xampp\htdocs\PIDEV\templates" />
       <recent name="C:\xampp\htdocs\PIDEV\public\Back" />
       <recent name="C:\xampp\htdocs\PIDEV\templates\Back" />
       <recent name="C:\xampp\htdocs\PIDEV\public\Front\css" />
-      <recent name="C:\xampp\htdocs\PIDEV\public\Front\img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\PIDEV\public\Formulaire_Resrvation_Voyage" />
       <recent name="C:\xampp\htdocs\PIDEV\templates" />
       <recent name="C:\xampp\htdocs\PIDEV\templates\home" />
     </key>
@@ -200,6 +201,8 @@
       <workItem from="1644697225463" duration="12858000" />
       <workItem from="1644710541752" duration="602000" />
       <workItem from="1644759911861" duration="15428000" />
+      <workItem from="1644842887364" duration="386000" />
+      <workItem from="1644868397696" duration="20480000" />
     </task>
     <servers />
   </component>

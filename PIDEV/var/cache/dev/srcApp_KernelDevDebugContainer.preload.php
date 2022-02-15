@@ -10,7 +10,7 @@ if (in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
 }
 
 require dirname(__DIR__, 3).''.\DIRECTORY_SEPARATOR.'vendor/autoload.php';
-require __DIR__.'/ContainerCg3UvxJ/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/Container1wt5TYx/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -35,16 +35,24 @@ $classes[] = 'Symfony\Component\HttpFoundation\RequestMatcher';
 $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
 $classes[] = 'App\Controller\BackController';
 $classes[] = 'App\Controller\ClientController';
+$classes[] = 'App\Controller\CommentaireController';
 $classes[] = 'App\Controller\ExcursionController';
 $classes[] = 'App\Controller\HomeController';
 $classes[] = 'App\Controller\ReclamationController';
 $classes[] = 'App\Controller\ReservationExcursionController';
 $classes[] = 'App\Controller\ReservationRestaurantController';
+$classes[] = 'App\Controller\ReservationVoyageController';
+$classes[] = 'App\Controller\RestaurantController';
+$classes[] = 'App\Controller\VoyageController';
 $classes[] = 'App\Form\ClientType';
+$classes[] = 'App\Form\CommentaireType';
 $classes[] = 'App\Form\ExcursionType';
 $classes[] = 'App\Form\ReclamationType';
 $classes[] = 'App\Form\ReservationExcursionType';
 $classes[] = 'App\Form\ReservationRestaurantType';
+$classes[] = 'App\Form\ReservationVoyageType';
+$classes[] = 'App\Form\RestaurantType';
+$classes[] = 'App\Form\VoyageType';
 $classes[] = 'App\Repository\ClientRepository';
 $classes[] = 'App\Repository\CommentaireRepository';
 $classes[] = 'App\Repository\ExcursionRepository';

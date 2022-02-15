@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends 'base.html.twig' %}
+{% block title %}Excursion{% endblock %}
+
+{% block body %}
+    <h1>Excursion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ excursion.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_Excursion</th>
+                <td>{{ excursion.NomExcursion }}</td>
+            </tr>
+            <tr>
+                <th>Description_Excursion</th>
+                <td>{{ excursion.DescriptionExcursion }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type_Excursion</th>
+                <td>{{ excursion.TypeExcursion }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ excursion.Lieu }}</td>
+            </tr>
+            <tr>
+                <th>Valabilite</th>
+                <td>{{ excursion.valabilite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('excursion_index') }}">back to list</a>
+
+    <a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
+
+    {{ include('excursion/_delete_form.html.twig') }}
+{% endblock %}

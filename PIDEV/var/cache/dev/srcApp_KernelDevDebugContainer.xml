@@ -353,6 +353,13 @@
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\ClientController"/>
       </call>
     </service>
+    <service id="App\Controller\CommentaireController" class="App\Controller\CommentaireController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\CommentaireController"/>
+      </call>
+    </service>
     <service id="App\Controller\ExcursionController" class="App\Controller\ExcursionController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -388,7 +395,31 @@
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\ReservationRestaurantController"/>
       </call>
     </service>
+    <service id="App\Controller\ReservationVoyageController" class="App\Controller\ReservationVoyageController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\ReservationVoyageController"/>
+      </call>
+    </service>
+    <service id="App\Controller\RestaurantController" class="App\Controller\RestaurantController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\RestaurantController"/>
+      </call>
+    </service>
+    <service id="App\Controller\VoyageController" class="App\Controller\VoyageController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\VoyageController"/>
+      </call>
+    </service>
     <service id="App\Form\ClientType" class="App\Form\ClientType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\CommentaireType" class="App\Form\CommentaireType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\ExcursionType" class="App\Form\ExcursionType" autowire="true" autoconfigure="true">
@@ -401,6 +432,15 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\ReservationRestaurantType" class="App\Form\ReservationRestaurantType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\ReservationVoyageType" class="App\Form\ReservationVoyageType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\RestaurantType" class="App\Form\RestaurantType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\VoyageType" class="App\Form\VoyageType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" autoconfigure="true">
@@ -858,10 +898,14 @@
       </argument>
       <argument type="collection">
         <argument>App\Form\ClientType</argument>
+        <argument>App\Form\CommentaireType</argument>
         <argument>App\Form\ExcursionType</argument>
         <argument>App\Form\ReclamationType</argument>
         <argument>App\Form\ReservationExcursionType</argument>
         <argument>App\Form\ReservationRestaurantType</argument>
+        <argument>App\Form\ReservationVoyageType</argument>
+        <argument>App\Form\RestaurantType</argument>
+        <argument>App\Form\VoyageType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
@@ -1195,7 +1239,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.ItS4Svk"/>
+      <argument type="service" id=".service_locator.wKF3VoJ"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4978,6 +5022,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CommentaireController" class="App\Controller\CommentaireController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CommentaireController" class="App\Controller\CommentaireController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CommentaireController" class="App\Controller\CommentaireController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ExcursionController" class="App\Controller\ExcursionController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ExcursionController" class="App\Controller\ExcursionController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ExcursionController" class="App\Controller\ExcursionController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -4993,8 +5040,19 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ReservationRestaurantController" class="App\Controller\ReservationRestaurantController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ReservationRestaurantController" class="App\Controller\ReservationRestaurantController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ReservationRestaurantController" class="App\Controller\ReservationRestaurantController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ReservationVoyageController" class="App\Controller\ReservationVoyageController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ReservationVoyageController" class="App\Controller\ReservationVoyageController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\ReservationVoyageController" class="App\Controller\ReservationVoyageController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RestaurantController" class="App\Controller\RestaurantController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RestaurantController" class="App\Controller\RestaurantController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\RestaurantController" class="App\Controller\RestaurantController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\VoyageController" class="App\Controller\VoyageController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\VoyageController" class="App\Controller\VoyageController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\VoyageController" class="App\Controller\VoyageController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ClientType" class="App\Form\ClientType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ClientType" class="App\Form\ClientType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CommentaireType" class="App\Form\CommentaireType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CommentaireType" class="App\Form\CommentaireType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ExcursionType" class="App\Form\ExcursionType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ExcursionType" class="App\Form\ExcursionType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ReclamationType" class="App\Form\ReclamationType" autowire="true" abstract="true"/>
@@ -5003,6 +5061,12 @@
     <service id=".abstract.instanceof.App\Form\ReservationExcursionType" class="App\Form\ReservationExcursionType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ReservationRestaurantType" class="App\Form\ReservationRestaurantType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ReservationRestaurantType" class="App\Form\ReservationRestaurantType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ReservationVoyageType" class="App\Form\ReservationVoyageType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ReservationVoyageType" class="App\Form\ReservationVoyageType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RestaurantType" class="App\Form\RestaurantType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\RestaurantType" class="App\Form\RestaurantType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\VoyageType" class="App\Form\VoyageType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\VoyageType" class="App\Form\VoyageType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentaireRepository" class="App\Repository\CommentaireRepository" autowire="true" abstract="true"/>
@@ -5327,6 +5391,25 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
+    <service id=".service_locator.8yqhsUG" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="commentaireRepository" type="service_closure" id="App\Repository\CommentaireRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.3ZciNJ_" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="commentaire" type="service_closure" id=".errored..service_locator.3ZciNJ_.App\Entity\Commentaire"/>
+      </argument>
+    </service>
+    <service id=".service_locator.1tJqyFu" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="commentaire" type="service_closure" id=".errored..service_locator.1tJqyFu.App\Entity\Commentaire"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.M.vJJgY" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5403,7 +5486,64 @@
         <argument key="reservationRestaurant" type="service_closure" id=".errored..service_locator.Yq2TN4c.App\Entity\ReservationRestaurant"/>
       </argument>
     </service>
-    <service id=".service_locator.WOdw3nW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.vxNHEHT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="reservationVoyageRepository" type="service_closure" id="App\Repository\ReservationVoyageRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.lh6csko" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="reservationVoyage" type="service_closure" id=".errored..service_locator.lh6csko.App\Entity\ReservationVoyage"/>
+      </argument>
+    </service>
+    <service id=".service_locator._eOjscF" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="reservationVoyage" type="service_closure" id=".errored..service_locator._eOjscF.App\Entity\ReservationVoyage"/>
+      </argument>
+    </service>
+    <service id=".service_locator.6fGK5AF" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="restaurantRepository" type="service_closure" id="App\Repository\RestaurantRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.ky1UVZL" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="restaurant" type="service_closure" id=".errored..service_locator.ky1UVZL.App\Entity\Restaurant"/>
+      </argument>
+    </service>
+    <service id=".service_locator..ik47nb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="restaurant" type="service_closure" id=".errored..service_locator..ik47nb.App\Entity\Restaurant"/>
+      </argument>
+    </service>
+    <service id=".service_locator..P_4LfZ" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="voyageRepository" type="service_closure" id="App\Repository\VoyageRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.8SvttF_" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="voyage" type="service_closure" id=".errored..service_locator.8SvttF_.App\Entity\Voyage"/>
+      </argument>
+    </service>
+    <service id=".service_locator.M0OZIdu" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="voyage" type="service_closure" id=".errored..service_locator.M0OZIdu.App\Entity\Voyage"/>
+      </argument>
+    </service>
+    <service id=".service_locator.8ukFCJV" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ClientController::delete" type="service_closure" id=".service_locator.cEIuIt4"/>
@@ -5411,6 +5551,11 @@
         <argument key="App\Controller\ClientController::index" type="service_closure" id=".service_locator.D2yAx_S"/>
         <argument key="App\Controller\ClientController::new" type="service_closure" id=".service_locator.x8FmIZ0"/>
         <argument key="App\Controller\ClientController::show" type="service_closure" id=".service_locator.d_37jd6"/>
+        <argument key="App\Controller\CommentaireController::delete" type="service_closure" id=".service_locator.1tJqyFu"/>
+        <argument key="App\Controller\CommentaireController::edit" type="service_closure" id=".service_locator.1tJqyFu"/>
+        <argument key="App\Controller\CommentaireController::index" type="service_closure" id=".service_locator.8yqhsUG"/>
+        <argument key="App\Controller\CommentaireController::new" type="service_closure" id=".service_locator.x8FmIZ0"/>
+        <argument key="App\Controller\CommentaireController::show" type="service_closure" id=".service_locator.3ZciNJ_"/>
         <argument key="App\Controller\ExcursionController::delete" type="service_closure" id=".service_locator.YFT7oFu"/>
         <argument key="App\Controller\ExcursionController::edit" type="service_closure" id=".service_locator.YFT7oFu"/>
         <argument key="App\Controller\ExcursionController::index" type="service_closure" id=".service_locator.M.vJJgY"/>
@@ -5431,11 +5576,31 @@
         <argument key="App\Controller\ReservationRestaurantController::index" type="service_closure" id=".service_locator.IDecfIB"/>
         <argument key="App\Controller\ReservationRestaurantController::new" type="service_closure" id=".service_locator.x8FmIZ0"/>
         <argument key="App\Controller\ReservationRestaurantController::show" type="service_closure" id=".service_locator.Yl_.ohS"/>
+        <argument key="App\Controller\ReservationVoyageController::delete" type="service_closure" id=".service_locator._eOjscF"/>
+        <argument key="App\Controller\ReservationVoyageController::edit" type="service_closure" id=".service_locator._eOjscF"/>
+        <argument key="App\Controller\ReservationVoyageController::index" type="service_closure" id=".service_locator.vxNHEHT"/>
+        <argument key="App\Controller\ReservationVoyageController::new" type="service_closure" id=".service_locator.x8FmIZ0"/>
+        <argument key="App\Controller\ReservationVoyageController::show" type="service_closure" id=".service_locator.lh6csko"/>
+        <argument key="App\Controller\RestaurantController::delete" type="service_closure" id=".service_locator..ik47nb"/>
+        <argument key="App\Controller\RestaurantController::edit" type="service_closure" id=".service_locator..ik47nb"/>
+        <argument key="App\Controller\RestaurantController::index" type="service_closure" id=".service_locator.6fGK5AF"/>
+        <argument key="App\Controller\RestaurantController::new" type="service_closure" id=".service_locator.x8FmIZ0"/>
+        <argument key="App\Controller\RestaurantController::show" type="service_closure" id=".service_locator.ky1UVZL"/>
+        <argument key="App\Controller\VoyageController::delete" type="service_closure" id=".service_locator.M0OZIdu"/>
+        <argument key="App\Controller\VoyageController::edit" type="service_closure" id=".service_locator.M0OZIdu"/>
+        <argument key="App\Controller\VoyageController::index" type="service_closure" id=".service_locator..P_4LfZ"/>
+        <argument key="App\Controller\VoyageController::new" type="service_closure" id=".service_locator.x8FmIZ0"/>
+        <argument key="App\Controller\VoyageController::show" type="service_closure" id=".service_locator.8SvttF_"/>
         <argument key="App\Controller\ClientController:delete" type="service_closure" id=".service_locator.cEIuIt4"/>
         <argument key="App\Controller\ClientController:edit" type="service_closure" id=".service_locator.cEIuIt4"/>
         <argument key="App\Controller\ClientController:index" type="service_closure" id=".service_locator.D2yAx_S"/>
         <argument key="App\Controller\ClientController:new" type="service_closure" id=".service_locator.x8FmIZ0"/>
         <argument key="App\Controller\ClientController:show" type="service_closure" id=".service_locator.d_37jd6"/>
+        <argument key="App\Controller\CommentaireController:delete" type="service_closure" id=".service_locator.1tJqyFu"/>
+        <argument key="App\Controller\CommentaireController:edit" type="service_closure" id=".service_locator.1tJqyFu"/>
+        <argument key="App\Controller\CommentaireController:index" type="service_closure" id=".service_locator.8yqhsUG"/>
+        <argument key="App\Controller\CommentaireController:new" type="service_closure" id=".service_locator.x8FmIZ0"/>
+        <argument key="App\Controller\CommentaireController:show" type="service_closure" id=".service_locator.3ZciNJ_"/>
         <argument key="App\Controller\ExcursionController:delete" type="service_closure" id=".service_locator.YFT7oFu"/>
         <argument key="App\Controller\ExcursionController:edit" type="service_closure" id=".service_locator.YFT7oFu"/>
         <argument key="App\Controller\ExcursionController:index" type="service_closure" id=".service_locator.M.vJJgY"/>
@@ -5456,6 +5621,21 @@
         <argument key="App\Controller\ReservationRestaurantController:index" type="service_closure" id=".service_locator.IDecfIB"/>
         <argument key="App\Controller\ReservationRestaurantController:new" type="service_closure" id=".service_locator.x8FmIZ0"/>
         <argument key="App\Controller\ReservationRestaurantController:show" type="service_closure" id=".service_locator.Yl_.ohS"/>
+        <argument key="App\Controller\ReservationVoyageController:delete" type="service_closure" id=".service_locator._eOjscF"/>
+        <argument key="App\Controller\ReservationVoyageController:edit" type="service_closure" id=".service_locator._eOjscF"/>
+        <argument key="App\Controller\ReservationVoyageController:index" type="service_closure" id=".service_locator.vxNHEHT"/>
+        <argument key="App\Controller\ReservationVoyageController:new" type="service_closure" id=".service_locator.x8FmIZ0"/>
+        <argument key="App\Controller\ReservationVoyageController:show" type="service_closure" id=".service_locator.lh6csko"/>
+        <argument key="App\Controller\RestaurantController:delete" type="service_closure" id=".service_locator..ik47nb"/>
+        <argument key="App\Controller\RestaurantController:edit" type="service_closure" id=".service_locator..ik47nb"/>
+        <argument key="App\Controller\RestaurantController:index" type="service_closure" id=".service_locator.6fGK5AF"/>
+        <argument key="App\Controller\RestaurantController:new" type="service_closure" id=".service_locator.x8FmIZ0"/>
+        <argument key="App\Controller\RestaurantController:show" type="service_closure" id=".service_locator.ky1UVZL"/>
+        <argument key="App\Controller\VoyageController:delete" type="service_closure" id=".service_locator.M0OZIdu"/>
+        <argument key="App\Controller\VoyageController:edit" type="service_closure" id=".service_locator.M0OZIdu"/>
+        <argument key="App\Controller\VoyageController:index" type="service_closure" id=".service_locator..P_4LfZ"/>
+        <argument key="App\Controller\VoyageController:new" type="service_closure" id=".service_locator.x8FmIZ0"/>
+        <argument key="App\Controller\VoyageController:show" type="service_closure" id=".service_locator.8SvttF_"/>
       </argument>
     </service>
     <service id=".service_locator.Y7gDuDN" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5517,14 +5697,18 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.ItS4Svk" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.wKF3VoJ" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ClientType" type="service_closure" id="App\Form\ClientType"/>
+        <argument key="App\Form\CommentaireType" type="service_closure" id="App\Form\CommentaireType"/>
         <argument key="App\Form\ExcursionType" type="service_closure" id="App\Form\ExcursionType"/>
         <argument key="App\Form\ReclamationType" type="service_closure" id="App\Form\ReclamationType"/>
         <argument key="App\Form\ReservationExcursionType" type="service_closure" id="App\Form\ReservationExcursionType"/>
         <argument key="App\Form\ReservationRestaurantType" type="service_closure" id="App\Form\ReservationRestaurantType"/>
+        <argument key="App\Form\ReservationVoyageType" type="service_closure" id="App\Form\ReservationVoyageType"/>
+        <argument key="App\Form\RestaurantType" type="service_closure" id="App\Form\RestaurantType"/>
+        <argument key="App\Form\VoyageType" type="service_closure" id="App\Form\VoyageType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FileType" type="service_closure" id="form.type.file"/>
@@ -5773,6 +5957,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\CommentaireController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\CommentaireController"/>
+      <argument>App\Controller\CommentaireController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
     <service id=".service_locator.vdmMuyE.App\Controller\ExcursionController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\ExcursionController"/>
       <argument>App\Controller\ExcursionController</argument>
@@ -5800,6 +5990,24 @@
     <service id=".service_locator.vdmMuyE.App\Controller\ReservationRestaurantController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\ReservationRestaurantController"/>
       <argument>App\Controller\ReservationRestaurantController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\ReservationVoyageController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\ReservationVoyageController"/>
+      <argument>App\Controller\ReservationVoyageController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\RestaurantController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\RestaurantController"/>
+      <argument>App\Controller\RestaurantController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\VoyageController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\VoyageController"/>
+      <argument>App\Controller\VoyageController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
@@ -5949,12 +6157,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.WOdw3nW"/>
+      <argument type="service" id=".service_locator.8ukFCJV"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.WOdw3nW"/>
+      <argument type="service" id=".service_locator.8ukFCJV"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -5966,6 +6174,8 @@
     </service>
     <service id=".errored..service_locator.d_37jd6.App\Entity\Client" class="App\Entity\Client"/>
     <service id=".errored..service_locator.cEIuIt4.App\Entity\Client" class="App\Entity\Client"/>
+    <service id=".errored..service_locator.3ZciNJ_.App\Entity\Commentaire" class="App\Entity\Commentaire"/>
+    <service id=".errored..service_locator.1tJqyFu.App\Entity\Commentaire" class="App\Entity\Commentaire"/>
     <service id=".errored..service_locator.Ywdi6rD.App\Entity\Excursion" class="App\Entity\Excursion"/>
     <service id=".errored..service_locator.YFT7oFu.App\Entity\Excursion" class="App\Entity\Excursion"/>
     <service id=".errored..service_locator.Yrn9bQF.App\Entity\Reclamation" class="App\Entity\Reclamation"/>
@@ -5974,6 +6184,12 @@
     <service id=".errored..service_locator.6pW1mCu.App\Entity\ReservationExcursion" class="App\Entity\ReservationExcursion"/>
     <service id=".errored..service_locator.Yl_.ohS.App\Entity\ReservationRestaurant" class="App\Entity\ReservationRestaurant"/>
     <service id=".errored..service_locator.Yq2TN4c.App\Entity\ReservationRestaurant" class="App\Entity\ReservationRestaurant"/>
+    <service id=".errored..service_locator.lh6csko.App\Entity\ReservationVoyage" class="App\Entity\ReservationVoyage"/>
+    <service id=".errored..service_locator._eOjscF.App\Entity\ReservationVoyage" class="App\Entity\ReservationVoyage"/>
+    <service id=".errored..service_locator.ky1UVZL.App\Entity\Restaurant" class="App\Entity\Restaurant"/>
+    <service id=".errored..service_locator..ik47nb.App\Entity\Restaurant" class="App\Entity\Restaurant"/>
+    <service id=".errored..service_locator.8SvttF_.App\Entity\Voyage" class="App\Entity\Voyage"/>
+    <service id=".errored..service_locator.M0OZIdu.App\Entity\Voyage" class="App\Entity\Voyage"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.TfYcj5y"/>
       <argument type="collection">
@@ -6364,7 +6580,7 @@
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.WOdw3nW"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.8ukFCJV"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
