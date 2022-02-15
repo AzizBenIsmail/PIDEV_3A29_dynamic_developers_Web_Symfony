@@ -1,0 +1,91 @@
+{% extends 'reservation_voyage/Template_reservation_voyage.html.twig' %}
+{% block body %}
+    <body>
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="booking-cta">
+                            <h1>Travel_Me</h1>
+                            <p>Reserver de maintenait</p>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-md-offset-1">
+                        <div class="booking-form">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_start( form,{'attr': {'class':'form-horizontal'}} ) }}
+                                            <span class="form-label">Date de Resrvation</span>
+                                            <div class="form-control">
+                                                <br>
+                                                {{ form_widget(form.Date_Reservation)}}
+                                                {{ form_errors(form.Date_Reservation)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Travel class</span>
+                                            <div class="form-control">
+                                                <br>
+                                                {{ form_widget(form.Travel_Class)}}
+                                                {{ form_errors(form.Travel_Class)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Age</span>
+                                            <div class="form-control">
+                                                <br>
+                                                {{ form_widget(form.Age)}}
+                                                {{ form_errors(form.Age)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Client</span>
+                                            <div class="form-control">
+                                                <br>
+                                                {{ form_widget(form.ID_Client)}}
+                                                {{ form_errors(form.ID_Client)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span class="form-label">Voyage</span>
+                                            <div class="form-control">
+
+                                                <br>
+                                                {{ form_widget(form.ID_Voyage)}}
+                                                {{ form_errors(form.ID_Voyage   )}}
+                                            </div>
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-btn">
+                                    <button class="submit-btn">{{ button_label|default('Save') }}</button>
+                                </div>
+
+                            <a href="{{ path('reservation_voyage_index') }}">back to list</a>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+
+{% endblock %}

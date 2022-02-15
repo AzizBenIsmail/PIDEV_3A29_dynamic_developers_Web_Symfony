@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=VoyageRepository::class)
@@ -24,11 +26,19 @@ class Voyage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Country
      */
     private $Destination;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Unique
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 20,
+     *      minMessage = "Votre Nom_Voyage doit être au moins {{ limit }} characters long",
+     *      maxMessage = "Le de Nom_Voyage ne peut pas etre plus {{ limit }} characters"
+     * )
      */
     private $Nom_Voyage;
 
@@ -39,6 +49,7 @@ class Voyage
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\PositiveOrZero
      */
     private $Prix_Voyage;
 
@@ -49,8 +60,14 @@ class Voyage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice({"Valide","Proposition"})
      */
     private $valabilite;
+
+    public function __toString()
+    {
+        return (string) $this->Nom_Voyage;
+    }
 
     public function getId(): ?int
     {

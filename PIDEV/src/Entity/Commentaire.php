@@ -25,11 +25,21 @@ class Commentaire
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "l'objet ne peut pas dépasser {{ limit }} characters"
+     * )
      */
     private $Objet;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "l'objet doit être au moins {{ limit }} characters"
+     * )
      */
     private $Commentaire;
 

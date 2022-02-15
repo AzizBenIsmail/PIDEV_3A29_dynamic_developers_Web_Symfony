@@ -1,4 +1,37 @@
+{# }
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}
+{{ form_start( form,{'attr': {'class':'form-horizontal'}} ) }}
+{{ form_label(form.CIN) }}
+{{ form_widget(form.CIN)}}
+{{ form_errors(form.CIN)}}
+
+{{ form_label(form.Nom) }}
+{{ form_widget(form.Nom)}}
+{{ form_errors(form.Nom)}}
+
+{{ form_label(form.Prenom) }}
+{{ form_widget(form.Prenom)}}
+{{ form_errors(form.Prenom)}}
+
+{{ form_label(form.Image) }}
+{{ form_widget(form.Image)}}
+{{ form_errors(form.Image)}}
+
+{{ form_label(form.Numero) }}
+{{ form_widget(form.Numero)}}
+{{ form_errors(form.Numero)}}
+
+{{ form_label(form.Email) }}
+{{ form_widget(form.Email)}}
+{{ form_errors(form.Email)}}
+
+{{ form_label(form.Adresse) }}
+{{ form_widget(form.Adresse)}}
+{{ form_errors(form.Adresse)}}
+
+<button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

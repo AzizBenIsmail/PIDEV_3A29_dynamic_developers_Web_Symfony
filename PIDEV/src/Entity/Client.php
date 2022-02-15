@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
@@ -19,16 +20,34 @@ class Client
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\PositiveOrZero
+     * @Assert\Length(
+     *      max = 8,
+     *      maxMessage = "Votre CIN ne peut pas dépasser {{ limit }} characters"
+     * )
+     *
      */
     private $CIN;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 10,
+     *      minMessage = "Votre prénom doit être au moins {{ limit }} characters long",
+     *      maxMessage = "Votre prénom ne peut pas dépasser {{ limit }} characters"
+     * )
      */
     private $Nom;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 10,
+     *      minMessage = "Votre Nom doit être au moins {{ limit }} characters long",
+     *      maxMessage = "Votre Nom ne peut pas dépasser {{ limit }} characters"
+     * )
      */
     private $Prenom;
 
@@ -39,11 +58,22 @@ class Client
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Positive
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 8,
+     *      minMessage = "Votre Numero doit être au moins {{ limit }} characters long",
+     *      maxMessage = "Votre Numero ne peut pas dépasser {{ limit }} characters"
+     * )
      */
     private $Numero;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $Email;
 

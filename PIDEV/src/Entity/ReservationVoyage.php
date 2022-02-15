@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReservationVoyageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationVoyageRepository::class)
@@ -33,6 +34,19 @@ class ReservationVoyage
      * @ORM\Column(type="date")
      */
     private $Date_Reservation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Choice({"Economy class", "First class", "Business class"})
+     */
+    private $Travel_Class;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\Positive
+     * @Assert\NotBlank
+     */
+    private $Age;
 
     public function getId(): ?int
     {
@@ -71,6 +85,30 @@ class ReservationVoyage
     public function setDateReservation(\DateTimeInterface $Date_Reservation): self
     {
         $this->Date_Reservation = $Date_Reservation;
+
+        return $this;
+    }
+
+    public function getTravelClass(): ?string
+    {
+        return $this->Travel_Class;
+    }
+
+    public function setTravelClass(string $Travel_Class): self
+    {
+        $this->Travel_Class = $Travel_Class;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->Age;
+    }
+
+    public function setAge(int $Age): self
+    {
+        $this->Age = $Age;
 
         return $this;
     }

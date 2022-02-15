@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RestaurantRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RestaurantRepository::class)
@@ -19,21 +20,43 @@ class Restaurant
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Unique
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      max = 20,
+     *      maxMessage = "Le de Nom_Restaurant ne peut pas etre plus {{ limit }} characters"
+     * )
      */
     private $Nom_Restaurant;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 10,
+     *      minMessage = "Votre Adresse_Restaurant doit être au moins {{ limit }} characters long",
+     *      maxMessage = "Votre Adresse_Restaurant ne peut pas dépasser {{ limit }} characters"
+     * )
      */
     private $Adresse_Restaurant;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Positive
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 8,
+     *      minMessage = " Numero doit être au moins {{ limit }} characters long",
+     *      maxMessage = " Numero ne peut pas dépasser {{ limit }} characters"
+     * )
      */
     private $Num_Tel_Restaurant;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $Description_Restaurant;
 

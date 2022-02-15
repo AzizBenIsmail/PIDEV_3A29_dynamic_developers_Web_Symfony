@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ExcursionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ExcursionRepository::class)
@@ -25,11 +26,23 @@ class Excursion
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Unique
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 20,
+     *      minMessage = "Votre Nom_Excursion doit être au moins {{ limit }} characters long",
+     *      maxMessage = "Le de Nom_Excursion ne peut pas etre plus {{ limit }} characters"
+     * )
      */
     private $Nom_Excursion;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "l'objet doit être au moins {{ limit }} characters"
+     * )
      */
     private $Description_Excursion;
 
@@ -40,16 +53,25 @@ class Excursion
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 12,
+     *      minMessage = "Votre Type_Excursion doit être au moins {{ limit }} characters long",
+     *      maxMessage = "Le de Type_Excursion ne peut pas etre plus {{ limit }} characters"
+     * )
      */
     private $Type_Excursion;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Country
      */
     private $Lieu;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice({"Valide","Proposition"})
      */
     private $valabilite;
 

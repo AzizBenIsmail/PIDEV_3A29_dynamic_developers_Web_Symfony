@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReservationRestaurantRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRestaurantRepository::class)
@@ -36,6 +37,13 @@ class ReservationRestaurant
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 1,
+     *      minMessage = "le Nombre de personne doit être au moins entre 1-9",
+     *      maxMessage = "le Nombre de personne doit être au moins entre 1-9"
+     * )
+     *
      */
     private $Nbr_Personne;
 
