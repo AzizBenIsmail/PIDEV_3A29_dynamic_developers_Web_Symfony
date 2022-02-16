@@ -45,6 +45,12 @@ class ReservationVoyage
      * @ORM\Column(type="integer")
      * @Assert\Positive
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 2,
+     *      minMessage = "Votre Age doit être au moins 9 ans",
+     *      maxMessage = "Votre Age ne peut pas etre plus 99 ans"
+     * )
      */
     private $Age;
 

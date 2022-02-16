@@ -26,7 +26,6 @@ class Excursion
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Unique
      * @Assert\Length(
      *      min = 2,
      *      max = 20,
