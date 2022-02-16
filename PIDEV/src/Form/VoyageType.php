@@ -24,6 +24,7 @@ class VoyageType extends AbstractType
             'Proposition' => 'Proposition',
         ]])
             ->add('ID_Client')
+            ->add('image')
         ;
     }
 

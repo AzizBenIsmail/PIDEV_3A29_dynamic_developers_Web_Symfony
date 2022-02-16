@@ -221,29 +221,43 @@
         <tbody>
             <tr>
                 <th>Id</th>
+                <td>{{ reservation_voyage.id }}</td>
+                <th>Action</th>
+            </tr>
                 <th>Nom_Client</th>
+            <td>{{ reservation_voyage.IDClient.Nom }}</td>
+            <td>    <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}"><button class="btn">Edit</button></a></td>
+            <tr>
+                <th>Destination</th>
+                <td><img src="/image{{ asset( reservation_voyage.IDVoyage.Image ) }}.jpg" width="700" height="350"> </td>
+            </tr>
+            <tr>
                 <th>Nom_Voyage</th>
+                <td>{{ reservation_voyage.IDVoyage.NomVoyage }}</td>
+            </tr>
+            <tr>
                 <th>Date_Reservation</th>
-                <th>Travel_Class</th>
-                <th>Age</th>
-
+                <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
 
             </tr>
             <tr>
-                <td>{{ reservation_voyage.id }}</td>
-                <td>{{ reservation_voyage.IDClient.Nom }}</td>
-                <td>{{ reservation_voyage.IDVoyage.NomVoyage }}</td>
-                <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
+
+                <th>Travel_Class</th>
                 <td>{{ reservation_voyage.TravelClass }}</td>
+
+            </tr>
+            <tr>
+                <th>Age</th>
                 <td>{{ reservation_voyage.Age }}</td>
             </tr>
+            <tr> <th>Delete</th>
+                <td>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td>
+                <td>
+                    {{ include('reservation_voyage/_delete_form.html.twig') }}
+                </td>
+
         </tbody>
     </table>
-
-
-    <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}"><button class="btn">Edit</button></a>
-
-    {{ include('reservation_voyage/_delete_form.html.twig') }}
 
     <a href="{{ path('reservation_voyage_index') }}"><button class="btn">Back to list</button></a>
 

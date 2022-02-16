@@ -210,7 +210,7 @@
         <div class="banner">
 
             <h1>
-                <br>     <a href="{{ path('home') }}">Travel<em><img src="{{ asset('Front/img/travel.png') }}" width="100" height="100">me</em></a>
+                <br><a href="{{ path('home') }}">Travel<em><img src="{{ asset('Front/img/travel.png') }}" width="100" height="100">me</em></a>
             </h1>
         </div>
         <br/>
@@ -218,9 +218,10 @@
             <legend>Create new Excursion</legend>
             <div class="colums">
     <h1>Create new Excursion</h1>
+                <table>
 
     {{ include('excursion/_form.html.twig') }}
-
+                </table>
                 <a href="{{ path('excursion_index') }}"><button>back to list</button></a>
             </div>
 </body>

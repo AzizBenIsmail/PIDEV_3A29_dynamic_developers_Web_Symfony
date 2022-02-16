@@ -224,6 +224,12 @@
             <tr>
                 <th>Id</th>
                 <td>{{ excursion.id }}</td>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <th>Excursion</th>
+                <td><img src="/image/excursion{{ asset( excursion.Image ) }}.jpg" width="700" height="350"> </td>
+                <td><a href="{{ path('excursion_edit', {'id': excursion.id}) }}"><button>Edit</button></a></td>
             </tr>
             <tr>
                 <th>Nom_Excursion</th>
@@ -249,14 +255,14 @@
                 <th>Valabilite</th>
                 <td>{{ excursion.valabilite }}</td>
             </tr>
+            <tr>
+                <th>Delate</th>
+                <td>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td>
+                <td>{{ include('excursion/_delete_form.html.twig') }}</td>
+            </tr>
         </tbody>
     </table>
-
                 <a href="{{ path('excursion_index') }}"><button>back to list</button></a>
-
-    <a href="{{ path('excursion_edit', {'id': excursion.id}) }}"><button>Edit</button></a>
-
-    {{ include('excursion/_delete_form.html.twig') }}
             </div>
 </body>
 </html>

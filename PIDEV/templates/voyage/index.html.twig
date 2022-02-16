@@ -215,12 +215,13 @@
         </div>
         <br/>
         <fieldset>
-    <h1>Voyage index</h1>
+    <h1>Voyage </h1>
 
-    <table class="table" border="5">
+    <table class="table" border="15">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Destination</th>
                 <th>Destination</th>
                 <th>Nom_Voyage</th>
                 <th>Duree_Voyage</th>
@@ -234,10 +235,11 @@
         {% for voyage in voyages %}
             <tr>
                 <td>{{ voyage.id }}</td>
+                <td><img src="/image{{ asset( voyage.image ) }}.jpg" width="550" height="300"></td>
                 <td>{{ voyage.Destination }}</td>
                 <td>{{ voyage.NomVoyage }}</td>
                 <td>{{ voyage.DureeVoyage }}</td>
-                <td>{{ voyage.PrixVoyage }}</td>
+                <td>{{ voyage.PrixVoyage }} $</td>
                 <td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
                 <td>{{ voyage.valabilite }}</td>
                 <td>

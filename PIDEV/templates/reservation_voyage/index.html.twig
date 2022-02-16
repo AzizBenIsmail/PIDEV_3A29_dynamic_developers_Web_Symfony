@@ -222,10 +222,11 @@
             <tr>
                 <th>Id</th>
                 <th>Nom_Client</th>
-                <th>Voyage</th>
+                <th>Destination</th>
+                <th>Nom Voyage</th>
                 <th>Date_Reservation</th>
                 <th>Travel_Class</th>
-                <th>Age</th>
+                <th>Age Du Client</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -234,6 +235,7 @@
             <tr>
                 <td>{{ reservation_voyage.id }}</td>
                 <td>{{ reservation_voyage.IDClient.Nom }}</td>
+                <td><img src="/image{{ asset( reservation_voyage.IDVoyage.Image ) }}.jpg" width="300" height="150"> </td>
                 <td>{{ reservation_voyage.IDVoyage.NomVoyage }}</td>
                 <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
                 <td>{{ reservation_voyage.TravelClass }}</td>

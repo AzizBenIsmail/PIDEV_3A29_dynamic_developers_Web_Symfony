@@ -218,9 +218,9 @@
             <legend>Voyage</legend>
             <div class="colums">
     <h1>Edit Voyage</h1>
-
+<table>
     {{ include('voyage/_form.html.twig', {'button_label': 'Update'}) }}
-
+</table>
                 <a href="{{ path('voyage_index') }}"><button>back to list</button></a>
 
     {{ include('voyage/_delete_form.html.twig') }}
