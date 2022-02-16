@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 400px;
-            background-image: url("{{ asset('Voyage.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/Voyage.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -235,7 +235,7 @@
             <tr>
                 <td>{{ reservation_voyage.id }}</td>
                 <td>{{ reservation_voyage.IDClient.Nom }}</td>
-                <td><img src="/image{{ asset( reservation_voyage.IDVoyage.Image ) }}.jpg" width="300" height="150"> </td>
+                <td><img src="/image/Voyage/{{ asset( reservation_voyage.IDVoyage.Image ) }}.jpg" width="300" height="150"> </td>
                 <td>{{ reservation_voyage.IDVoyage.NomVoyage }}</td>
                 <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
                 <td>{{ reservation_voyage.TravelClass }}</td>

@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 400px;
-            background-image: url("{{ asset('Voyage.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/Voyage.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -229,7 +229,7 @@
             <td>    <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}"><button class="btn">Edit</button></a></td>
             <tr>
                 <th>Destination</th>
-                <td><img src="/image{{ asset( reservation_voyage.IDVoyage.Image ) }}.jpg" width="700" height="350"> </td>
+                <td><img src="/image/Voyage/{{ asset( reservation_voyage.IDVoyage.Image ) }}.jpg" width="700" height="350"> </td>
             </tr>
             <tr>
                 <th>Nom_Voyage</th>

@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 400px;
-            background-image: url("{{ asset('image.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/image.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -235,7 +235,7 @@
         {% for voyage in voyages %}
             <tr>
                 <td>{{ voyage.id }}</td>
-                <td><img src="/image{{ asset( voyage.image ) }}.jpg" width="550" height="300"></td>
+                <td><img src="/image/Voyage/{{ asset( voyage.image ) }}.jpg" width="550" height="300"></td>
                 <td>{{ voyage.Destination }}</td>
                 <td>{{ voyage.NomVoyage }}</td>
                 <td>{{ voyage.DureeVoyage }}</td>
