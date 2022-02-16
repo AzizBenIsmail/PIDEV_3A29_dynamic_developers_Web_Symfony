@@ -1,6 +1,6 @@
 {% extends 'reservation_voyage/Template_reservation_voyage.html.twig' %}
 {% block body %}
-    <body>
+
     <div id="booking" class="section">
         <div class="section-center">
             <div class="container">
@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-md-7 col-md-offset-1">
                         <div class="booking-form">
-                            <form>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -74,18 +74,18 @@
                                     </div>
                                 </div>
                                 <div class="form-btn">
-                                    <button class="submit-btn">{{ button_label|default('Save') }}</button>
+                                        <button class="submit-btn">{{ button_label|default('Save') }}</button>
                                 </div>
 
                             <a href="{{ path('reservation_voyage_index') }}">back to list</a>
                         </div>
+
                         {{ form_end(form) }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </body>
-    </html>
+
 
 {% endblock %}

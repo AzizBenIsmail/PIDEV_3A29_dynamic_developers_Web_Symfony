@@ -20,7 +20,6 @@ class Restaurant
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Unique
      * @Assert\NotBlank
      * @Assert\Length(
      *      max = 20,
