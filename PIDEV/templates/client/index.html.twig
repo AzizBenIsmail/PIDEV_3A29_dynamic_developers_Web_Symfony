@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 500px;
-            background-image: url("{{ asset('Designe_interface/Client.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/Client.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -224,9 +224,9 @@
             <tr>
                 <th>Id</th>
                 <th>CIN</th>
+                <th>Image</th>
                 <th>Nom</th>
                 <th>Prenom</th>
-                <th>Image</th>
                 <th>Numero</th>
                 <th>Email</th>
                 <th>Adresse</th>
@@ -238,9 +238,9 @@
             <tr>
                 <td>{{ client.id }}</td>
                 <td>{{ client.CIN }}</td>
+                <td><img src="/image/Client/{{ asset( client.Image) }}.jpg" width="300" height="300"></td>
                 <td>{{ client.Nom }}</td>
                 <td>{{ client.Prenom }}</td>
-                <td>{{ client.Image }}</td>
                 <td>{{ client.Numero }}</td>
                 <td>{{ client.Email }}</td>
                 <td>{{ client.Adresse }}</td>

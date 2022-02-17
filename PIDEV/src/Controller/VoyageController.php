@@ -58,6 +58,7 @@ class VoyageController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/{id}/edit", name="voyage_edit", methods={"GET", "POST"})
      */

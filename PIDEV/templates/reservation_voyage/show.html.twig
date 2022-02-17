@@ -224,6 +224,10 @@
                 <td>{{ reservation_voyage.id }}</td>
                 <th>Action</th>
             </tr>
+            <tr>
+                <th>Client</th>
+                <td><img src="/image/Client/{{ asset( reservation_voyage.IDClient.Image ) }}.jpg" width="700" height="350"> </td>
+            </tr>
                 <th>Nom_Client</th>
             <td>{{ reservation_voyage.IDClient.Nom }}</td>
             <td>    <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}"><button class="btn">Edit</button></a></td>
