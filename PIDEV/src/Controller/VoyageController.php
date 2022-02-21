@@ -38,7 +38,7 @@ class VoyageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($voyage);
             $entityManager->flush();
-
+            $this->addFlash('message','le Voyage a bien ete ajouter ');
             return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
         }
 
