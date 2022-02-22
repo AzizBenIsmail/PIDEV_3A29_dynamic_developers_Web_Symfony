@@ -14,9 +14,18 @@ class VoyageType extends AbstractType
     {
         $builder
             ->add('Destination')
-            ->add('Nom_Voyage')
-            ->add('Duree_Voyage')
-            ->add('Prix_Voyage')
+            ->add('Nom_Voyage',null, [
+                'attr' => [
+                    'placeholder' => 'Nom_Voyage',
+                ]])
+            ->add('Duree_Voyage',null, [
+                'attr' => [
+                    'placeholder' => 'Duree voyage',
+                ]])
+            ->add('Prix_Voyage',null, [
+                'attr' => [
+                    'placeholder' => 'Prix_Voyage',
+                ]])
             ->add('date')
             ->add('valabilite',ChoiceType::class, [
         'choices' => [

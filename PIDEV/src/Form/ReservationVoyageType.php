@@ -34,7 +34,10 @@ class ReservationVoyageType extends AbstractType
                     'First class' => 'First class',
                     'Business class' => 'Business class',
                 ]])
-            ->add('Age')
+            ->add('Age',null, [
+                'attr' => [
+                    'placeholder' => 'Age',
+                ]])
             ->add('ID_Client')
             ->add('ID_Voyage')
         ;
