@@ -24,6 +24,7 @@ class ExcursionType extends AbstractType
                     'Proposition' => 'Proposition',
                 ]])
             ->add('ID_Client')
+            ->add('image')
         ;
     }
 

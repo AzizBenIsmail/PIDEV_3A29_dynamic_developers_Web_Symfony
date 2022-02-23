@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 400px;
-            background-image: url("{{ asset('image.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/image.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -171,6 +171,7 @@
         button {
             width: 150px;
             padding: 10px;
+            height: 70px;
             border: none;
             border-radius: 5px;
             background:  #1c87c9;
@@ -210,7 +211,7 @@
         <div class="banner">
 
             <h1>
-                <br>     <a href="{{ path('home') }}">Travel<em><img src="{{ asset('Front/img/travel.png') }}" width="100" height="100">me</em></a>
+                <br>     <a href="{{ path('home') }}"><em><img src="{{ asset('Front/img/travel.png') }}" width="250" height="250"></em></a>
             </h1>
         </div>
         <br/>
@@ -218,7 +219,7 @@
             <legend>Voyage</legend>
             <div class="colums">
     <h1>Create new Voyage</h1>
-<table      >
+<table >
     {{ include('voyage/_form.html.twig') }}
 </table>
                 <a href="{{ path('voyage_index') }}"><button>back to list</button></a>

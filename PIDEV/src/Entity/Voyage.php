@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use App\Entity\VoyageSearch;
+use App\Form\VoyagesearchType;
 
 /**
  * @ORM\Entity(repositoryClass=VoyageRepository::class)
@@ -21,6 +22,7 @@ class Voyage
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class)
+     * @Assert\NotNull
      */
     private $ID_Client;
 
@@ -33,7 +35,7 @@ class Voyage
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
-     *      min = 2,
+     *      min = 5,
      *      max = 20,
      *      minMessage = "Votre Nom_Voyage doit être au moins {{ limit }} characters long",
      *      maxMessage = "Le de Nom_Voyage ne peut pas etre plus {{ limit }} characters"
@@ -59,9 +61,14 @@ class Voyage
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Choice({"Valide","Proposition"})
+     * @Assert\Choice({"Oui","Non","oui","non","bientot disponible"})
      */
     private $valabilite;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Image;
 
     public function __toString()
     {
@@ -153,6 +160,18 @@ class Voyage
     public function setValabilite(string $valabilite): self
     {
         $this->valabilite = $valabilite;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->Image;
+    }
+
+    public function setImage(?string $Image): self
+    {
+        $this->Image = $Image;
 
         return $this;
     }

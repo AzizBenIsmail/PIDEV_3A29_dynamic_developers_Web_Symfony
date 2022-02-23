@@ -1,4 +1,39 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{#{{ form_start(form) }}#}
+{#    {{ form_widget(form) }}#}
+{#    <button class="btn">{{ button_label|default('Save') }}</button>#}
+{#{{ form_end(form) }}#}
+
+{{ form_start( form,{'attr': {'class':'form-horizontal'}} ) }}
+{{ form_label(form.ID_Client) }}
+{{ form_widget(form.ID_Client)}}
+{{ form_errors(form.ID_Client)}}
+
+{{ form_label(form.Destination) }}
+{{ form_widget(form.Destination)}}
+{{ form_errors(form.Destination)}}
+
+{{ form_label(form.Nom_Voyage) }}
+{{ form_widget(form.Nom_Voyage)}}
+{{ form_errors(form.Nom_Voyage)}}
+
+{{ form_label(form.Duree_Voyage) }}
+{{ form_widget(form.Duree_Voyage)}}
+{{ form_errors(form.Duree_Voyage)}}
+
+{{ form_label(form.Prix_Voyage) }}
+{{ form_widget(form.Prix_Voyage)}}
+{{ form_errors(form.Prix_Voyage)}}
+
+{{ form_label(form.date) }}
+{{ form_widget(form.date)}}
+{{ form_errors(form.date)}}
+
+{{ form_label(form.valabilite) }}
+{{ form_widget(form.valabilite)}}
+{{ form_errors(form.valabilite)}}
+
+
+
+<button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

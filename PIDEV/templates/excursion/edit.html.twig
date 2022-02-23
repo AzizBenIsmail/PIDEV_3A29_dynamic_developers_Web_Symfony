@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 500px;
-            background-image: url("{{ asset('Excursion.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/Excursion.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -218,9 +218,9 @@
             <legend>Edit Excursion</legend>
             <div class="colums">
     <h1>Edit Excursion</h1>
-
+<table>
     {{ include('excursion/_form.html.twig', {'button_label': 'Update'}) }}
-
+</table>
                 <a href="{{ path('excursion_index') }}"><button>back to list</button></a>
 
     {{ include('excursion/_delete_form.html.twig') }}

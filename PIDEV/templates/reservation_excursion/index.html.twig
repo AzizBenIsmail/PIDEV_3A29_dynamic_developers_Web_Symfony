@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 500px;
-            background-image: url("{{ asset('ResrRestaurant.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/ResrRestaurant.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -217,12 +217,14 @@
         <fieldset>
             <legend>ReservationExcursion</legend>
             <div class="colums">
-    <h1>ReservationExcursion index</h1>
+    <h1>ReservationExcursion</h1>
 
     <table class="table" border="8">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Excursion</th>
+                <th>Nom Client</th>
                 <th>Date_Reservation_Excursion</th>
                 <th>actions</th>
             </tr>
@@ -230,7 +232,10 @@
         <tbody>
         {% for reservation_excursion in reservation_excursions %}
             <tr>
+
                 <td>{{ reservation_excursion.id }}</td>
+                <td><img src="/image/excursion/{{ reservation_excursion.IDExcursion.image}}.jpg" width="300" height="150"> </td>
+                <td>{{ reservation_excursion.IDClient.nom }}</td>
                 <td>{{ reservation_excursion.DateReservationExcursion ? reservation_excursion.DateReservationExcursion|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('reservation_excursion_show', {'id': reservation_excursion.id}) }}"><button>Show</button></a>

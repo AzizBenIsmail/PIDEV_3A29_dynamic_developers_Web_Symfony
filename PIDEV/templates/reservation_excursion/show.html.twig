@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 500px;
-            background-image: url("{{ asset('ResrRestaurant.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/ResrRestaurant.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -223,10 +223,14 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ reservation_excursion.id }}</td>
+                <th>Client</th>
+                <th>Excurion</th>
+                <th>Date_Reservation_Excursion</th>
             </tr>
             <tr>
-                <th>Date_Reservation_Excursion</th>
+                <td>{{ reservation_excursion.id }}</td>
+                <td><img src="/image/Client/{{ reservation_excursion.IDClient.image}}.jpg" width="300" height="250"> </td>
+                <td><img src="/image/excursion/{{ reservation_excursion.IDExcursion.image}}.jpg" width="500 " height="250"> </td>
                 <td>{{ reservation_excursion.DateReservationExcursion ? reservation_excursion.DateReservationExcursion|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>

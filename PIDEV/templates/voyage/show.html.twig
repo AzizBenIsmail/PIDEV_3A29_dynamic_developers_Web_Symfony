@@ -52,7 +52,7 @@
         .banner {
             position: relative;
             height: 400px;
-            background-image: url("{{ asset('image.jpg') }}");
+            background-image: url("{{ asset('image/Designe_interface/image.jpg') }}");
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -224,6 +224,14 @@
             <tr>
                 <th>Id</th>
                 <td>{{ voyage.id }}</td>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <th>Image</th>
+                    <td><img src="/image/Voyage/{{ asset( voyage.image ) }}.jpg" width="700" height="350"></td>
+                <td>
+                    <a href="{{ path('voyage_edit', {'id': voyage.id}) }}"><button>edit</button></a>
+                </td>
             </tr>
             <tr>
                 <th>Destination</th>
@@ -249,14 +257,19 @@
                 <th>Valabilite</th>
                 <td>{{ voyage.valabilite }}</td>
             </tr>
+            <tr> <th>Delete</th>
+                <td>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td>
+                <td>
+                    {{ include('voyage/_delete_form.html.twig') }}
+                </td>
+            </tr>
         </tbody>
     </table>
-
                 <a href="{{ path('voyage_index') }}"><button>back to list</button></a>
 
-    <a href="{{ path('voyage_edit', {'id': voyage.id}) }}"><button>edit</button></a>
 
-    {{ include('voyage/_delete_form.html.twig') }}
+
+
 </div>
 </body>
 </html>

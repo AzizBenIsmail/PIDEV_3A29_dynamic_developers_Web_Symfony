@@ -74,6 +74,11 @@ class Excursion
      */
     private $valabilite;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Image;
+
     public function __toString()
     {
         return (string) $this->Nom_Excursion;
@@ -164,6 +169,18 @@ class Excursion
     public function setValabilite(string $valabilite): self
     {
         $this->valabilite = $valabilite;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->Image;
+    }
+
+    public function setImage(?string $Image): self
+    {
+        $this->Image = $Image;
 
         return $this;
     }
