@@ -23,7 +23,7 @@
             <div class="navbar-menu-wrapper d-flex align-items-top">
                 <ul class="navbar-nav">
                     <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                        <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
+                        <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">Travel me</span></h1>
                         <h3 class="welcome-sub-text">Your performance summary this week </h3>
                     </li>
                 </ul>
@@ -44,17 +44,17 @@
                             </a>
                             <a class="dropdown-item preview-item" href="{{ path('voyage_index') }}">
                                 <div class="preview-item-content flex-grow py-2" >
-                                    <p class="preview-subject ellipsis font-weight-medium text-dark" >    liste de tous les clients </p>
+                                    <p class="preview-subject ellipsis font-weight-medium text-dark" >    liste de tous les voyage </p>
                                 </div>
                             </a>
                             <a class="dropdown-item preview-item" href="{{ path('excursion_index') }}">
                                 <div class="preview-item-content flex-grow py-2" >
-                                    <p class="preview-subject ellipsis font-weight-medium text-dark" >    liste de tous les clients </p>
+                                    <p class="preview-subject ellipsis font-weight-medium text-dark" >    liste de tous les excursion </p>
                                 </div>
                             </a>
-                            <a class="dropdown-item preview-item" href="{{ path('client_index') }}">
+                            <a class="dropdown-item preview-item" href="{{ path('restaurant_index') }}">
                                 <div class="preview-item-content flex-grow py-2">
-                                    <p class="preview-subject ellipsis font-weight-medium text-dark" "> liste de tous les clients </p>
+                                    <p class="preview-subject ellipsis font-weight-medium text-dark" "> liste de tous les restaurant </p>
                                 </div>
                             </a>
                         </div>
@@ -207,7 +207,7 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ path('back') }}">
                             <i class="mdi mdi-grid-large menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -216,42 +216,19 @@
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic" >
                             <i class="menu-icon mdi mdi-floor-plan"></i>
-                            <span class="menu-title">UI Elements</span>
+                            <span class="menu-title">RESERATION</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="{{ path('home') }}">home</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ path('restaurant_index') }}">Reservation Restaurant</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{ path('reservation_excursion_index') }}">Reservation Excursion</a></li>
                                 <li class="nav-item"> <a class="nav-link"  href="{{ path('reservation_voyage_index') }}" >Reservation Voyage</a></li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item nav-category">Forms and Datas</li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-                            <i class="menu-icon mdi mdi-card-text-outline"></i>
-                            <span class="menu-title">Form elements</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="form-elements">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                            <i class="menu-icon mdi mdi-chart-line"></i>
-                            <span class="menu-title">Charts</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="charts">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
-                            </ul>
-                        </div>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
                             <i class="menu-icon mdi mdi-table"></i>
@@ -260,7 +237,21 @@
                         </a>
                         <div class="collapse" id="tables">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+                                <li class="nav-item"> <a class="nav-link"  href="{{ path('client_index') }}">Client </a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"  href="{{ path('commentaire_index') }}">Commentaire</a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"  href="{{ path('voyage_index') }}">Voyage</a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"  href="{{ path('restaurant_index') }}">Restaurant</a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"  href="{{ path('excursion_index') }}">Excursion</a></li>
+                            </ul><ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"  href="{{ path('reclamation_index') }}">reclamation</a></li>
                             </ul>
                         </div>
                     </li>

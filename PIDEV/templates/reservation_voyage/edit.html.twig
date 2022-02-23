@@ -219,13 +219,13 @@
             <div class="colums">
 
     <h1>Edit ReservationVoyage</h1>
+                <table>
+                {{ include('reservation_voyage/_form.html.twig', {'button_label': 'Update'}) }}
+                </table>
 
-            </div>
-            <table border="5">
-            {{ include('reservation_voyage/_form.html.twig', {'button_label': 'Update'}) }}
-            {{ include('reservation_voyage/_delete_form.html.twig') }}
+                {{ include('reservation_voyage/_delete_form.html.twig') }}
             <a href="{{ path('reservation_voyage_index') }}"><button class="btn">Back to list</button></a></a>
-            </table>
     </div>
+
 </body>
 </html>

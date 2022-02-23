@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use App\Entity\VoyageSearch;
+use App\Form\VoyagesearchType;
 
 /**
  * @ORM\Entity(repositoryClass=VoyageRepository::class)

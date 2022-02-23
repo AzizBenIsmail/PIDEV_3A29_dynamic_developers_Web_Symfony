@@ -20,7 +20,6 @@ class Restaurant
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
      * @Assert\Length(
      *      max = 20,
      *      maxMessage = "Le de Nom_Restaurant ne peut pas etre plus {{ limit }} characters"
@@ -30,7 +29,6 @@ class Restaurant
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
      * @Assert\Length(
      *      min = 2,
      *      max = 10,
@@ -42,8 +40,7 @@ class Restaurant
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank
-     * @Assert\Positive
+     * @Assert\PositiveOrZero
      * @Assert\Length(
      *      min = 8,
      *      max = 8,
@@ -55,7 +52,6 @@ class Restaurant
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
      */
     private $Description_Restaurant;
 
