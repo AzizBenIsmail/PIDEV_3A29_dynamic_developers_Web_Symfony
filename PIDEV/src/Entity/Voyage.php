@@ -21,6 +21,7 @@ class Voyage
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class)
+     * @Assert\NotNull
      */
     private $ID_Client;
 
@@ -33,7 +34,7 @@ class Voyage
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
-     *      min = 2,
+     *      min = 5,
      *      max = 20,
      *      minMessage = "Votre Nom_Voyage doit être au moins {{ limit }} characters long",
      *      maxMessage = "Le de Nom_Voyage ne peut pas etre plus {{ limit }} characters"
@@ -59,7 +60,7 @@ class Voyage
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Choice({"Valide","Proposition"})
+     * @Assert\Choice({"Oui","Non","oui","non","bientot disponible"})
      */
     private $valabilite;
 

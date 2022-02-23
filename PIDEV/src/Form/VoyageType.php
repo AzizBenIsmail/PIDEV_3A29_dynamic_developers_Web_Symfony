@@ -27,16 +27,22 @@ class VoyageType extends AbstractType
                     'placeholder' => 'Prix_Voyage',
                 ]])
             ->add('date')
-            ->add('valabilite',ChoiceType::class, [
-        'choices' => [
-            'Validé' => 'Valide',
-            'Proposition' => 'Proposition',
-        ]])
+            ->add('valabilite',null, [
+                'attr' => [
+                    'placeholder' => 'Disponibilite...(oui/non/bientot disponible)',
+                ]])
             ->add('ID_Client')
-            ->add('image')
+            ->add('image',null, [
+                'attr' => [
+                    'placeholder' => 'Image du Destination',
+                ]])
         ;
     }
-
+//,ChoiceType::class, [
+//'choices' => [
+//'Validé' => 'Valide',
+//'Proposition' => 'Proposition',
+//]]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -21,11 +21,6 @@ class Client
     /**
      * @ORM\Column(type="integer")
      * @Assert\PositiveOrZero
-     * @Assert\Length(
-     *      max = 8,
-     *      maxMessage = "Votre CIN ne peut pas dépasser {{ limit }} characters"
-     * )
-     *
      */
     private $CIN;
 
