@@ -3,7 +3,7 @@
 {#    <button class="btn">{{ button_label|default('Save') }}</button>#}
 {#{{ form_end(form) }}#}
 
-{{ form_start( form,{'attr': {'class':'form-horizontal'}} ) }}
+{{ form_start( form,{'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
 {{ form_label(form.ID_Client) }}
 {{ form_widget(form.ID_Client)}}
 {{ form_errors(form.ID_Client)}}

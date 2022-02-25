@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Voyage;
+use App\Form\SearchVoyageType;
 use App\Form\VoyageType;
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +27,119 @@ class VoyageController extends AbstractController
             'voyages' => $voyageRepository->findAll(),
         ]);
     }
+    /**
+     * @Route("/order_By_Dest", name="order_By_Dest" ,methods={"GET"})
+     */
+    public function order_By_Dest(Request $request,VoyageRepository $voyageRepository): Response
+    {
+//list of students order By Dest
+        $VoyageByDest = $voyageRepository->orderByDest();
 
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+            ]);
+
+    }
+    /**
+     * @Route("/order_By_Nom", name="order_By_Nom" ,methods={"GET"})
+     */
+    public function order_By_Nom(Request $request,VoyageRepository $voyageRepository): Response
+    {
+//list of students order By Dest
+        $VoyageByNom = $voyageRepository->order_By_Nom();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByNom,
+        ]);
+
+    }
+    /**
+     * @Route("/order_By_Date", name="order_By_Date" ,methods={"GET"})
+     */
+    public function order_By_Date(Request $request,VoyageRepository $voyageRepository): Response
+    {
+//list of students order By Dest
+        $VoyageByDate = $voyageRepository->order_By_Date();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDate,
+        ]);
+
+    }
+    /**
+     * @Route("/order_By_Prix", name="order_By_Prix" ,methods={"GET"})
+     */
+    public function order_By_Prix(Request $request,VoyageRepository $voyageRepository): Response
+    {
+//list of students order By Dest
+        $VoyageByPrix = $voyageRepository->order_By_Prix();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByPrix,
+        ]);
+    }
+
+        /**
+         * @Route("/Continent_Afrique", name="Continent_Afrique" ,methods={"GET"})
+         */
+        public function Continent_Afrique(Request $request,VoyageRepository $voyageRepository): Response
+    {
+        $VoyageByDest = $voyageRepository->searchContinent_Afrique();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+        ]);
+    }
+
+    /**
+     * @Route("/Continent_Europe", name="Continent_Europe" ,methods={"GET"})
+     */
+    public function Continent_Europe(Request $request,VoyageRepository $voyageRepository): Response
+    {
+        $VoyageByDest = $voyageRepository->searchContinent_Europe();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+        ]);
+    }
+
+    /**
+     * @Route("/Continent_Asie", name="Continent_Asie" ,methods={"GET"})
+     */
+    public function Continent_Asie(Request $request,VoyageRepository $voyageRepository): Response
+    {
+        $VoyageByDest = $voyageRepository->searchContinent_Asie();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+        ]);
+    }
+
+    /**
+     * @Route("/Continent_Amerique", name="Continent_Amerique" ,methods={"GET"})
+     */
+    public function Continent_Amerique(Request $request,VoyageRepository $voyageRepository): Response
+    {
+        $VoyageByDest = $voyageRepository->searchContinent_Amerique();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+        ]);
+    }
+
+//    //All of Student
+//$voyage= $voyageRepository->findAll();
+//    //search
+//$searchForm = $this->createForm(SearchVoyageType::class);
+//$searchForm->add("Recherche",SubmitType::class);
+//$searchForm->handleRequest($request);
+//if ($searchForm->isSubmitted()) {
+//$Destination = $searchForm['Destination']->getData();
+//$resultOfSearch = $voyageRepository->searchDest($Destination);
+//return $this->render('voyage/searchVoyage.html.twig', array(
+//"resultOfSearch" => $resultOfSearch,
+//"searchVoyage" => $searchForm->createView()));
+//}
     /**
      * @Route("/new", name="voyage_new", methods={"GET", "POST"})
      */
@@ -91,4 +205,7 @@ class VoyageController extends AbstractController
 
         return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 }

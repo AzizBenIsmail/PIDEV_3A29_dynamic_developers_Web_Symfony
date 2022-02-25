@@ -34,9 +34,8 @@
     <div class="logo">
         <a href="{{ path('home') }}">Travel<em><img src="{{ asset('Front/img/travel.png') }}" width="100" height="100">me</em></a>
     </div>
+
     <nav>
-
-
         <ul>
             <li>
                 {#   <h1>{{ block('title') }}</h1>#}
@@ -98,6 +97,10 @@
         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
         <li><a href="#"><i class="fa fa-rss"></i></a></li>
         <li><a href="#"><i class="fa fa-behance"></i></a></li>
+        <a href="{{ path('reservation_excursion_index') }}">Excurion</a>
+        <a href="{{ path('reservation_restaurant_new') }}">Restaurant</a>
+        <a href="{{ path('reservation_voyage_index') }}">Voyage</a>
+
     </ul>
 </div>
 
