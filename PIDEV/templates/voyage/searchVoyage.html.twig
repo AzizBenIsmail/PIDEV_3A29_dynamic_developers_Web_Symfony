@@ -197,63 +197,6 @@
                 padding-bottom:5px;
             }
         }
-        #wrap {
-            width: 100%;
-            height: 50px;
-            margin: 0;
-            z-index: 99;
-            position: relative;
-            background-color: #ffffff;
-        }
-        .navbar {
-            height: 50px;
-            padding: 0;
-            margin: 0;
-            position: absolute;
-        }
-        .navbar li {
-            height: auto;
-            width: 135.8px;
-            float: left;
-            text-align: center;
-            list-style: none;
-            font: normal bold 13px/1em Arial, Verdana, Helvetica;
-            padding: 0;
-            margin: 0;
-            background-color: #1c87c9;
-        }
-        .navbar a {
-            padding: 18px 0;
-            border-left: 1px solid #ccc9c9;
-            text-decoration: none;
-            color: white;
-            display: block;
-        }
-        .navbar li:hover,
-        a:hover {
-            background-color: rgba(28, 135, 201, 0.31);
-        }
-        .navbar li ul {
-            display: none;
-            height: auto;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar li:hover ul {
-            display: block;
-        }
-        .navbar li ul li {
-            background-color: #1c87c9;
-        }
-        .navbar li ul li a {
-            border-left: 1px solid #64ef07;
-            border-right: 1px solid #3ce10e;
-            border-top: 1px solid #c9d4d8;
-            border-bottom: 1px solid #1c87c9;
-        }
-        .navbar li ul li a:hover {
-            background-color: #8100ff;
-        }
     </style>
 </head>
 <body>
@@ -263,7 +206,6 @@
             border-radius: 6px;
             background: #fff;
             box-shadow: 0 0 8px #006622;">
-
         <div class="banner">
 
             <h1>
@@ -272,106 +214,50 @@
         </div>
         <br/>
         <fieldset>
-            <div id="wrap">
-                <ul class="navbar">
-                    <li>
-                        <a href="{{ path('voyage_index')}}">Actualiser</a>
-                    </li>
-                    <li>
-                        <a href="#">Trie</a>
-                        <ul>
-                            <li><a href="{{ path('order_By_Dest')}}">Trie par Destination</a></li>
-                            <li><a href="{{ path('order_By_Nom')}}">Trie par Nom</a></li>
-                            <li><a href="{{ path('order_By_Date')}}">Trie par Date</a></li>
-                            <li><a href="{{ path('order_By_Prix')}}">Trie par Prix</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Dest Par Continent</a>
-                        <ul>
-                            <li><a href="{{ path('Continent_Afrique')}}">Continent_Afrique</a></li>
-                            <li><a href="{{ path('Continent_Europe')}}">Continent_Europe</a></li>
-                            <li><a href="{{ path('Continent_Asie')}}">Continent_Asie</a></li>
-                            <li><a href="{{ path('Continent_Amerique')}}">Continent_Amerique</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Disponibilite</a>
-                        <ul>
-                            <li><a href="{{ path('Disponible')}}">Disponible</a></li>
-                            <li><a href="{{ path('Non_Disponible')}}">Non Disponible</a></li>
-                            <li><a href="{{ path('Bientot_Disponible')}}">Bientot Disponible</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Snnipets</a>
-                        <ul>
-                            <li><a href="#">CSS</a></li>
-                            <li><a href="#">JavaScript</a></li>
-                            <li><a href="#">Angular</a></li>
-                            <li>
-                                <a href="#">Java</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">String Functions</a>
-                        <ul>
-                            <li><a href="#">Inverse de chaîne</a></li>
-                            <li><a href="#">Encodeur d'URL</a></li>
-                            <li><a href="#">Décapant des lignes vides</a></li>
-                            <li><a href="#">Compte des mots de chaîne</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            <h1>Voyage </h1>
+
             {{ form_start( searchVoyage,{'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
             {{ form_widget(searchVoyage) }}
             {{ form_end(searchVoyage) }}
-            <h1>Voyage </h1>
-
-            <br>
-            <br>
-
             <table class="table" border="15">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Destination</th>
-                <th>Destination</th>
-                <th>Nom_Voyage</th>
-                <th>Duree_Voyage</th>
-                <th>Prix_Voyage</th>
-                <th>Date</th>
-                <th>Valabilite</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for voyage in voyages %}
-            <tr>
-                <td>{{ voyage.id }}</td>
-                <td><img src="/image/Voyage/{{ asset( voyage.image ) }}.jpg" width="350" height="150"></td>
-                <td>{{ voyage.Destination }}</td>
-                <td>{{ voyage.NomVoyage }}</td>
-                <td>{{ voyage.DureeVoyage }}</td>
-                <td>{{ voyage.PrixVoyage }} $</td>
-                <td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
-                <td>{{ voyage.valabilite }}</td>
-                <td>
-                    <a href="{{ path('voyage_show', {'id': voyage.id}) }}"><button>Show</button></a>
-                    <a href="{{ path('voyage_edit', {'id': voyage.id}) }}"><button>Edit</button></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Destination</th>
+                    <th>Destination</th>
+                    <th>Nom_Voyage</th>
+                    <th>Duree_Voyage</th>
+                    <th>Prix_Voyage</th>
+                    <th>Date</th>
+                    <th>Valabilite</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for voyage in resulta %}
+                    <tr>
+                        <td>{{ voyage.id }}</td>
+                        <td><img src="/image/Voyage/{{ asset( voyage.image ) }}.jpg" width="350" height="150"></td>
+                        <td>{{ voyage.Destination }}</td>
+                        <td>{{ voyage.NomVoyage }}</td>
+                        <td>{{ voyage.DureeVoyage }}</td>
+                        <td>{{ voyage.PrixVoyage }} $</td>
+                        <td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
+                        <td>{{ voyage.valabilite }}</td>
+                        <td>
+                            <a href="{{ path('voyage_show', {'id': voyage.id}) }}"><button>Show</button></a>
+                            <a href="{{ path('voyage_edit', {'id': voyage.id}) }}"><button>Edit</button></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
             <a href="{{ path('voyage_new') }}"> <button>Create new</button></a>
-        </div>
-    </body>
-    </html>
+    </div>
+</body>
+</html>

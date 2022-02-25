@@ -5,8 +5,6 @@ namespace App\Entity;
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\VoyageSearch;
-use App\Form\VoyagesearchType;
 
 /**
  * @ORM\Entity(repositoryClass=VoyageRepository::class)
@@ -61,7 +59,7 @@ class Voyage
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Choice({"Oui","Non","oui","non","bientot disponible"})
+     * @Assert\Choice({"Oui","Non","Bientot disponible"})
      */
     private $valabilite;
 
