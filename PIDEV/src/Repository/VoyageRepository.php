@@ -296,8 +296,7 @@ class VoyageRepository extends ServiceEntityRepository
     public function searchdate($date)
     {
         $EM=$this->getEntityManager();
-        $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.date  BETWEEN :a AND :b ')
-            ->setParameter('a', 0-00-0000)
+        $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.date > :b ')
             ->setParameter('b', $date);
         return $query->getResult();
 

@@ -14,15 +14,9 @@ class VoyageTypedate extends AbstractType
     {
         $builder
 
-            ->add('date')
-            ->add('valabilite',null, [
+            ->add('date',null, [
                 'attr' => [
-                    'placeholder' => 'Disponibilite...(oui/non/bientot disponible)',
-                ]])
-            ->add('ID_Client')
-            ->add('image',null, [
-                'attr' => [
-                    'placeholder' => 'Image du Destination',
+                    'placeholder' => 'Date',
                 ]])
         ;
     }

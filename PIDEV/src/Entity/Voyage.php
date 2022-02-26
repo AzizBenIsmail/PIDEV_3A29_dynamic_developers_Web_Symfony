@@ -32,6 +32,7 @@ class Voyage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
      * @Assert\Length(
      *      min = 5,
      *      max = 20,
@@ -42,6 +43,7 @@ class Voyage
     private $Nom_Voyage;
 
     /**
+     * @Assert\NotNull
      * @ORM\Column(type="string", length=255)
      */
     private $Duree_Voyage;
@@ -49,6 +51,7 @@ class Voyage
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
+     * @Assert\NotNull
      */
     private $Prix_Voyage;
 
@@ -60,6 +63,7 @@ class Voyage
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Choice({"Oui","Non","Bientot disponible"})
+     * @Assert\NotNull
      */
     private $valabilite;
 
