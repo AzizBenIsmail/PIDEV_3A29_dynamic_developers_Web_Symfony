@@ -8,14 +8,15 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SearchVoyageType extends AbstractType
-    {
+class VoyageTypedate extends AbstractType
+{
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom_Voyage',null, [
+
+            ->add('date',null, [
                 'attr' => [
-                    'placeholder' => 'Nom_Voyage',
+                    'placeholder' => 'Date',
                 ]])
         ;
     }

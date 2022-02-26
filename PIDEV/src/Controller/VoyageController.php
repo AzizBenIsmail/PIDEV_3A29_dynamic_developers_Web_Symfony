@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Voyage;
 use App\Form\SearchVoyageType;
+use App\Form\VoyageTypedate;
+use App\Form\SearchVoyageprixType;
 use App\Form\VoyageType;
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -127,19 +129,111 @@ class VoyageController extends AbstractController
         ]);
     }
 
-//    //All of Student
-//$voyage= $voyageRepository->findAll();
-//    //search
-//$searchForm = $this->createForm(SearchVoyageType::class);
-//$searchForm->add("Recherche",SubmitType::class);
-//$searchForm->handleRequest($request);
-//if ($searchForm->isSubmitted()) {
-//$Destination = $searchForm['Destination']->getData();
-//$resultOfSearch = $voyageRepository->searchDest($Destination);
-//return $this->render('voyage/searchVoyage.html.twig', array(
-//"resultOfSearch" => $resultOfSearch,
-//"searchVoyage" => $searchForm->createView()));
-//}
+    /**
+     * @Route("/Disponible", name="Disponible" ,methods={"GET"})
+     */
+    public function Disponible(Request $request,VoyageRepository $voyageRepository): Response
+    {
+        $VoyageByDest = $voyageRepository->Disponible();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+        ]);
+    }
+
+    /**
+     * @Route("/Non_Disponible", name="Non_Disponible" ,methods={"GET"})
+     */
+    public function Non_Disponible(Request $request,VoyageRepository $voyageRepository): Response
+    {
+        $VoyageByDest = $voyageRepository->Non_Disponible();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+        ]);
+    }
+
+    /**
+     * @Route("/Bientot_Disponible", name="Bientot_Disponible" ,methods={"GET"})
+     */
+    public function Bientot_Disponible(Request $request,VoyageRepository $voyageRepository): Response
+    {
+        $VoyageByDest = $voyageRepository->Bientot_Disponible();
+
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+        ]);
+    }
+
+    /**
+     * @Route("/listVoyageWithSearch", name="listVoyageWithSearch")
+     */
+    public function listVoyageWithSearch(Request $request, VoyageRepository $voyageRepository)
+    {
+        //All of Student
+        $voyage= $voyageRepository->findAll();
+        //search
+        $searchForm = $this->createForm(SearchVoyageType::class);
+        $searchForm->add("Recherche",SubmitType::class);
+        $searchForm->handleRequest($request);
+        if ($searchForm->isSubmitted()) {
+            $Nom_Voyage = $searchForm['Nom_Voyage']->getData();
+            $resulta = $voyageRepository->searchNom($Nom_Voyage);
+            return $this->render('voyage/searchVoyage.html.twig', array(
+                "voyages" => $resulta,
+                "searchVoyage" => $searchForm->createView()));
+        }
+        return $this->render('voyage/searchVoyage.html.twig', array(
+            "voyages" => $voyage,
+            "searchVoyage" => $searchForm->createView()));
+    }
+
+    /**
+     * @Route("/listVoyageWithSearchPrix", name="listVoyageWithSearchPrix")
+     */
+    public function listVoyageWithSearchPrix(Request $request, VoyageRepository $voyageRepository)
+    {
+        //All of Student
+        $voyage= $voyageRepository->findAll();
+        //search
+        $searchForm = $this->createForm(SearchVoyageprixType::class);
+        $searchForm->add("Recherche",SubmitType::class);
+        $searchForm->handleRequest($request);
+        if ($searchForm->isSubmitted()) {
+            $Prix_Voyage = $searchForm['Prix_Voyage']->getData();
+            $resulta = $voyageRepository->searchprix($Prix_Voyage);
+            return $this->render('voyage/searchVoyage.html.twig', array(
+                "voyages" => $resulta,
+                "searchVoyage" => $searchForm->createView()));
+        }
+        return $this->render('voyage/searchVoyage.html.twig', array(
+            "voyages" => $voyage,
+            "searchVoyage" => $searchForm->createView()));
+    }
+
+    /**
+     * @Route("/listVoyageWithSearchdate", name="listVoyageWithSearchdate")
+     */
+    public function listVoyageWithSearchdate(Request $request, VoyageRepository $voyageRepository)
+    {
+        //All of Student
+        $voyage= $voyageRepository->findAll();
+        //search
+        $searchForm = $this->createForm(VoyageTypedate::class);
+        $searchForm->add("Recherche",SubmitType::class);
+        $searchForm->handleRequest($request);
+        if ($searchForm->isSubmitted()) {
+            $date = $searchForm['date']->getData();
+            $resulta = $voyageRepository->searchdate($date);
+            return $this->render('voyage/searchVoyage.html.twig', array(
+                "voyages" => $resulta,
+                "searchVoyage" => $searchForm->createView()));
+        }
+        return $this->render('voyage/searchVoyage.html.twig', array(
+            "voyages" => $voyage,
+            "searchVoyage" => $searchForm->createView()));
+    }
+
     /**
      * @Route("/new", name="voyage_new", methods={"GET", "POST"})
      */

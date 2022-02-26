@@ -248,4 +248,58 @@ class VoyageRepository extends ServiceEntityRepository
             ->setParameter('Z', 'CA');
         return $query->getResult();
     }
+
+    public function Disponible()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.valabilite = :val')
+            ->setParameter('val','Oui')
+            ->getQuery()->getResult();
+    }
+
+    public function Non_Disponible()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.valabilite = :val')
+            ->setParameter('val','Non' )
+            ->getQuery()->getResult();
+    }
+
+    public function Bientot_Disponible()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.valabilite = :val')
+            ->setParameter('val','Bientot disponible' )
+            ->getQuery()->getResult();
+    }
+
+    public function searchNom($Nom_Voyage)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.Nom_Voyage LIKE :ncl')
+            ->setParameter('ncl', '%'.$Nom_Voyage.'%')
+            ->getQuery()
+            ->execute();
+    }
+
+    public function searchprix($Prix_Voyage)
+    {
+        $EM=$this->getEntityManager();
+        $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.Prix_Voyage  BETWEEN :a AND :b ')
+            ->setParameter('a', 0)
+            ->setParameter('b', $Prix_Voyage);
+        return $query->getResult();
+
+
+    }
+
+    public function searchdate($date)
+    {
+        $EM=$this->getEntityManager();
+        $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.date > :b ')
+            ->setParameter('b', $date);
+        return $query->getResult();
+
+
+    }
 }

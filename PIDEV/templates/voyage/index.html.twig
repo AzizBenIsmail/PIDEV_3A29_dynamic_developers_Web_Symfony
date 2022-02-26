@@ -203,7 +203,7 @@
             margin: 0;
             z-index: 99;
             position: relative;
-            background-color: #444444;
+            background-color: #ffffff;
         }
         .navbar {
             height: 50px;
@@ -296,15 +296,20 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Outils</a>
+                        <a href="#">Disponibilite</a>
                         <ul>
-                            <li><a href="#">Images géométriques</a></li>
-                            <li><a href="#">Pipette de couleur</a></li>
-                            <li><a href="#">Générateur de code</a></li>
-                            <li><a href="#">Éditeur HTML</a></li>
-                            <li>
-                                <a href="#">Base 64</a>
-                            </li>
+                            <li><a href="{{ path('Disponible')}}">Disponible</a></li>
+                            <li><a href="{{ path('Non_Disponible')}}">Non Disponible</a></li>
+                            <li><a href="{{ path('Bientot_Disponible')}}">Bientot Disponible</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Recherche</a>
+                        <ul>
+                            <li><a href="{{ path('listVoyageWithSearch')}}">Recherche Par Nom</a></li>
+                            <li><a href="{{ path('listVoyageWithSearchPrix')}}">Recherche Par Prix</a></li>
+                            <li><a href="{{ path('listVoyageWithSearchdate')}}">Recherche Par date</a></li>
+                            <li><a href="#">Compte des mots de chaîne</a></li>
                         </ul>
                     </li>
                     <li>
@@ -318,15 +323,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#">String Functions</a>
-                        <ul>
-                            <li><a href="#">Inverse de chaîne</a></li>
-                            <li><a href="#">Encodeur d'URL</a></li>
-                            <li><a href="#">Décapant des lignes vides</a></li>
-                            <li><a href="#">Compte des mots de chaîne</a></li>
-                        </ul>
-                    </li>
+
                 </ul>
             </div>
 
