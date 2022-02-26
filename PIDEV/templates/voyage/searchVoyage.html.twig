@@ -197,6 +197,63 @@
                 padding-bottom:5px;
             }
         }
+        #wrap {
+            width: 100%;
+            height: 50px;
+            margin: 0;
+            z-index: 99;
+            position: relative;
+            background-color: #ffffff;
+        }
+        .navbar {
+            height: 50px;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+        }
+        .navbar li {
+            height: auto;
+            width: 135.8px;
+            float: left;
+            text-align: center;
+            list-style: none;
+            font: normal bold 13px/1em Arial, Verdana, Helvetica;
+            padding: 0;
+            margin: 0;
+            background-color: #1c87c9;
+        }
+        .navbar a {
+            padding: 18px 0;
+            border-left: 1px solid #ccc9c9;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        .navbar li:hover,
+        a:hover {
+            background-color: rgba(28, 135, 201, 0.31);
+        }
+        .navbar li ul {
+            display: none;
+            height: auto;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar li:hover ul {
+            display: block;
+        }
+        .navbar li ul li {
+            background-color: #1c87c9;
+        }
+        .navbar li ul li a {
+            border-left: 1px solid #64ef07;
+            border-right: 1px solid #3ce10e;
+            border-top: 1px solid #c9d4d8;
+            border-bottom: 1px solid #1c87c9;
+        }
+        .navbar li ul li a:hover {
+            background-color: #8100ff;
+        }
     </style>
 </head>
 <body>
@@ -215,6 +272,57 @@
         <br/>
         <fieldset>
             <h1>Voyage </h1>
+            <div id="wrap">
+                <ul class="navbar">
+                    <li>
+                        <a href="{{ path('voyage_index')}}">Actualiser</a>
+                    </li>
+                    <li>
+                        <a href="#">Trie</a>
+                        <ul>
+                            <li><a href="{{ path('order_By_Dest')}}">Trie par Destination</a></li>
+                            <li><a href="{{ path('order_By_Nom')}}">Trie par Nom</a></li>
+                            <li><a href="{{ path('order_By_Date')}}">Trie par Date</a></li>
+                            <li><a href="{{ path('order_By_Prix')}}">Trie par Prix</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Dest Par Continent</a>
+                        <ul>
+                            <li><a href="{{ path('Continent_Afrique')}}">Continent_Afrique</a></li>
+                            <li><a href="{{ path('Continent_Europe')}}">Continent_Europe</a></li>
+                            <li><a href="{{ path('Continent_Asie')}}">Continent_Asie</a></li>
+                            <li><a href="{{ path('Continent_Amerique')}}">Continent_Amerique</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Disponibilite</a>
+                        <ul>
+                            <li><a href="{{ path('Disponible')}}">Disponible</a></li>
+                            <li><a href="{{ path('Non_Disponible')}}">Non Disponible</a></li>
+                            <li><a href="{{ path('Bientot_Disponible')}}">Bientot Disponible</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Recherche</a>
+                        <ul>
+                            <li><a href="{{ path('listVoyageWithSearch')}}">Recherche Par Nom</a></li>
+                            <li><a href="{{ path('listVoyageWithSearchPrix')}}">Recherche Par Prix</a></li>
+                            <li><a href="{{ path('listVoyageWithSearchdate')}}">Recherche Par date</a></li>
+                            <li><a href="#">Compte des mots de chaîne</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">String Functions</a>
+                        <ul>
+                            <li><a href="#">Inverse de chaîne</a></li>
+                            <li><a href="#">Encodeur d'URL</a></li>
+                            <li><a href="#">Décapant des lignes vides</a></li>
+                            <li><a href="#">Compte des mots de chaîne</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 
             {{ form_start( searchVoyage,{'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
             {{ form_widget(searchVoyage) }}
@@ -234,7 +342,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for voyage in resulta %}
+                {% for voyage in voyages %}
                     <tr>
                         <td>{{ voyage.id }}</td>
                         <td><img src="/image/Voyage/{{ asset( voyage.image ) }}.jpg" width="350" height="150"></td>

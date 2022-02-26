@@ -304,6 +304,15 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="#">Recherche</a>
+                        <ul>
+                            <li><a href="{{ path('listVoyageWithSearch')}}">Recherche Par Nom</a></li>
+                            <li><a href="{{ path('listVoyageWithSearchPrix')}}">Recherche Par Prix</a></li>
+                            <li><a href="{{ path('listVoyageWithSearchdate')}}">Recherche Par date</a></li>
+                            <li><a href="#">Compte des mots de chaîne</a></li>
+                        </ul>
+                    </li>
+                    <li>
                         <a href="#">Snnipets</a>
                         <ul>
                             <li><a href="#">CSS</a></li>
@@ -314,20 +323,10 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#">String Functions</a>
-                        <ul>
-                            <li><a href="#">Inverse de chaîne</a></li>
-                            <li><a href="#">Encodeur d'URL</a></li>
-                            <li><a href="#">Décapant des lignes vides</a></li>
-                            <li><a href="#">Compte des mots de chaîne</a></li>
-                        </ul>
-                    </li>
+
                 </ul>
             </div>
-            {{ form_start( searchVoyage,{'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
-            {{ form_widget(searchVoyage) }}
-            {{ form_end(searchVoyage) }}
+
             <h1>Voyage </h1>
 
             <br>

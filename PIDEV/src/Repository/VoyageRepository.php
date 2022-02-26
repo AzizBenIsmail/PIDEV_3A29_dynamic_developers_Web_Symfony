@@ -273,12 +273,34 @@ class VoyageRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-    public function searchDest($Nom_Voyage)
+    public function searchNom($Nom_Voyage)
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.Nom_Voyage LIKE :ncl')
             ->setParameter('ncl', '%'.$Nom_Voyage.'%')
             ->getQuery()
             ->execute();
+    }
+
+    public function searchprix($Prix_Voyage)
+    {
+        $EM=$this->getEntityManager();
+        $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.Prix_Voyage  BETWEEN :a AND :b ')
+            ->setParameter('a', 0)
+            ->setParameter('b', $Prix_Voyage);
+        return $query->getResult();
+
+
+    }
+
+    public function searchdate($date)
+    {
+        $EM=$this->getEntityManager();
+        $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.date  BETWEEN :a AND :b ')
+            ->setParameter('a', 0-00-0000)
+            ->setParameter('b', $date);
+        return $query->getResult();
+
+
     }
 }
