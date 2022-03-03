@@ -26,7 +26,7 @@ class ReservationVoyage
 
     /**
      * @ORM\ManyToOne(targetEntity=Voyage::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $ID_Voyage;
 
