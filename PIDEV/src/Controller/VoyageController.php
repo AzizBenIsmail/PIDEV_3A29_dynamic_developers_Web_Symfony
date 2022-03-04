@@ -18,6 +18,8 @@ use Dompdf\Options;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Route("/voyage")
@@ -36,7 +38,7 @@ class VoyageController extends AbstractController
     /**
      * @Route("/pdf", name="PDF", methods={"GET"})
      */
-    public function pdf(VoyageRepository $voyageRepository): Response
+    public function pdf(VoyageRepository $voyageRepository)
     {
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
@@ -354,10 +356,31 @@ class VoyageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($voyage);
-            $entityManager->flush();
-            $this->addFlash('message','le Voyage a bien ete ajouter ');
-            return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+
+            if($imageFile){
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $voyage->setImage($newFilename);
+                $entityManager->persist($voyage);
+                $entityManager->flush();
+                $this->addFlash('message','le Voyage a bien ete ajouter ');
+                return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $entityManager->persist($voyage);
+                $entityManager->flush();
+                $this->addFlash('message','le Voyage a bien ete ajouter ');
+                return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('voyage/new.html.twig', [
