@@ -409,9 +409,31 @@ class VoyageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
 
-            return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            if($imageFile){
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $voyage->setImage($newFilename);
+                $entityManager->persist($voyage);
+                $entityManager->flush();
+                $this->addFlash('message','le Voyage a bien ete ajouter ');
+                return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $entityManager->persist($voyage);
+                $entityManager->flush();
+                $this->addFlash('message','le Voyage a bien ete ajouter ');
+                return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('voyage/edit.html.twig', [

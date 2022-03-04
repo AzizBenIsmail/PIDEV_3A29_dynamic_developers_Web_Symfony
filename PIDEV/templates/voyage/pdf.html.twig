@@ -19,7 +19,11 @@
     {% for voyage in voyages %}
         <tr>
             <td>{{ voyage.id }}</td>
-            <td><img src="/image/Voyage/{{ asset( voyage.image ) }}.jpg" width="40" height="40"></td>
+            {% if voyage.image|length > 0 %}
+                <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="200" height="150"></td>
+            {% else %}
+                <td><img src="{{ asset('uploads/'~ "Not found" ) }}" width="350" height="150"></td>
+            {% endif %}
             <td>{{ voyage.Destination }}</td>
             <td>{{ voyage.NomVoyage }}</td>
             <td>{{ voyage.DureeVoyage }}</td>

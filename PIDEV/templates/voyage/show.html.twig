@@ -228,8 +228,11 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="350" height="150"></td>
-                <td>
+                {% if voyage.image|length > 0 %}
+                    <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="700" height="350"></td>
+                {% else %}
+                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="650" height="350"></td>
+                {% endif %}                <td>
                     <a href="{{ path('voyage_edit', {'id': voyage.id}) }}"><button>edit</button></a>
                 </td>
             </tr>

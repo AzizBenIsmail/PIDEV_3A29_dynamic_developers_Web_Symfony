@@ -337,7 +337,7 @@
             <table class="table" border="15">
         <thead><tr>
 
-            <a class="btn btn-success" href="{{path('PDF') }}">  PDF </a>
+                <a class="btn btn-success" href="{{path('PDF') }}">  PDF </a>
             <script type="text/javascript">
                 function imprimer_page(){
                     window.print();
@@ -364,10 +364,10 @@
             <tr>
                 <td>{{ voyage.id }}</td>
                 {% if voyage.image|length > 0 %}
-                <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="350" height="150"></td>
+                <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="250" height="150"></td>
                 {% else %}
-                    {# <td><img src="{{ asset('uploads/'~ "not_found_image_name" ) }}" width="350" height="150"></td> #}
-                    {% endif %}
+                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                {% endif %}
                 <td>{{ voyage.Destination }}</td>
                 <td>{{ voyage.NomVoyage }}</td>
                 <td>{{ voyage.DureeVoyage }}</td>
