@@ -13,7 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Route("/voyage")
@@ -29,6 +35,112 @@ class VoyageController extends AbstractController
             'voyages' => $voyageRepository->findAll(),
         ]);
     }
+    /**
+     * @Route("/pdf", name="PDF", methods={"GET"})
+     */
+    public function pdf(VoyageRepository $voyageRepository)
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('voyage/pdf.html.twig', [
+            'voyages' => $voyageRepository->findAll(),
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A3', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "voyages" => true
+        ]);
+    }
+
+    /**
+     * @Route("/AllVoyageJSON", name="AllVoyageJSON")
+     */
+    public function AllVoyageJSON(NormalizerInterface $Normalizer)
+    {
+        $repository= $this->getDoctrine()->getRepository(Voyage::class);
+        $Voyage = $repository->findAll();
+        $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/AddVoyageJSON", name="AddVoyageJSON")
+     */
+    public function AddVoyageJSON(Request $request,NormalizerInterface $Normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $Voyage = new Voyage();
+        $Voyage->setDestination($request->get('Destination'));
+        $Voyage->setNomVoyage($request->get('NomVoyage'));
+        $Voyage->setDureeVoyage($request->get('DureeVoyage'));
+        $Voyage->setPrixVoyage($request->get('PrixVoyage'));
+        //$Voyage->setDate($request->get('Date'));
+        $Voyage->setValabilite($request->get('Valabilite'));
+        $Voyage->setImage($request->get('Image'));
+        $em->persist($Voyage);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
+         return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/UpdateVoyageJSON/{id}", name="UpdateVoyageJSON")
+     */
+    public function UpdateVoyageJSON($id,Request $request,NormalizerInterface $Normalizer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $Voyage = $this->getDoctrine()->getRepository(Voyage::class)->find($id);
+        $Voyage->setDestination($request->get('Destination'));
+        $Voyage->setNomVoyage($request->get('NomVoyage'));
+        $Voyage->setDureeVoyage($request->get('DureeVoyage'));
+        $Voyage->setPrixVoyage($request->get('PrixVoyage'));
+        //$Voyage->setDate($request->get('Date'));
+        $Voyage->setValabilite($request->get('Valabilite'));
+        $Voyage->setImage($request->get('Image'));
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
+        return new Response("Update successfully".json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/DeleteVoyageJSON/{id}", name="DeleteVoyageJSON")
+     */
+    public function DeleteVoyageJSON($id,Request $request,NormalizerInterface $Normalizer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $Voyage = $this->getDoctrine()->getRepository(Voyage::class)->find($id);
+        $em->remove($Voyage);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
+        return new Response("Delete successfully".json_encode($jsonContent));
+    }
+
+
+    /**
+     * @Route("/DateNow", name="DateNow" ,methods={"GET"})
+     */
+    public function DateNow(Request $request,VoyageRepository $voyageRepository): Response
+    {
+//list of students order By Dest
+        $VoyageByDest = $voyageRepository->searchdatenow();
+        return $this->render('voyage/index.html.twig', [
+            'voyages' => $VoyageByDest,
+        ]);
+
+    }
+
     /**
      * @Route("/order_By_Dest", name="order_By_Dest" ,methods={"GET"})
      */
@@ -244,10 +356,31 @@ class VoyageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($voyage);
-            $entityManager->flush();
-            $this->addFlash('message','le Voyage a bien ete ajouter ');
-            return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+
+            if($imageFile){
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $voyage->setImage($newFilename);
+                $entityManager->persist($voyage);
+                $entityManager->flush();
+                $this->addFlash('message','le Voyage a bien ete ajouter ');
+                return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $entityManager->persist($voyage);
+                $entityManager->flush();
+                $this->addFlash('message','le Voyage a bien ete ajouter ');
+                return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('voyage/new.html.twig', [

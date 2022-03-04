@@ -171,7 +171,7 @@ class VoyageRepository extends ServiceEntityRepository
         $EM=$this->getEntityManager();
         $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.Destination IN (:a,:b,:c,:d,:e,:f,:g,:h,:i,:j,:k,:l,:m,:n,:A,:B,:C,:D,:E,:F,:G,:H,:I,:J,:K,:L,:M,:N,:X,:Y,:Z,:x,:y,:z,:W)')
             ->setParameter('a', 'CN')
-            ->setParameter('b', '	IN')
+            ->setParameter('b', 'IN')
             ->setParameter('c', 'ID')
             ->setParameter('d', 'PK')
             ->setParameter('e', 'BD')
@@ -293,13 +293,20 @@ class VoyageRepository extends ServiceEntityRepository
 
     }
 
+    public function searchdatenow()
+    {
+        $EM=$this->getEntityManager();
+        $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.date > CURRENT_DATE() ');
+          //  ->setParameter('b', $date);
+        return $query->getResult();
+    }
+
+
     public function searchdate($date)
     {
         $EM=$this->getEntityManager();
         $query = $EM->createQuery('select v from App\Entity\Voyage v  WHERE v.date > :b ')
             ->setParameter('b', $date);
         return $query->getResult();
-
-
     }
 }

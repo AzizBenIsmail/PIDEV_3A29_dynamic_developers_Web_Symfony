@@ -313,6 +313,9 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="{{ path('DateNow')}}">à partir d'aujourd'hui</a>
+                    </li>
+                    <li>
                         <a href="#">Snnipets</a>
                         <ul>
                             <li><a href="#">CSS</a></li>
@@ -331,9 +334,19 @@
 
             <br>
             <br>
-
             <table class="table" border="15">
-        <thead>
+        <thead><tr>
+
+            <a class="btn btn-success" href="{{path('PDF') }}">  PDF </a>
+            <script type="text/javascript">
+                function imprimer_page(){
+                    window.print();
+                }
+            </script>
+            <form>
+                <input id="impression" class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1s" name="impression" type="button" onclick="imprimer_page()" value="Print this page" />
+            </form>
+        </tr>
             <tr>
                 <th>Id</th>
                 <th>Destination</th>
@@ -350,7 +363,11 @@
         {% for voyage in voyages %}
             <tr>
                 <td>{{ voyage.id }}</td>
-                <td><img src="/image/Voyage/{{ asset( voyage.image ) }}.jpg" width="350" height="150"></td>
+                {% if voyage.image|length > 0 %}
+                <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="350" height="150"></td>
+                {% else %}
+                    {# <td><img src="{{ asset('uploads/'~ "not_found_image_name" ) }}" width="350" height="150"></td> #}
+                    {% endif %}
                 <td>{{ voyage.Destination }}</td>
                 <td>{{ voyage.NomVoyage }}</td>
                 <td>{{ voyage.DureeVoyage }}</td>

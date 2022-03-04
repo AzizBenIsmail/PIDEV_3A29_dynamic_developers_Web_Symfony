@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=VoyageRepository::class)
  */
@@ -15,6 +15,7 @@ class Voyage
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -27,6 +28,7 @@ class Voyage
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Country
+     * @Groups("post:read")
      */
     private $Destination;
 
@@ -39,12 +41,14 @@ class Voyage
      *      minMessage = "Votre Nom_Voyage doit être au moins {{ limit }} characters long",
      *      maxMessage = "Le de Nom_Voyage ne peut pas etre plus {{ limit }} characters"
      * )
+     * @Groups("post:read")
      */
     private $Nom_Voyage;
 
     /**
      * @Assert\NotNull
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
     private $Duree_Voyage;
 
@@ -52,23 +56,26 @@ class Voyage
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
      * @Assert\NotNull
+     * @Groups("post:read")
      */
     private $Prix_Voyage;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
+     * @Groups("post:read")
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Choice({"Oui","Non","Bientot disponible"})
-     * @Assert\NotNull
+     * @Groups("post:read")
      */
     private $valabilite;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("post:read")
      */
     private $Image;
 
