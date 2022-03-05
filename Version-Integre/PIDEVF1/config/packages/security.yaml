@@ -1,0 +1,32 @@
+security:
+    encoders:
+          App\Entity\User:
+              algorithm: bcrypt
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        users_in_memory: { memory: null }
+        in_database: 
+          entity:
+             class: App\Entity\User
+             property: Email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            provider: in_database
+
+            form_login: 
+                login_path: security_login
+                check_path: security_login
+                default_target_path: home
+
+            logout: 
+                path: security_logout
+                target: security_login
+
+            
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

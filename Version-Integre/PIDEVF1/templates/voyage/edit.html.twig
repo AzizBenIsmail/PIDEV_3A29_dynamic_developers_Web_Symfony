@@ -1,0 +1,83 @@
+{% extends 'Front/front.html.twig' %}
+    {% block title %}Edit Voyage{% endblock %}
+
+{% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">Edit Voyage</span>
+            </header>
+
+            <div class="section-content">
+                {{ form_start(form) }}
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Clien, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Destination, {'attr':{'placeholder': 'Destination'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Nom_Voyage, {'attr':{'placeholder': 'Nom_Voyage...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Duree_Voyage, {'attr':{'placeholder': 'Duree_Voyage'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Prix, {'attr':{'placeholder': 'prix_Voyage'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.date, {'attr':{'placeholder': 'date'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.valabilite, {'attr':{'placeholder': 'Confirm_password'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Image, {'attr':{'placeholder': 'Confirm_password'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <button type= "submit" class="btn btn-success"> Modifier ! </button>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+<br>
+                    </fieldset>
+                </div>
+
+                {{ form_end(form) }}
+                {{ include('voyage/_delete_form.html.twig') }}
+                <a href="{{ path('voyage_index') }}">back to list</a>
+
+            </div>
+
+        </section>
+    </div>
+{% endblock %}
