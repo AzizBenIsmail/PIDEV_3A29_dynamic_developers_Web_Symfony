@@ -1,0 +1,120 @@
+{% extends 'Front/front.html.twig' %}
+{% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">La Liste Des Voyages</span>
+            </header>
+            <div id="wrap">
+                <ul class="navbar">
+                    <li>
+                        <a href="{{ path('voyage_index')}}">Actualiser</a>
+                    </li>
+                    <li>
+                        <a href="#">Trie</a>
+                        <ul>
+                            <li><a href="{{ path('order_By_Dest')}}">Trie par Destination</a></li>
+                            <li><a href="{{ path('order_By_Nom')}}">Trie par Nom</a></li>
+                            <li><a href="{{ path('order_By_Date')}}">Trie par Date</a></li>
+                            <li><a href="{{ path('order_By_Prix')}}">Trie par Prix</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Dest Par Continent</a>
+                        <ul>
+                            <li><a href="{{ path('Continent_Afrique')}}">Continent_Afrique</a></li>
+                            <li><a href="{{ path('Continent_Europe')}}">Continent_Europe</a></li>
+                            <li><a href="{{ path('Continent_Asie')}}">Continent_Asie</a></li>
+                            <li><a href="{{ path('Continent_Amerique')}}">Continent_Amerique</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Disponibilite</a>
+                        <ul>
+                            <li><a href="{{ path('Disponible')}}">Disponible</a></li>
+                            <li><a href="{{ path('Non_Disponible')}}">Non Disponible</a></li>
+                            <li><a href="{{ path('Bientot_Disponible')}}">Bientot Disponible</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Recherche</a>
+                        <ul>
+                            <li><a href="{{ path('listVoyageWithSearch')}}">Recherche Par Nom</a></li>
+                            <li><a href="{{ path('listVoyageWithSearchPrix')}}">Recherche Par Prix</a></li>
+                            <li><a href="{{ path('listVoyageWithSearchdate')}}">Recherche Par date</a></li>
+                            <li><a href="#">Compte des mots de chaîne</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{ path('DateNow')}}">à partir d'aujourd'hui</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-success" href="{{path('PDF') }}">  PDF </a>
+                        <script type="text/javascript">
+                            function imprimer_page(){
+                                window.print();
+                            }
+                        </script>
+                    </li>
+
+
+                </ul>
+            </div>
+            <div class="section-content">
+                {{ form_start( searchVoyage,{'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+                {{ form_widget(searchVoyage) }}
+                {{ form_end(searchVoyage) }}
+
+                <form>
+                    <input id="impression" class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1s" name="impression" type="button" onclick="imprimer_page()" value="Print this page" />
+                </form>
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Image</th>
+                        <th>Destination</th>
+                        <th>Nom_Voyage</th>
+                        <th>Duree_Voyage</th>
+                        <th>Prix</th>
+                        <th>Date</th>
+                        <th>Valabilite</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for voyage in voyages %}
+                        <tr>
+                            <td>{{ voyage.id }}</td>
+                            {% if voyage.image|length > 0 %}
+                                <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="250" height="150"></td>
+                            {% else %}
+                                <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                            {% endif %}
+                            <td>{{ voyage.Destination }}</td>
+                            <td>{{ voyage.NomVoyage }}</td>
+                            <td>{{ voyage.DureeVoyage }}</td>
+                            <td>{{ voyage.prix }}</td>
+                            <td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
+                            <td>{{ voyage.valabilite }}</td>
+                            <td>
+                                <button>  <a href="{{ path('voyage_show', {'id': voyage.id}) }}">show</a> </button>
+                                <button>   <a href="{{ path('voyage_edit', {'id': voyage.id}) }}">edit</a></button>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <button>   <a href="{{ path('voyage_new') }}">Create new</a></button>
+            </div>
+
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'Front/frontL.html.twig' %}
+
+{% block body %}
+
+   <div id="main">
+           <!-- Post -->
+	 <section class="post">
+		<header class="major">
+		  <span class="date">April 25, 2017</span>
+			 <h1>Se<br />
+				Connecter</h1>
+			  </header>
+			    <form action="{{ path('security_login') }}" method="post">
+					<div class="row gtr-uniform">
+					  <div class="col-6 col-12-xsmall">
+					    <input type="email" name="_username" required id="demo-name"  placeholder="Adresse email...." />
+					  </div>
+					  <div class="col-6 col-12-xsmall">
+						<input type="password" name="_password" required id="demo-email"  placeholder="Mot de passe...." />
+					  </div>
+                      <div class="col-12">
+					  <ul class="actions">
+						  <li><input type="submit" value="Se Connecter" class="primary" /></li>
+						  <li><input type="reset" value="SingUp" href="{{ path('security_registration') }}" /></li>
+					  </ul>
+					</div>
+   
+				</form>
+    </section> 
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block body %}
+<div id="main">
+           <!-- Post -->
+	 <section class="post">
+		<header class="major">
+        <fieldset>
+            <div class="colums">
+    <h1>Client</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>CIN</th>
+                <td>{{ client.CIN }}</td>
+            </tr>
+            <tr>
+                <th>UserName</th>
+                <td>{{ client.UserName }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ client.Numero }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ client.Email }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ client.Adresse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+                <a href="{{ path('client_index') }}"><button>back to list</button></a>
+
+                <a href="{{ path('client_delete', {'id': client.id}) }}"><button>delete</button></a>
+
+                			
+    </section> 
+</div>
+
+    
+            
+{% endblock %}
