@@ -73,11 +73,16 @@ class Voyage
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\PositiveOrZero
+     * @Assert\Positive
      * @Assert\NotNull
      * @Groups("post:read")
      */
     private $Prix;
+
+    public function __toString()
+    {
+        return (string) $this->Nom_Voyage;
+    }
 
     public function getId(): ?int
     {

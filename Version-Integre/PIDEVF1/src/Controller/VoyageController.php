@@ -35,6 +35,8 @@ class VoyageController extends AbstractController
             'voyages' => $voyageRepository->findAll(),
         ]);
     }
+
+    //Exporter pdf (composer require dompdf/dompdf)
     /**
      * @Route("/pdf", name="PDF", methods={"GET"})
      */
@@ -64,6 +66,8 @@ class VoyageController extends AbstractController
         ]);
     }
 
+    //recuperation Json
+
     /**
      * @Route("/AllVoyageJSON", name="AllVoyageJSON")
      */
@@ -74,6 +78,8 @@ class VoyageController extends AbstractController
         $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
         return new Response(json_encode($jsonContent));
     }
+
+    //Ajouter un voyage apartir du json
 
     /**
      * @Route("/AddVoyageJSON", name="AddVoyageJSON")
@@ -95,6 +101,8 @@ class VoyageController extends AbstractController
         return new Response(json_encode($jsonContent));
     }
 
+    //miss ajour d'un voyage a partie du json
+
     /**
      * @Route("/UpdateVoyageJSON/{id}", name="UpdateVoyageJSON")
      */
@@ -114,6 +122,8 @@ class VoyageController extends AbstractController
         return new Response("Update successfully".json_encode($jsonContent));
     }
 
+    //Supprimer d'un voyage a partie du json
+
     /**
      * @Route("/DeleteVoyageJSON/{id}", name="DeleteVoyageJSON")
      */
@@ -127,6 +137,7 @@ class VoyageController extends AbstractController
         return new Response("Delete successfully".json_encode($jsonContent));
     }
 
+    //trie selon date special
 
     /**
      * @Route("/DateNow", name="DateNow" ,methods={"GET"})
@@ -141,6 +152,8 @@ class VoyageController extends AbstractController
 
     }
 
+    //trie selon destination
+
     /**
      * @Route("/order_By_Dest", name="order_By_Dest" ,methods={"GET"})
      */
@@ -152,6 +165,8 @@ class VoyageController extends AbstractController
         return $this->render('voyage/index.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
+
+        //trie selon Nom
 
     }
     /**
@@ -166,6 +181,8 @@ class VoyageController extends AbstractController
             'voyages' => $VoyageByNom,
         ]);
 
+        //trie selon Date normal
+
     }
     /**
      * @Route("/order_By_Date", name="order_By_Date" ,methods={"GET"})
@@ -178,6 +195,8 @@ class VoyageController extends AbstractController
         return $this->render('voyage/index.html.twig', [
             'voyages' => $VoyageByDate,
         ]);
+
+        //trie selon Prix
 
     }
     /**
@@ -193,6 +212,9 @@ class VoyageController extends AbstractController
         ]);
     }
 
+    //Selection selon Continent_Afrique
+
+
     /**
      * @Route("/Continent_Afrique", name="Continent_Afrique" ,methods={"GET"})
      */
@@ -204,6 +226,9 @@ class VoyageController extends AbstractController
             'voyages' => $VoyageByDest,
         ]);
     }
+
+    //Selection selon Continent_Europe
+
 
     /**
      * @Route("/Continent_Europe", name="Continent_Europe" ,methods={"GET"})
@@ -217,6 +242,9 @@ class VoyageController extends AbstractController
         ]);
     }
 
+    //Selection selon Continent_Asie
+
+
     /**
      * @Route("/Continent_Asie", name="Continent_Asie" ,methods={"GET"})
      */
@@ -228,6 +256,9 @@ class VoyageController extends AbstractController
             'voyages' => $VoyageByDest,
         ]);
     }
+
+    //Selection selon Continent_Amerique
+
 
     /**
      * @Route("/Continent_Amerique", name="Continent_Amerique" ,methods={"GET"})
@@ -241,6 +272,8 @@ class VoyageController extends AbstractController
         ]);
     }
 
+    //Selection selon la Disponible
+
     /**
      * @Route("/Disponible", name="Disponible" ,methods={"GET"})
      */
@@ -252,6 +285,8 @@ class VoyageController extends AbstractController
             'voyages' => $VoyageByDest,
         ]);
     }
+
+    //Selection selon la Non_Disponible
 
     /**
      * @Route("/Non_Disponible", name="Non_Disponible" ,methods={"GET"})
@@ -265,6 +300,8 @@ class VoyageController extends AbstractController
         ]);
     }
 
+    //Selection selon la Bientot_Disponible
+
     /**
      * @Route("/Bientot_Disponible", name="Bientot_Disponible" ,methods={"GET"})
      */
@@ -276,6 +313,8 @@ class VoyageController extends AbstractController
             'voyages' => $VoyageByDest,
         ]);
     }
+
+    //recherch selon le nom
 
     /**
      * @Route("/listVoyageWithSearch", name="listVoyageWithSearch")
@@ -300,6 +339,9 @@ class VoyageController extends AbstractController
             "searchVoyage" => $searchForm->createView()));
     }
 
+    //recherch selon le Prix
+
+
     /**
      * @Route("/listVoyageWithSearchPrix", name="listVoyageWithSearchPrix")
      */
@@ -323,6 +365,9 @@ class VoyageController extends AbstractController
             "searchVoyage" => $searchForm->createView()));
     }
 
+    //recherch selon le Date
+
+
     /**
      * @Route("/listVoyageWithSearchdate", name="listVoyageWithSearchdate")
      */
@@ -345,6 +390,8 @@ class VoyageController extends AbstractController
             "voyages" => $voyage,
             "searchVoyage" => $searchForm->createView()));
     }
+
+    //Ajouter un Voyage
 
     /**
      * @Route("/new", name="voyage_new", methods={"GET", "POST"})
@@ -389,6 +436,8 @@ class VoyageController extends AbstractController
         ]);
     }
 
+    //afficher un voyage par details
+
     /**
      * @Route("/{id}", name="voyage_show", methods={"GET"})
      */
@@ -399,6 +448,7 @@ class VoyageController extends AbstractController
         ]);
     }
 
+        //Modifier un voyage
 
     /**
      * @Route("/{id}/edit", name="voyage_edit", methods={"GET", "POST"})
@@ -410,7 +460,7 @@ class VoyageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $imageFile */
-            $imageFile = $form->get('Image')->getData();
+            $imageFile = $form->get('image')->getData();
 
             if($imageFile){
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -441,6 +491,8 @@ class VoyageController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    //Supprimer un Voyage
 
     /**
      * @Route("/{id}", name="voyage_delete", methods={"POST"})

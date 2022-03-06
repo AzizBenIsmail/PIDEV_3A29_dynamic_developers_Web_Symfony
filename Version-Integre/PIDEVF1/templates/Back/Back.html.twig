@@ -72,7 +72,7 @@
                                     <p class="preview-subject ellipsis font-weight-medium text-dark" >    liste de tous les Users </p>
                                 </div>
                             </a>
-                            <a class="dropdown-item preview-item" href="">
+                            <a class="dropdown-item preview-item" href="{{ path('voyage_index') }}">
                                 <div class="preview-item-content flex-grow py-2" >
                                     <p class="preview-subject ellipsis font-weight-medium text-dark" >    liste de tous les voyage </p>
                                 </div>
@@ -253,7 +253,7 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="">Reservation Restaurant</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="">Reservation Excursion</a></li>
-                                <li class="nav-item"> <a class="nav-link"  href="" >Reservation Voyage</a></li>
+                                <li class="nav-item"> <a class="nav-link"  href="{{ path('reservation_voyage_index') }}" >Reservation Voyage</a></li>
                             </ul>
                         </div>
                     </li>
@@ -273,7 +273,7 @@
                                 <li class="nav-item"> <a class="nav-link"  href="">Commentaire</a></li>
                             </ul>
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"  href="">Voyage</a></li>
+                                <li class="nav-item"> <a class="nav-link"  href="{{ path('voyage_index') }}>Voyage</a></li>
                             </ul>
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link"  href="">Restaurant</a></li>
@@ -425,7 +425,7 @@
                                                                         <p class="card-subtitle card-subtitle-dash">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
                                                                     </div>
                                                                     <div>
-                                                                        <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i><a href="">Add new Voyage </a> </button>
+                                                                        <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i><a href="{{ path('voyage_new') }}">Add new Voyage </a> </button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="table-responsive  mt-1">
@@ -433,19 +433,101 @@
                                                                         <thead>
                                                                         <tr>
                                                                             <th>Id</th>
-                                                                            <th>Destination</th>
+                                                                            <th>Image</th>
                                                                             <th>Destination</th>
                                                                             <th>Nom_Voyage</th>
                                                                             <th>Duree_Voyage</th>
-                                                                            <th>Prix_Voyage</th>
+                                                                            <th>Prix</th>
                                                                             <th>Date</th>
                                                                             <th>Valabilite</th>
                                                                             <th>actions</th>
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                        
+                                                                        {% for voyage in voyages %}
+                                                                            <tr>
+                                                                                <td>{{ voyage.id }}</td>
+                                                                                {% if voyage.image|length > 0 %}
+                                                                                    <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="250" height="150"></td>
+                                                                                {% else %}
+                                                                                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                                                                                {% endif %}
+                                                                                <td>{{ voyage.Destination }}</td>
+                                                                                <td>{{ voyage.NomVoyage }}</td>
+                                                                                <td>{{ voyage.DureeVoyage }}</td>
+                                                                                <td>{{ voyage.prix }}</td>
+                                                                                <td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
+                                                                                <td>{{ voyage.valabilite }}</td>
+                                                                                <td>
+                                                                                    <button>  <a href="{{ path('voyage_show', {'id': voyage.id}) }}">show</a> </button>
+                                                                                    <button>   <a href="{{ path('voyage_edit', {'id': voyage.id}) }}">edit</a></button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% else %}
+                                                                            <tr>
+                                                                                <td colspan="8">no records found</td>
+                                                                            </tr>
+                                                                        {% endfor %}
+
                                                                         </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 d-flex flex-column">
+                                                <div class="row flex-grow">
+                                                    <div class="col-12 grid-margin stretch-card">
+                                                        <div class="card card-rounded">
+                                                            <div class="card-body">
+                                                                <div class="d-sm-flex justify-content-between align-items-start">
+                                                                    <div>
+                                                                        <h4 class="card-title card-title-dash">La liste des Reservation des Voyages</h4>
+                                                                        <p class="card-subtitle card-subtitle-dash">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i><a href="{{ path('reservation_voyage_new') }}">Add new Reservation Voyage </a> </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="table-responsive  mt-1">
+                                                                    <table class="table">
+                                                                        <tr>
+                                                                            <th>Id</th>
+                                                                            <th>Voyage</th>
+                                                                            <th>Date_Reservation</th>
+                                                                            <th>Travel_Class</th>
+                                                                            <th>Age</th>
+                                                                            <th>actions</th>
+                                                                        </tr>
+                                                                        {% for reservation_voyage in reservation_voyages %}
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <td>{{ reservation_voyage.id }}</td>
+                                                                                {% if reservation_voyage.voyage.image|length > 0 %}
+                                                                                    <td><img src="{{ asset('uploads/'~ reservation_voyage.voyage.image ) }}" width="250" height="150"></td>
+                                                                                {% else %}
+                                                                                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                                                                                {% endif %}
+                                                                                <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
+                                                                                <td>{{ reservation_voyage.TravelClass }}</td>
+                                                                                <td>{{ reservation_voyage.Age }}</td>
+                                                                                <td>
+                                                                                    <a href="{{ path('reservation_voyage_show', {'id': reservation_voyage.id}) }}">show</a>
+                                                                                    <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}">edit</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        {% else %}
+                                                                            <tr>
+                                                                                <td colspan="5">no records found</td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                        </tbody>
+
                                                                     </table>
                                                                 </div>
                                                             </div>

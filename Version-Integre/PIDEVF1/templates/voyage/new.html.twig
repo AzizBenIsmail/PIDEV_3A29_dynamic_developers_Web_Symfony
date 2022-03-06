@@ -10,7 +10,7 @@
             </header>
 
             <div class="section-content">
-                {{ form_start(form) }}
+                {{ form_start(form , {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
                 <div class="col-md-12">
                     <fieldset>
                         {{ form_row(form.Clien, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
@@ -49,13 +49,13 @@
 
                 <div class="col-md-12">
                     <fieldset>
-                        {{ form_row(form.valabilite, {'attr':{'placeholder': 'Confirm_password'}}) }}
+                        {{ form_row(form.valabilite) }}
                     </fieldset>
                 </div>
 
                 <div class="col-md-12">
                     <fieldset>
-                        {{ form_row(form.Image, {'attr':{'placeholder': 'Confirm_password'}}) }}
+                        {{ form_row(form.image, {'attr':{'placeholder': 'Confirm_password'}}) }}
                     </fieldset>
                 </div>
 

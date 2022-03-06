@@ -4,7 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ReservationVoyageRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=ReservationVoyageRepository::class)
  */
@@ -36,11 +37,20 @@ class ReservationVoyage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice({"Economy class", "First class", "Business class"})
      */
     private $Travel_Class;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 2,
+     *      minMessage = "Votre Age doit être au moins 9 ans",
+     *      maxMessage = "Votre Age ne peut pas etre plus 99 ans"
+     * )
      */
     private $Age;
 

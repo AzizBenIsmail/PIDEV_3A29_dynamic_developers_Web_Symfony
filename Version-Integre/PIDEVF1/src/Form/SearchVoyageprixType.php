@@ -16,7 +16,7 @@ class SearchVoyageprixType extends AbstractType
 
             ->add('Prix',null, [
                 'attr' => [
-                    'placeholder' => 'Prix_Voyage',
+                    'placeholder' => 'Prix_Voyage(Budget Max)',
                 ]])
 ;
     }

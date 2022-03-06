@@ -63,9 +63,8 @@
                 </ul>
             </div>
             <div class="section-content">
-                {{ form_start( searchVoyage,{'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
-                {{ form_widget(searchVoyage) }}
-                {{ form_end(searchVoyage) }}
+
+                {{ form(searchVoyage, {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
 
                 <form>
                     <input id="impression" class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1s" name="impression" type="button" onclick="imprimer_page()" value="Print this page" />

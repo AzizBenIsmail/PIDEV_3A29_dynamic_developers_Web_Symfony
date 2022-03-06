@@ -1,13 +1,22 @@
 {% extends 'Front/front.html.twig' %}
 
 {% block body %}
+
     <div id="main">
         <!-- Post -->
         <section class="post">
             <header class="major">
+                <script type="text/javascript">
+                    function imprimer_page(){
+                        window.print();
+                    }
+                </script>
                 <fieldset>
                     <div class="colums">
                         <h1>Voyage</h1>
+                        <form>
+                            <input id="impression" class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1s" name="impression" type="button" onclick="imprimer_page()" value="Print this page" />
+                        </form>
                         <table class="table">
                             <tbody>
                             <tr>
