@@ -37,6 +37,11 @@ class Restaurant
      */
     private $Description_Restaurant;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Restaurant
     public function setDescriptionRestaurant(string $Description_Restaurant): self
     {
         $this->Description_Restaurant = $Description_Restaurant;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->Image;
+    }
+
+    public function setImage(string $Image): self
+    {
+        $this->Image = $Image;
 
         return $this;
     }

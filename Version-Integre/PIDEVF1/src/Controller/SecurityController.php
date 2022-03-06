@@ -4,7 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Repository\CommentaireRepository;
+use App\Repository\ExcursionRepository;
+use App\Repository\ReservationVoyageRepository;
+use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
+use App\Repository\VoyageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,10 +60,12 @@ class SecurityController extends AbstractController
      /**
      * @Route("/", name="client_index", methods={"GET"})
      */
-    public function index(UserRepository $clientRepository): Response
+    public function index(UserRepository $clientRepository ,VoyageRepository $voyageRepository,RestaurantRepository $restaurantRepository,
+                          CommentaireRepository $commentaireRepository,ExcursionRepository $excursionRepository,ReservationVoyageRepository $reservationVoyageRepository): Response
     {
         return $this->render('Back/Back.html.twig', [
-            'clients' => $clientRepository->findAll(),
+            'clients' => $clientRepository->findAll(),'voyages' => $voyageRepository->findAll(),'restaurants' => $restaurantRepository->findAll(),
+            'commentaires' => $commentaireRepository->findAll(),'excursions' => $excursionRepository->findAll(),'reservation_voyages' => $reservationVoyageRepository->findAll(),
         ]);
     }
 
