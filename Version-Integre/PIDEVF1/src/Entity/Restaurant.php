@@ -66,6 +66,11 @@ class Restaurant
      */
     private $Image;
 
+    public function __toString()
+    {
+        return (string) $this->Nom_Restaurant;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
