@@ -38,7 +38,7 @@ class VoyageController extends AbstractController
 
     //Exporter pdf (composer require dompdf/dompdf)
     /**
-     * @Route("/pdf", name="PDF", methods={"GET"})
+     * @Route("/pdf", name="PDF_Voyage", methods={"GET"})
      */
     public function pdf(VoyageRepository $voyageRepository)
     {

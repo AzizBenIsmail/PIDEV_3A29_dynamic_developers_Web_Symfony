@@ -1,3 +1,4 @@
+<!-- pour le logine seulement-->
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -38,7 +39,7 @@
 							<li class="active"><a href="{{ path('home') }}">Actuelle</a></li>
 							<li><a href="{{ path('voyage_index') }}">La liste des Voyage</a></li>
 							<li><a href="generic.html">La liste des Excursion</a></li>
-							<li><a href="elements.html">La liste des retaurant</a></li>
+							<li><a href="{{ path('restaurant_index') }}">La liste des retaurant</a></li>
 						</ul>
 						<ul class="icons">
 							<li><a href="{{ path('security_logout') }}" ><img src="https://img.icons8.com/external-kmg-design-outline-color-kmg-design/32/000000/external-log-out-user-interface-kmg-design-outline-color-kmg-design.png"/></a></li>
@@ -98,6 +99,47 @@
 									<li><a <a href="{{ path('reservation_voyage_new') }}"class="button large">Reserver Voyage</a></li>
 								</ul>
 							</article>
+
+						<article class="post featured">
+							<header class="major">
+								<span class="date">La Liste Des Voyage </span>
+								<table class="table">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Image</th>
+										<th>Nom_Restaurant</th>
+										<th>Adresse_Restaurant</th>
+										<th>Num_Tel_Restaurant</th>
+										<th>Description_Restaurant</th>
+										</tr>
+									</thead>
+									<tbody>
+									{% for restaurant in restaurants %}
+										<tr>
+											<td>{{ restaurant.id }}</td>
+											{% if restaurant.Image|length > 0 %}
+												<td><img src="{{ asset('uploads/'~ restaurant.Image ) }}" width="250" height="150"></td>
+											{% else %}
+												<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+											{% endif %}
+											<td>{{ restaurant.NomRestaurant }}</td>
+											<td>{{ restaurant.AdresseRestaurant }}</td>
+											<td>{{ restaurant.NumTelRestaurant }}</td>
+											<td>{{ restaurant.DescriptionRestaurant }}</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="7">no records found</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</header>
+							<ul class="actions special">
+								<li><a <a href="{{ path('reservation_voyage_new') }}"class="button large">Reserver Voyage</a></li>
+							</ul>
+						</article>
 
 						<!-- Posts -->
 							<section class="posts">

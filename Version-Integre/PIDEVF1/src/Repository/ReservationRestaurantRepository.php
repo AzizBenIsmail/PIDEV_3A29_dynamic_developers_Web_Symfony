@@ -47,4 +47,22 @@ class ReservationRestaurantRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function orderByDest1()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.Destination', 'ASC')
+            ->getQuery()->getResult();
+    }
+    public function orderByDest2()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.Destination', 'ASC')
+            ->getQuery()->getResult();
+    }
+    public function orderByDest3()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.Destination', 'ASC')
+            ->getQuery()->getResult();
+    }
 }

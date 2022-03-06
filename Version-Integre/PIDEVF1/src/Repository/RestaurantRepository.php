@@ -47,4 +47,17 @@ class RestaurantRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function orderByNom()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.Nom_Restaurant', 'ASC')
+            ->getQuery()->getResult();
+    }
+    public function orderByAdresse()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.Adresse_Restaurant', 'ASC')
+            ->getQuery()->getResult();
+    }
+
 }
