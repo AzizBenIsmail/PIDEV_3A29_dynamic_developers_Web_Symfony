@@ -12,6 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mine\Email;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
  * @Route("/reservation/voyage")
@@ -180,18 +184,32 @@ class ReservationVoyageController extends AbstractController
         //ajouter une nouvelle reservation
 
     /**
-     * @Route("/new", name="reservation_voyage_new", methods={"GET","POST"})
+         * @Route("/new", name="reservation_voyage_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,\Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
         $reservationVoyage = new ReservationVoyage();
         $form = $this->createForm(ReservationVoyageType::class, $reservationVoyage);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reservationVoyage);
             $entityManager->flush();
+
+
+            //mailing
+            //on cree le message
+            $message = (new \Swift_Message('Activation de votre compte'))
+                //ili bech yeb3ath
+                ->setFrom('travel.me.pidev@gmail.com')
+                //ili bech ijih l message
+                ->setTo('mohamedamineaouididi08@gmail.com')
+                ->setBody(
+                    "<p>bonjour, </p><p> vous avez cree un compte sur notre site, veuillez cliquer sur le ci-dessous pour l'activer </p>",
+                    'text/html'
+                );
+            //on envoi l email
+            $mailer->send($message);
 
             return $this->redirectToRoute('reservation_voyage_index');
         }
@@ -201,6 +219,7 @@ class ReservationVoyageController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 
     //Afficher une reservation
 

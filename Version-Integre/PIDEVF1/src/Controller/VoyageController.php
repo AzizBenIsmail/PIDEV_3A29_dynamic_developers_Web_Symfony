@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -29,10 +30,18 @@ class VoyageController extends AbstractController
     /**
      * @Route("/voyage_index", name="voyage_index", methods={"GET"})
      */
-    public function index(VoyageRepository $voyageRepository): Response
+    public function index(Request $request, VoyageRepository $voyageRepository, PaginatorInterface $paginator): Response
     {
+        // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
+        $donnees = $this->getDoctrine()->getRepository(Voyage::class)->findAll();
+        $voyages = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            4 // Nombre de résultats par page
+        );
+
         return $this->render('voyage/index.html.twig', [
-            'voyages' => $voyageRepository->findAll(),
+            'voyages' => $voyages,
         ]);
     }
 
