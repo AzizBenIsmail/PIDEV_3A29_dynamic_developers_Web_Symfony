@@ -1,8 +1,6 @@
-{% extends 'Front/frontL.html.twig' %}
+{% extends 'Front/front.html.twig' %}
 
 {% block body %}
-
-
    <div id="main">
            <!-- Post -->
 	 <section class="post">
@@ -10,7 +8,6 @@
 		     <span class="date">April 25, 2017</span>
 			   <h1>S'inscrire</h1>
 		  </header>
-
     <div class="section-content">
               {{ form_start(form) }}
           <div class="col-md-12">
@@ -60,13 +57,6 @@
              <button type= "submit" class="btn btn-success"> Inscription ! </button>
            </fieldset>
          </div>
-
-         <div class="col-md-12">
-           <fieldset>
-             <a href="{{ path('security_login') }}">SingIN !<a>
-           </fieldset>
-        </div>
-
        {{ form_end(form) }}
 
     </div>

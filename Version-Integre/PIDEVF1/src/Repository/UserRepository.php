@@ -47,4 +47,14 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findOneByEmail($Email): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.Email = :Email')
+            ->setParameter('Email', $Email)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

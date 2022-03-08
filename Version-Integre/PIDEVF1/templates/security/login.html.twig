@@ -1,10 +1,25 @@
-{% extends 'Front/frontL.html.twig' %}
+{% extends 'Front/front.html.twig' %}
 
 {% block body %}
 
    <div id="main">
            <!-- Post -->
 	 <section class="post">
+	 {% for message in app.flashes('message') %}
+            <div class="alert alert-success" role="alert">
+             {{ message }}
+            </div>
+         {% endfor %}
+         {% for message in app.flashes('warning') %}
+            <div class="alert alert-warning" role="alert">
+               {{ message }}
+            </div>
+         {% endfor %}
+         {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger" role="alert">
+               {{ message }}
+            </div>
+         {% endfor %}
 		<header class="major">
 		  <span class="date">April 25, 2017</span>
 			 <h1>Se<br />
@@ -21,7 +36,7 @@
                       <div class="col-12">
 					  <ul class="actions">
 						  <li><input type="submit" value="Se Connecter" class="primary" /></li>
-						  <li><input type="reset" value="SingUp" href="{{ path('security_registration') }}" /></li>
+						  <li><a href="{{ path('forgotten_password') }}">Mdp Oublier</a></li>
 					  </ul>
 					</div>
    
