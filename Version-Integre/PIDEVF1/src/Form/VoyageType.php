@@ -30,8 +30,8 @@ class VoyageType extends AbstractType
                     'placeholder' => 'Disponibilite...(oui/non/bientot disponible)',
                 ]])
             ->add('Clien')
-            ->add('Image',FileType::class,[
-                'label' => 'Image',
+            ->add('image',FileType::class,[
+                'label' => 'image',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

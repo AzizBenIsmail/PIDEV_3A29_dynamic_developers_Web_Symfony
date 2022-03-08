@@ -277,7 +277,7 @@ class VoyageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.Nom_Voyage LIKE :ncl')
-            ->setParameter('ncl', '%'.$Nom_Voyage.'%')
+            ->setParameter('ncl', $Nom_Voyage.'%')
             ->getQuery()
             ->execute();
     }

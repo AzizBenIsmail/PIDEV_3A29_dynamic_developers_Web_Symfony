@@ -51,7 +51,7 @@
                     <a href="{{ path('DateNow')}}">à partir d'aujourd'hui</a>
                 </li>
                 <li>
-                    <a class="btn btn-success" href="{{path('PDF') }}">  PDF </a>
+                    <a class="btn btn-success" href="{{path('PDF_Voyage') }}">  PDF </a>
                     <script type="text/javascript">
                         function imprimer_page(){
                             window.print();
@@ -107,12 +107,26 @@
                 <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
-
-            <button>   <a href="{{ path('voyage_new') }}">Create new</a></button>
+            <button><a href="{{ path('voyage_new') }}">Create new</a></button>
         </div>
+      <div class="align-center"> {{ knp_pagination_render(voyages) }}</div>
 
     </section>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6226c68aa34c24564129f17f/1ftjnf3t7';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 </div>
 {% endblock %}

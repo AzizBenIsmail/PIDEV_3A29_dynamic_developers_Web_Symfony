@@ -1,0 +1,35 @@
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Voyage</th>
+        <th>Date_Reservation</th>
+        <th>Travel_Class</th>
+        <th>Age</th>
+        <th>actions</th>
+    </tr>
+    {% for reservation_voyage in reservation_voyages %}
+        <tbody>
+        <tr>
+            <td>{{ reservation_voyage.id }}</td>
+            {% if reservation_voyage.voyage.image|length > 0 %}
+                <td><img src="{{ asset('uploads/'~ reservation_voyage.voyage.image ) }}" width="250" height="150"></td>
+            {% else %}
+                <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+            {% endif %}
+            <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
+            <td>{{ reservation_voyage.TravelClass }}</td>
+            <td>{{ reservation_voyage.Age }}</td>
+            <td>
+                <a href="{{ path('reservation_voyage_show', {'id': reservation_voyage.id}) }}">show</a>
+                <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}">edit</a>
+            </td>
+        </tr>
+        </tbody>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
