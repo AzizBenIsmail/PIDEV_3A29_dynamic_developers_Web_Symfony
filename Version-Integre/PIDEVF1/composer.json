@@ -11,6 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
         "dompdf/dompdf": "^1.2",
+        "endroid/qrcode": "^4.4",
         "knplabs/knp-paginator-bundle": "^5.8",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",

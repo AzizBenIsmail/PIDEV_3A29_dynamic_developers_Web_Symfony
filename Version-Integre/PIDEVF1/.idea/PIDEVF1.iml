@@ -116,6 +116,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/swiftmailer-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/google-mailer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/endroid/qrcode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/bacon/bacon-qr-code" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dasprid/enum" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

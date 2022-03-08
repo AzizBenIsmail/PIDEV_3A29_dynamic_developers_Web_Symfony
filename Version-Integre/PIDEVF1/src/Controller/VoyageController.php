@@ -9,6 +9,13 @@ use App\Form\SearchVoyageprixType;
 use App\Form\VoyageType;
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
+use Endroid\QrCode\Label\Margin\Margin;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Writer\PngWriter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +46,8 @@ class VoyageController extends AbstractController
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             4 // Nombre de résultats par page
         );
+
+
 
         return $this->render('voyage/index.html.twig', [
             'voyages' => $voyages,

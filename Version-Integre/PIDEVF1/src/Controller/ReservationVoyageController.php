@@ -8,6 +8,14 @@ use App\Repository\ReservationVoyageRepository;
 use App\Repository\VoyageRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
+use Endroid\QrCode\Label\Margin\Margin;
+use Endroid\QrCode\Writer\PngWriter;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -186,7 +194,7 @@ class ReservationVoyageController extends AbstractController
     /**
          * @Route("/new", name="reservation_voyage_new", methods={"GET","POST"})
      */
-    public function new(Request $request,\Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+    public function new(Request $request,MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
         $reservationVoyage = new ReservationVoyage();
         $form = $this->createForm(ReservationVoyageType::class, $reservationVoyage);
@@ -197,17 +205,42 @@ class ReservationVoyageController extends AbstractController
             $entityManager->flush();
 
 
+
+            $path = $this->getParameter('kernel.project_dir').'/public';
+            $pathqr = $this->getParameter('kernel.project_dir').'/public/Front/images';
+
+
+            $result=Builder::create()
+                ->writer(new PngWriter())
+                ->data("Date Voyage :".$reservationVoyage->getVoyage()->getDate()->format("Y/m/d")." | Duree :".$reservationVoyage->getVoyage()->getDureeVoyage()."  | Prix : ".$reservationVoyage->getVoyage()->getPrix()."  |   ")
+                ->encoding(new Encoding('UTF-8'))
+                ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+                ->size(300)
+                ->margin(10)
+                ->labelText("")
+                ->logoPath($pathqr."/img.png")
+                ->labelAlignment(new LabelAlignmentCenter())
+                ->labelMargin(new Margin(15, 5, 5, 5))
+                ->logoResizeToWidth('100')
+                ->logoResizeToHeight('100')
+                ->build();
+
+
+            $namePng =uniqid('',''). '.png';
+            $result->saveToFile( $pathqr.'/qr-code/'.$namePng);
+
             //mailing
             //on cree le message
-            $message = (new \Swift_Message('Activation de votre compte'))
+            $message = (new TemplatedEmail())
                 //ili bech yeb3ath
-                ->setFrom('travel.me.pidev@gmail.com')
+                ->from('travel.me.pidev@gmail.com')
                 //ili bech ijih l message
-                ->setTo('mohamedamineaouididi08@gmail.com')
-                ->setBody(
-                    "<p>bonjour, </p><p> vous avez cree un compte sur notre site, veuillez cliquer sur le ci-dessous pour l'activer </p>",
-                    'text/html'
-                );
+                ->to($reservationVoyage->getClient()->getEmail())
+                ->subject("Confirmation de Reservation")
+                ->html("<p>bonjour,". $reservationVoyage->getClient()->getUserName()."</p><p> Ceci est une confirmation de votre reservation ". $reservationVoyage->getVoyage()->getNomVoyage()."</p><p> Merci pour votre Confiance </p>")
+                ->embedFromPath($pathqr.'/qr-code/'.$namePng)
+                ->embedFromPath($path.'/uploads/'.$reservationVoyage->getVoyage()->getImage());
+
             //on envoi l email
             $mailer->send($message);
 
