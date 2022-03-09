@@ -1,58 +1,32 @@
 {% extends 'Front/front.html.twig' %}
-
-{% block title %}Excursion{% endblock %}
-
-{% block body %}
-<div id="main">
-    <!-- Post -->
-    <section class="post">
-        <header class="major">
-            <fieldset>
-                <div class="colums">
-                    <h1>Excursion</h1>
-
-    <table class="table">
-        <tbody>
+{% block fpost %}
+    <h2>Vos Reservations</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
             <tr>
-                <th>Id</th>
-                <td>{{ excursion.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom_Excursion</th>
-                <td>{{ excursion.NomExcursion }}</td>
-            </tr>
-            <tr>
-                <th>Description_Excursion</th>
-                <td>{{ excursion.DescriptionExcursion }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Type_Excursion</th>
-                <td>{{ excursion.TypeExcursion }}</td>
-            </tr>
-            <tr>
+                <th>Nom Excursion</th>
                 <th>Lieu</th>
-                <td>{{ excursion.Lieu }}</td>
+                <th>Date</th>
+                <th>Prix</th>
+                <th>Annuler Reservation</th>
             </tr>
+            </thead>
+            <tbody>
+            {% for r in reservations %}
             <tr>
-                <th>Valabilite</th>
-                <td>{{ excursion.valabilite }}</td>
+                <td>{{r.IDExcursion.NomExcursion}}</td>
+                <td>{{ r.IDExcursion.Lieu }}</td>
+                <td>{{ r.IDExcursion.Date  ? r.IDExcursion.Date|date('Y-m-d') : '' }}</td>
+                <td>{{ (r.IDExcursion.Prix) * r.nb }} </td>
+                <td> <a href="{{ path('reservation_excursion_delete',{'id':r.id }) }}">Annuler</a></td>
             </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ excursion.Image }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('excursion_index') }}">back to list</a>
-
-    <a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
-
-    {{ include('excursion/_delete_form.html.twig') }}
-    </section>
-</div>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}
+{% block post %}
 {% endblock %}

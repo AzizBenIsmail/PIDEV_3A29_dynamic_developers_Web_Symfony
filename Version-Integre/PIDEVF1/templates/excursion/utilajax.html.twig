@@ -1,0 +1,29 @@
+
+    {% for excursion in util %}
+        {% if excursion.valabilite is same as "Valide" %}
+            <article>
+                <header>
+                    <span class="date">{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</span>
+                    <h2> {{ excursion.NomExcursion }} <br />
+                        {{ excursion.Lieu }}</h2>
+                </header>
+                <a href="#" class="image fit">
+                    {% if excursion.image|length > 0 %}
+                        <img src="{{ asset('uploads/'~ excursion.image ) }}" alt="" />
+                    {% else %}
+                        <img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" alt="" />
+                    {% endif %}
+                </a>
+                <p>{{ excursion.DescriptionExcursion }}</p>
+                <p>{{ excursion.Prix }} DT</p>
+                <ul class="actions special">
+                    <li><a href="{{ path('excursion_show',{'id':excursion.id }) }}">Reserver Maintenant</a></li>
+                </ul>
+            </article>
+        {% endif %}
+    {% else %}
+
+            <p colspan="15">no records found</p>
+
+    {% endfor %}
+    {% endfor %}

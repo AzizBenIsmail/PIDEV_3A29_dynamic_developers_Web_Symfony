@@ -60,7 +60,6 @@
 							<li><a href="https://github.com/AzizBenIsmail/PIDEV-3A29-dynamic-developers" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 						</ul>
 					</nav>
-
 				<!-- Main -->
                   {% block body %}
 					<div id="main">
@@ -170,45 +169,46 @@
 							<header class="major">
 								<span class="date">La Liste Des Excursion </span>
 								<table class="table">
-								<thead>
-								<tr>
-									<th>Id</th>
-									<th>Nom_Excursion</th>
-									<th>Description_Excursion</th>
-									<th>Date</th>
-									<th>Type_Excursion</th>
-									<th>Lieu</th>
-									<th>Valabilite</th>
-									<th>Image</th>
-									<th>actions</th>
-								</tr>
-								</thead>
-								<tbody>
-								{% for excursion in excursions %}
+									<thead>
 									<tr>
-										<td>{{ excursion.id }}</td>
-										<td>{{ excursion.NomExcursion }}</td>
-										<td>{{ excursion.DescriptionExcursion }}</td>
-										<td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</td>
-										<td>{{ excursion.TypeExcursion }}</td>
-										<td>{{ excursion.Lieu }}</td>
-										<td>{{ excursion.valabilite }}</td>
-										<td>{{ excursion.Image }}</td>
-										<td>
-											<a href="{{ path('excursion_show', {'id': excursion.id}) }}">show</a>
-											<a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
-										</td>
+										<th>Id</th>
+										<th>Nom</th>
+										<th>Description_Excursion</th>
+										<th>Type_Excursion</th>
+										<th>Lieu</th>
+										<th>prix</th>
+										<th>Date</th>
 									</tr>
-								{% else %}
-									<tr>
-										<td colspan="9">no records found</td>
-									</tr>
-								{% endfor %}
-								</tbody>
+									</thead>
+									<tbody>
+									{% for excursion in excursions %}
+										<tr>
+											<td>{{ excursion.id }}</td>
+											<td>                                {% if excursion.image|length > 0 %}
+											<td><img src="{{ asset('uploads/'~ excursion.image ) }}" width="250" height="150"></td>
+											{% else %}
+											<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+											{% endif %}</td>
+											<td>{{ excursion.DescriptionExcursion }}</td>
+											<td>{{ excursion.TypeExcursion }}</td>
+											<td>{{ excursion.Lieu }}</td>
+											<td>{{ excursion.prix }}</td>
+											<td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : ''  }}</td>
+											<td>
+
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="4">no records found</td>
+										</tr>
+									{% endfor %}
+									</tbody>
 								</table>
+
 							</header>
 							<ul class="actions special">
-								<li><a <a href="{{ path('reservation_excursion_new') }}"class="button large">Reserver Excursion</a></li>
+								<li><a <a href="{{ path('excursion_index') }}"class="button large">Reserver Excursion</a></li>
 							</ul>
 						</article>
 

@@ -1,7 +1,6 @@
-
 {% extends 'Front/front.html.twig' %}
 
-{% block title %}New ReservationExcursion{% endblock %}
+{% block title %}New ReservationVoyage{% endblock %}
 
 {% block body %}
 
@@ -9,28 +8,21 @@
         <!-- Post -->
         <section class="post">
             <header class="major">
-                <span class="date">
-    <h1>Create new ReservationExcursion</h1>
-</span>
+                <span class="date">Create new ReservationVoyage</span>
             </header>
 
             <div class="section-content">
                 {{ form_start(form , {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+
                 <div class="col-md-12">
                     <fieldset>
-                        {{ form_row(form.Client, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
+                        {{ form_row(form.Email, {'label':'Age' ,'attr':{'placeholder': 'Age....'}}) }}
                     </fieldset>
                 </div>
 
                 <div class="col-md-12">
                     <fieldset>
-                        {{ form_row(form.Excursion, {'attr':{'placeholder': 'Restaurant'}}) }}
-                    </fieldset>
-                </div>
-
-                <div class="col-md-12">
-                    <fieldset>
-                        {{ form_row(form.Date_Reservation_Excursion, {'attr':{'placeholder': 'Date_Reservation_Excursion...'}}) }}
+                        {{ form_row(form.nb, {'attr':{'placeholder': 'nb'}}) }}
                     </fieldset>
                 </div>
 
@@ -42,11 +34,12 @@
 
                 <div class="col-md-12">
                     <fieldset>
-                        <a href="{{ path('reservation_excursion_index') }}">back to list</a>
+                        <a href="{{ path('reservation_voyage_index') }}">back to list</a>
                     </fieldset>
                 </div>
 
                 {{ form_end(form) }}
+
             </div>
         </section>
     </div>

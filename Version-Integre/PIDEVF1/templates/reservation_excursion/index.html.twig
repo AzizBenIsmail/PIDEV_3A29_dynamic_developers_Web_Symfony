@@ -1,42 +1,53 @@
 {% extends 'Front/front.html.twig' %}
 
-{% block title %}ReservationExcursion index{% endblock %}
+{% block title %}ReservationExcursion{% endblock %}
 
 {% block body %}
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <fieldset>
+                    <div class="colums">
+                        <h1>ReservationExcursion</h1>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Reservation</th>
+                                <th>Date_Reservation</th>
+                                <th>Nbr_Personne</th>
+                                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for reservation_excursion in reservation_excursions %}
+                                <tr>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ reservation_excursion.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date_Reservation_Excursion</th>
+                                    <td>{{ reservation_excursion.DateReservationExcursion ? reservation_excursion.DateReservationExcursion|date('Y-m-d') : '' }}</td>
+                                </tr>
+                                    <td>
+                                        <a href="{{ path('reservation_restaurant_show', {'id': reservation_restaurant.id}) }}">show</a>
+                                        <a href="{{ path('reservation_restaurant_edit', {'id': reservation_restaurant.id}) }}">edit</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <a href="{{ path('reservation_excursion_index') }}">back to list</a>
 
-<div id="main">
-    <!-- Post -->
-    <section class="post">
-        <header class="major">
-            <h1>ReservationExcursion index</h1>
+                        <a href="{{ path('reservation_excursion_edit', {'id': reservation_excursion.id}) }}">edit</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date_Reservation_Excursion</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reservation_excursion in reservation_excursions %}
-            <tr>
-                <td>{{ reservation_excursion.id }}</td>
-                <td>{{ reservation_excursion.DateReservationExcursion ? reservation_excursion.DateReservationExcursion|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('reservation_excursion_show', {'id': reservation_excursion.id}) }}">show</a>
-                    <a href="{{ path('reservation_excursion_edit', {'id': reservation_excursion.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('reservation_excursion_new') }}">Create new</a>
-    </section>
+                        {{ include('reservation_excursion/_delete_form.html.twig') }}
+        </section>
     </div>
 {% endblock %}

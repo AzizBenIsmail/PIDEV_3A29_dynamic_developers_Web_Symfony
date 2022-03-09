@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\ReservationExcursion;
 use App\Form\ReservationExcursionType;
+use App\Repository\ExcursionRepository;
 use App\Repository\ReservationExcursionRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,28 +22,33 @@ class ReservationExcursionController extends AbstractController
     /**
      * @Route("/", name="reservation_excursion_index", methods={"GET"})
      */
-    public function index(ReservationExcursionRepository $reservationExcursionRepository): Response
+    public function index(ReservationExcursionRepository $reservationExcursionRepository ,UserRepository $userRepository)
     {
-        return $this->render('reservation_excursion/index.html.twig', [
-            'reservation_excursions' => $reservationExcursionRepository->findAll(),
+        $user=$this->getUser()->getUsername();
+        $client=$userRepository->findOneBy(array('UserName' =>$user),null,null,0);
+        return $this->render('excursion/show.html.twig', [
+            'reservations' => $reservationExcursionRepository->findby(array('Client' =>$client->getId()),null,null,0),
         ]);
     }
 
     /**
-     * @Route("/new", name="reservation_excursion_new", methods={"GET","POST"})
+     * @Route("/new", name="reservation_excursion_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository
+        ,ExcursionRepository $excursionRepository, PaginatorInterface $paginator): Response
     {
         $reservationExcursion = new ReservationExcursion();
         $form = $this->createForm(ReservationExcursionType::class, $reservationExcursion);
         $form->handleRequest($request);
-
+        $user=$this->getUser()->getUsername();
+        $client=$userRepository->findOneBy(array('UserName' =>$user),null,1,0);
+        $reservationExcursion->setClient($client);
+        $reservationExcursion->setDateReservationExcursion(new \DateTime('now'));
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reservationExcursion);
             $entityManager->flush();
 
-            return $this->redirectToRoute('reservation_excursion_index');
+            return $this->redirectToRoute('reservation_excursion_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('reservation_excursion/new.html.twig', [
@@ -53,23 +62,24 @@ class ReservationExcursionController extends AbstractController
      */
     public function show(ReservationExcursion $reservationExcursion): Response
     {
-        return $this->render('reservation_excursion/show.html.twig', [
+
+        return $this->render('reservation_excursion/showReservation.html.twig', [
             'reservation_excursion' => $reservationExcursion,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="reservation_excursion_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="reservation_excursion_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, ReservationExcursion $reservationExcursion): Response
+    public function edit(Request $request, ReservationExcursion $reservationExcursion, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ReservationExcursionType::class, $reservationExcursion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->flush();
 
-            return $this->redirectToRoute('reservation_excursion_index');
+            return $this->redirectToRoute('reservation_excursion_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('reservation_excursion/edit.html.twig', [
@@ -81,14 +91,16 @@ class ReservationExcursionController extends AbstractController
     /**
      * @Route("/{id}", name="reservation_excursion_delete", methods={"POST"})
      */
-    public function delete(Request $request, ReservationExcursion $reservationExcursion): Response
+    public function delete($id,ReservationExcursionRepository $reservationExcursionRepository)
     {
-        if ($this->isCsrfTokenValid('delete'.$reservationExcursion->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($reservationExcursion);
-            $entityManager->flush();
-        }
+
+        $r=$reservationExcursionRepository->find($id);
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($r);
+        $em->flush();
 
         return $this->redirectToRoute('reservation_excursion_index');
+
+
     }
 }
