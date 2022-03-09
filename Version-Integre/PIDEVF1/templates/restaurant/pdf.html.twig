@@ -1,5 +1,8 @@
+                    <h1 class="align-center">Bienvenue dans votre application Travel me </h1>
 
-                <table class="table">
+                                <p>Voila la liste de tout les restaurants</p>
+
+                <table class="table" border="5">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -24,10 +27,6 @@
                             <td>{{ restaurant.AdresseRestaurant }}</td>
                             <td>{{ restaurant.NumTelRestaurant }}</td>
                             <td>{{ restaurant.DescriptionRestaurant }}</td>
-                            <td>
-                                <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
-                                <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
-                            </td>
                         </tr>
                     {% else %}
                         <tr>

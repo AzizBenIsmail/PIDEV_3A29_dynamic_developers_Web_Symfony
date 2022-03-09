@@ -1,0 +1,82 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block title %}Restaurant index{% endblock %}
+
+{% block body %}
+
+<div id="main">
+    <!-- Post -->
+    <section class="post">
+        <header class="major">
+            <span class="date">La Liste Des Voyages</span>
+        </header>
+        <div id="wrap">
+            <ul class="navbar">
+                <li>
+                    <a href="{{ path('restaurant_index')}}">Actualiser</a>
+                </li>
+                <li>
+                    <a href="#">Trie</a>
+                    <ul>
+                        <li><a href="{{ path('orderByAdresse')}}">Trie par Adresse</a></li>
+                        <li><a href="{{ path('orderByNom')}}">Trie par Nom</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="btn btn-success" href="{{path('PDF_Restaurant') }}">  PDF </a>
+                    <script type="text/javascript">
+                        function imprimer_page(){
+                            window.print();
+                        }
+                    </script>
+                </li>
+
+
+            </ul>
+        </div>
+        <div class="section-content">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Nom_Restaurant</th>
+                <th>Adresse_Restaurant</th>
+                <th>Num_Tel_Restaurant</th>
+                <th>Description_Restaurant</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                {% if restaurant.Image|length > 0 %}
+                    <td><img src="{{ asset('uploads/'~ restaurant.Image ) }}" width="250" height="150"></td>
+                {% else %}
+                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                {% endif %}
+                <td>{{ restaurant.NomRestaurant }}</td>
+                <td>{{ restaurant.AdresseRestaurant }}</td>
+                <td>{{ restaurant.NumTelRestaurant }}</td>
+                <td>{{ restaurant.DescriptionRestaurant }}</td>
+                <td>
+                    <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
+                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('restaurant_new') }}">Create new</a>
+        </div>
+
+    </section>
+</div>
+{% endblock %}

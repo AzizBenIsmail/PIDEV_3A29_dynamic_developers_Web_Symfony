@@ -87,7 +87,7 @@ class ReservationVoyageController extends AbstractController
      */
     public function order_By_Date_desc(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
-      return $this->render('reservation_voyage/index.html.twig', [
+      return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->order_By_Date_desc(),
         ]);
     }
@@ -100,7 +100,7 @@ class ReservationVoyageController extends AbstractController
      */
     public function order_By_Date_ASC(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
-        return $this->render('reservation_voyage/index.html.twig', [
+        return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->order_By_Date_ASC(),
         ]);
     }
@@ -113,7 +113,7 @@ class ReservationVoyageController extends AbstractController
      */
     public function Enfants(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
-        return $this->render('reservation_voyage/index.html.twig', [
+        return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->Enfants(),
         ]);
     }
@@ -126,7 +126,7 @@ class ReservationVoyageController extends AbstractController
      */
     public function Adolescents(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
-        return $this->render('reservation_voyage/index.html.twig', [
+        return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->Adolescents(),
         ]);
     }
@@ -139,7 +139,7 @@ class ReservationVoyageController extends AbstractController
      */
     public function Adultes(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
-        return $this->render('reservation_voyage/index.html.twig', [
+        return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->Adultes(),
         ]);
     }
@@ -152,7 +152,7 @@ class ReservationVoyageController extends AbstractController
      */
     public function Aines(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
-        return $this->render('reservation_voyage/index.html.twig', [
+        return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->Aines(),
         ]);
     }
@@ -165,7 +165,7 @@ class ReservationVoyageController extends AbstractController
     public function Economy(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
 
-        return $this->render('reservation_voyage/index.html.twig', [
+        return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->Economy(),
         ]);
     }
@@ -178,7 +178,7 @@ class ReservationVoyageController extends AbstractController
     public function Business(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
 
-        return $this->render('reservation_voyage/index.html.twig', [
+        return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->Business(),
         ]);
     }
@@ -192,7 +192,7 @@ class ReservationVoyageController extends AbstractController
     public function First(ReservationVoyageRepository $reservationVoyageRepository): Response
     {
 
-        return $this->render('reservation_voyage/index.html.twig', [
+        return $this->render('reservation_voyage/TreResrvationVoyage.html.twig', [
             'reservation_voyages' => $reservationVoyageRepository->First(),
         ]);
     }

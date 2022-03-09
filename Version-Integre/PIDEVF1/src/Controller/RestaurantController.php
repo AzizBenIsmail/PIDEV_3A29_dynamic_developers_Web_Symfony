@@ -60,7 +60,7 @@ class RestaurantController extends AbstractController
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->setPaper('A3', 'portrait');
 
         // Render the HTML as PDF
         $dompdf->render();
@@ -78,7 +78,7 @@ class RestaurantController extends AbstractController
 //list of students order By Dest
         $restaurant = $restaurantRepository->orderByNom();
 
-        return $this->render('restaurant/index.html.twig', [
+        return $this->render('restaurant/treRestaurant.html.twig', [
             'restaurants' => $restaurant,
         ]);
 
@@ -93,7 +93,7 @@ class RestaurantController extends AbstractController
 //list of students order By Dest
         $restaurant = $restaurantRepository->orderByAdresse();
 
-        return $this->render('restaurant/index.html.twig', [
+        return $this->render('restaurant/treRestaurant.html.twig', [
             'restaurants' => $restaurant,
         ]);
 
@@ -129,7 +129,7 @@ class RestaurantController extends AbstractController
                 $entityManager->persist($restaurant);
                 $entityManager->flush();
                 $this->addFlash('message','le Restaurant a bien ete ajouter ');
-                return $this->redirectToRoute('voyage_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('restaurant_index', [], Response::HTTP_SEE_OTHER);
             }else{
             $entityManager->persist($restaurant);
             $entityManager->flush();

@@ -164,7 +164,7 @@ class VoyageController extends AbstractController
     {
 //list of students order By Dest
         $VoyageByDest = $voyageRepository->searchdatenow();
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
 
@@ -180,7 +180,7 @@ class VoyageController extends AbstractController
 //list of students order By Dest
         $VoyageByDest = $voyageRepository->orderByDest();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
 
@@ -195,7 +195,7 @@ class VoyageController extends AbstractController
 //list of students order By Dest
         $VoyageByNom = $voyageRepository->order_By_Nom();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByNom,
         ]);
 
@@ -210,7 +210,7 @@ class VoyageController extends AbstractController
 //list of students order By Dest
         $VoyageByDate = $voyageRepository->order_By_Date();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDate,
         ]);
 
@@ -225,7 +225,7 @@ class VoyageController extends AbstractController
 //list of students order By Dest
         $VoyageByPrix = $voyageRepository->order_By_Prix();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByPrix,
         ]);
     }
@@ -240,7 +240,7 @@ class VoyageController extends AbstractController
     {
         $VoyageByDest = $voyageRepository->searchContinent_Afrique();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
     }
@@ -255,7 +255,7 @@ class VoyageController extends AbstractController
     {
         $VoyageByDest = $voyageRepository->searchContinent_Europe();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
     }
@@ -270,7 +270,7 @@ class VoyageController extends AbstractController
     {
         $VoyageByDest = $voyageRepository->searchContinent_Asie();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
     }
@@ -285,7 +285,7 @@ class VoyageController extends AbstractController
     {
         $VoyageByDest = $voyageRepository->searchContinent_Amerique();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
     }
@@ -299,7 +299,7 @@ class VoyageController extends AbstractController
     {
         $VoyageByDest = $voyageRepository->Disponible();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
     }
@@ -313,7 +313,7 @@ class VoyageController extends AbstractController
     {
         $VoyageByDest = $voyageRepository->Non_Disponible();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
     }
@@ -327,7 +327,7 @@ class VoyageController extends AbstractController
     {
         $VoyageByDest = $voyageRepository->Bientot_Disponible();
 
-        return $this->render('voyage/index.html.twig', [
+        return $this->render('voyage/Traitment.html.twig', [
             'voyages' => $VoyageByDest,
         ]);
     }

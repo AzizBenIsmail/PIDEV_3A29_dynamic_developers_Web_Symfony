@@ -1,4 +1,9 @@
-<table class="table">
+
+<h1 class="align-center">Bienvenue dans votre application Travel me </h1>
+
+<p>Voila la liste de tout les Reservation des Voyages</p>
+
+<table class="table" border="5">
     <tr>
         <th>Id</th>
         <th>Voyage</th>
@@ -19,10 +24,6 @@
             <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
             <td>{{ reservation_voyage.TravelClass }}</td>
             <td>{{ reservation_voyage.Age }}</td>
-            <td>
-                <a href="{{ path('reservation_voyage_show', {'id': reservation_voyage.id}) }}">show</a>
-                <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}">edit</a>
-            </td>
         </tr>
         </tbody>
     {% else %}
