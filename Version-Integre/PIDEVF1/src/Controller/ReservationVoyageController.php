@@ -24,6 +24,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mine\Email;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/reservation/voyage")
@@ -34,10 +35,17 @@ class ReservationVoyageController extends AbstractController
     /**
      * @Route("/", name="reservation_voyage_index", methods={"GET"})
      */
-    public function index(ReservationVoyageRepository $reservationVoyageRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
+        $donnees = $this->getDoctrine()->getRepository(ReservationVoyage::class)->findAll();
+        $reservationVoyage = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            4 // Nombre de résultats par page
+        );
         return $this->render('reservation_voyage/index.html.twig', [
-            'reservation_voyages' => $reservationVoyageRepository->findAll(),
+            'reservation_voyages' => $reservationVoyage,
         ]);
     }
 
