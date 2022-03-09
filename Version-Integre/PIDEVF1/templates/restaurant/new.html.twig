@@ -1,0 +1,65 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block title %}New Restaurant{% endblock %}
+
+{% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">La Liste Des Restaurants</span>
+                <h1>Create new Restaurant</h1>
+            </header>
+
+            <div class="section-content">
+                {{ form_start(form , {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Nom_Restaurant, {'label':'Nom du Restaurant' ,'attr':{'placeholder': 'Nom du Restaurant...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Adresse_Restaurant, {'attr':{'placeholder': 'Adresse_Restaurant.....'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Num_Tel_Restaurant, {'attr':{'placeholder': 'Num_Tel_Restaurant...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Description_Restaurant, {'attr':{'placeholder': 'Description_Restaurant.....'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.image, {'attr':{'placeholder': 'Confirm_password'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <button type= "submit" class="btn btn-success"> Ajouter ! </button>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <a href="{{ path('restaurant_index') }}">back to list</a>
+                    </fieldset>
+                </div>
+
+                {{ form_end(form) }}
+
+            </div>
+
+        </section>
+    </div>
+{% endblock %}

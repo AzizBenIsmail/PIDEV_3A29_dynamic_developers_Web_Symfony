@@ -1,0 +1,32 @@
+{% extends 'Front/front.html.twig' %}
+{% block fpost %}
+    <h2>Vos Reservations</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>Nom Excursion</th>
+                <th>Lieu</th>
+                <th>Date</th>
+                <th>Prix</th>
+                <th>Annuler Reservation</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for r in reservations %}
+            <tr>
+                <td>{{r.IDExcursion.NomExcursion}}</td>
+                <td>{{ r.IDExcursion.Lieu }}</td>
+                <td>{{ r.IDExcursion.Date  ? r.IDExcursion.Date|date('Y-m-d') : '' }}</td>
+                <td>{{ (r.IDExcursion.Prix) * r.nb }} </td>
+                <td> <a href="{{ path('reservation_excursion_delete',{'id':r.id }) }}">Annuler</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}
+{% block post %}
+{% endblock %}

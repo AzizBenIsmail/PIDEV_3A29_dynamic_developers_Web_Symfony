@@ -1,0 +1,64 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block title %}ReservationVoyage{% endblock %}
+
+{% block body %}
+<div id="main">
+    <!-- Post -->
+    <section class="post">
+        <header class="major">
+            <fieldset>
+                <div class="colums">
+                    <script type="text/javascript">
+                        function imprimer_page(){
+                            window.print();
+                        }
+                    </script>
+                <form>
+                    <input id="impression" class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1s" name="impression" type="button" onclick="imprimer_page()" value="Print this page" />
+                </form>
+    <h1>ReservationVoyage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reservation_voyage.id }}</td>
+            </tr>
+            <tr>
+                <th>Voyage</th>
+                {% if reservation_voyage.voyage.image|length > 0 %}
+                    <td><img src="{{ asset('uploads/'~ reservation_voyage.voyage.image ) }}" width="450" height="250"></td>
+                {% else %}
+                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                {% endif %}            </tr>
+            <tr>
+                <th>Client</th>
+                <td>{{ reservation_voyage.Client.UserName }}</td>
+            </tr>
+            <tr>
+                <th>Date_Reservation</th>
+                <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Travel_Class</th>
+                <td>{{ reservation_voyage.TravelClass }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ reservation_voyage.Age }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('reservation_voyage_index') }}">back to list</a>
+
+    <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}">edit</a>
+
+    {{ include('reservation_voyage/_delete_form.html.twig') }}
+
+    </section>
+    <iframe style="border:0; width: 100%; height: 350px;" class="img-fluid" src="https://maps.google.com/maps?q=+{{reservation_voyage.voyage.NomVoyage}}+&hl=fr&z=14&amp;output=embed" frameborder="0" allowfullscreen></iframe>              <div class="map-wrapper-300 mb-3">
+
+    </div>
+{% endblock %}

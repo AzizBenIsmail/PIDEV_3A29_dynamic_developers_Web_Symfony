@@ -1,0 +1,80 @@
+{% extends 'Front/front.html.twig' %}
+{% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">April 25, 2017</span>
+                <h1>Create new Voyage</h1>
+            </header>
+
+            <div class="section-content">
+                {{ form_start(form , {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Clien, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Destination, {'attr':{'placeholder': 'Destination'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Nom_Voyage, {'attr':{'placeholder': 'Nom_Voyage...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Duree_Voyage, {'attr':{'placeholder': 'Duree_Voyage'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Prix, {'attr':{'placeholder': 'prix_Voyage'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.date, {'attr':{'placeholder': 'date'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.valabilite) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.image, {'attr':{'placeholder': 'Confirm_password'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <button type= "submit" class="btn btn-success"> Ajouter ! </button>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <a href="{{ path('voyage_index') }}">back to list</a>
+                    </fieldset>
+                </div>
+
+                {{ form_end(form) }}
+
+            </div>
+
+        </section>
+    </div>
+{% endblock %}
