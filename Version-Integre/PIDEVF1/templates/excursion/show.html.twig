@@ -1,9 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'Front/front.html.twig' %}
 
 {% block title %}Excursion{% endblock %}
 
 {% block body %}
-    <h1>Excursion</h1>
+<div id="main">
+    <!-- Post -->
+    <section class="post">
+        <header class="major">
+            <fieldset>
+                <div class="colums">
+                    <h1>Excursion</h1>
 
     <table class="table">
         <tbody>
@@ -47,4 +53,6 @@
     <a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
 
     {{ include('excursion/_delete_form.html.twig') }}
+    </section>
+</div>
 {% endblock %}

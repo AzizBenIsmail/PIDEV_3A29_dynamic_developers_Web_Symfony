@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Voyage;
 use App\Repository\CommentaireRepository;
 use App\Repository\ExcursionRepository;
+use App\Repository\ReservationRestaurantRepository;
 use App\Repository\ReservationVoyageRepository;
 use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
@@ -22,7 +23,7 @@ class HomeController extends AbstractController
      */
     public function index(UserRepository $clientRepository ,VoyageRepository $voyageRepository,RestaurantRepository $restaurantRepository,
                           CommentaireRepository $commentaireRepository,ExcursionRepository $excursionRepository,ReservationVoyageRepository $reservationVoyageRepository
-   , Request $request, PaginatorInterface $paginator): Response
+   , Request $request, PaginatorInterface $paginator,ReservationRestaurantRepository $reservationRestaurantRepository): Response
     {
         // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
         $donnees = $this->getDoctrine()->getRepository(Voyage::class)->findAll();
@@ -34,7 +35,7 @@ class HomeController extends AbstractController
 
         return $this->render('Front/front.html.twig', [
             'clients' => $clientRepository->findAll(),'voyages' => $voyages,'restaurants' => $restaurantRepository->findAll(),
-            'commentaires' => $commentaireRepository->findAll(),'excursions' => $excursionRepository->findAll(),'reservation_voyages' => $reservationVoyageRepository->findAll(),
+            'commentaires' => $commentaireRepository->findAll(),'excursions' => $excursionRepository->findAll(),'reservation_restaurants' => $reservationRestaurantRepository->findAll(),'reservation_voyages' => $reservationVoyageRepository->findAll(),
         ]);
     }
 }

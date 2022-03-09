@@ -53,9 +53,14 @@ class Excursion
     private $valabilite;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Image;
+
+    public function __toString()
+    {
+        return (string) $this->Nom_Excursion;
+    }
 
     public function getId(): ?int
     {

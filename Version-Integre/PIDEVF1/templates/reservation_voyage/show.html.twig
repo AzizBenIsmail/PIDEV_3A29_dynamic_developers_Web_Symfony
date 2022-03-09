@@ -58,5 +58,7 @@
     {{ include('reservation_voyage/_delete_form.html.twig') }}
 
     </section>
-</div>
+    <iframe style="border:0; width: 100%; height: 350px;" class="img-fluid" src="https://maps.google.com/maps?q=+{{reservation_voyage.voyage.NomVoyage}}+&hl=fr&z=14&amp;output=embed" frameborder="0" allowfullscreen></iframe>              <div class="map-wrapper-300 mb-3">
+
+    </div>
 {% endblock %}

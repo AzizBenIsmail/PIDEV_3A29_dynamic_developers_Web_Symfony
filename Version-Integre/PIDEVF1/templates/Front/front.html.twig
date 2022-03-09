@@ -44,7 +44,7 @@
 						<ul class="links">
 							<li class="active"><a href="{{ path('home') }}">Actuelle</a></li>
 							<li><a href="{{ path('voyage_index') }}">La liste des Voyage</a></li>
-							<li><a href="generic.html">La liste des Excursion</a></li>
+							<li><a href="{{ path('excursion_index') }}">La liste des Excursion</a></li>
 							<li><a href="{{ path('restaurant_index') }}">La liste des restaurant</a></li>
 						</ul>
 						{% endif %}
@@ -69,14 +69,16 @@
 						<article class="post featured">
 							<header class="major">
 								<span class="date">{{ app.user.UserName }}</span>
-								<h2><a href="#">Bienvenu {{ app.user.UserName }}<br />
-										Chez TravelMe</a></h2>
 							</header>
+							<a href="#" class="image main"> {% if app.user.image|length > 0 %}
+									<td><img src="{{ asset('uploads/'~ app.user.image ) }}" width="500" height="350"></td>
+								{% else %}
+									<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+								{% endif %}</a>
+
 						</article>
 
-
-
-							<article class="post featured">
+						<article class="post featured">
 								<header class="major">
 									<span class="date">La Liste Des Voyage </span>
 									<table class="table" >
@@ -159,11 +161,56 @@
 								</table>
 							</header>
 							<ul class="actions special">
-								<li><a <a href="{{ path('reservation_restaurant_new') }}"class="button large">Reserver Voyage</a></li>
+								<li><a <a href="{{ path('reservation_restaurant_new') }}"class="button large">Reserver Restaurant</a></li>
 							</ul>
 						</article>
 
 						<!-- Posts -->
+						<article class="post featured">
+							<header class="major">
+								<span class="date">La Liste Des Excursion </span>
+								<table class="table">
+								<thead>
+								<tr>
+									<th>Id</th>
+									<th>Nom_Excursion</th>
+									<th>Description_Excursion</th>
+									<th>Date</th>
+									<th>Type_Excursion</th>
+									<th>Lieu</th>
+									<th>Valabilite</th>
+									<th>Image</th>
+									<th>actions</th>
+								</tr>
+								</thead>
+								<tbody>
+								{% for excursion in excursions %}
+									<tr>
+										<td>{{ excursion.id }}</td>
+										<td>{{ excursion.NomExcursion }}</td>
+										<td>{{ excursion.DescriptionExcursion }}</td>
+										<td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</td>
+										<td>{{ excursion.TypeExcursion }}</td>
+										<td>{{ excursion.Lieu }}</td>
+										<td>{{ excursion.valabilite }}</td>
+										<td>{{ excursion.Image }}</td>
+										<td>
+											<a href="{{ path('excursion_show', {'id': excursion.id}) }}">show</a>
+											<a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="9">no records found</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+								</table>
+							</header>
+							<ul class="actions special">
+								<li><a <a href="{{ path('reservation_excursion_new') }}"class="button large">Reserver Excursion</a></li>
+							</ul>
+						</article>
 
 						<!-- Footer -->
 

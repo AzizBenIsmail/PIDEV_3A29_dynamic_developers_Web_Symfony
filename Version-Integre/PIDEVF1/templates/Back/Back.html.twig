@@ -383,6 +383,7 @@
                                                                         <tr>
                                                                             
                                                                             <th>CIN</th>
+                                                                            <th>Image</th>
                                                                             <th>UserName</th>
                                                                             <th>Numero</th>
                                                                             <th>Email</th>
@@ -395,6 +396,11 @@
                                                                             <tr>
                                                                                
                                                                                 <td>{{ client.CIN }}</td>
+                                                                                {% if client.image|length > 0 %}
+                                                                                    <td><img src="{{ asset('uploads/'~ client.image ) }}" width="250" height="150"></td>
+                                                                                {% else %}
+                                                                                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                                                                                {% endif %}
                                                                                 <td>{{ client.UserName }}</td> 
                                                                                 <td>{{ client.Numero }}</td>
                                                                                 <td>{{ client.Email }}</td>
@@ -557,10 +563,11 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="table-responsive  mt-1">
-                                                                    <table class="table" >
+                                                                    <table class="table">
                                                                         <thead>
                                                                         <tr>
                                                                             <th>Id</th>
+                                                                            <th>Image</th>
                                                                             <th>Nom_Restaurant</th>
                                                                             <th>Adresse_Restaurant</th>
                                                                             <th>Num_Tel_Restaurant</th>
@@ -569,7 +576,67 @@
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                        
+                                                                        {% for restaurant in restaurants %}
+                                                                            <tr>
+                                                                                <td>{{ restaurant.id }}</td>
+                                                                                {% if restaurant.Image|length > 0 %}
+                                                                                    <td><img src="{{ asset('uploads/'~ restaurant.Image ) }}" width="250" height="150"></td>
+                                                                                {% else %}
+                                                                                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                                                                                {% endif %}
+                                                                                <td>{{ restaurant.NomRestaurant }}</td>
+                                                                                <td>{{ restaurant.AdresseRestaurant }}</td>
+                                                                                <td>{{ restaurant.NumTelRestaurant }}</td>
+                                                                                <td>{{ restaurant.DescriptionRestaurant }}</td>
+                                                                                <td>
+                                                                                    <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
+                                                                                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% else %}
+                                                                            <tr>
+                                                                                <td colspan="7">no records found</td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-8 d-flex flex-column">
+                                                <div class="row flex-grow">
+                                                    <div class="col-12 grid-margin stretch-card">
+                                                        <div class="card card-rounded">
+                                                            <div class="card-body">
+                                                                <div class="d-sm-flex justify-content-between align-items-start">
+                                                                    <div>
+                                                                        <h4 class="card-title card-title-dash">la liste des Excursion</h4>
+                                                                        <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href=""> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new commentaires</button> </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="table-responsive  mt-1">
+                                                                    <table class="table" >
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>Id</th>
+                                                                            <th>Objet</th>
+                                                                            <th>Commentaire</th>
+                                                                            <th>actions</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+
+
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -587,11 +654,11 @@
                                                             <div class="card-body">
                                                                 <div class="d-sm-flex justify-content-between align-items-start">
                                                                     <div>
-                                                                        <h4 class="card-title card-title-dash">la liste des excursion</h4>
+                                                                        <h4 class="card-title card-title-dash">la liste des Resrvation des excursion</h4>
                                                                         <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
                                                                     </div>
                                                                     <div>
-                                                                        <a href=""> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new excursion</button> </a>
+                                                                        <a href=""> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new commentaires</button> </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="table-responsive  mt-1">
@@ -599,18 +666,53 @@
                                                                         <thead>
                                                                         <tr>
                                                                             <th>Id</th>
-                                                                            <th>Image</th>
-                                                                            <th>Nom_Excursion</th>
-                                                                            <th>Description_Excursion</th>
-                                                                            <th>Date</th>
-                                                                            <th>Type_Excursion</th>
-                                                                            <th>Lieu</th>
-                                                                            <th>Valabilite</th>
+                                                                            <th>Objet</th>
+                                                                            <th>Commentaire</th>
                                                                             <th>actions</th>
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                        
+
+
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 d-flex flex-column">
+                                                <div class="row flex-grow">
+                                                    <div class="col-12 grid-margin stretch-card">
+                                                        <div class="card card-rounded">
+                                                            <div class="card-body">
+                                                                <div class="d-sm-flex justify-content-between align-items-start">
+                                                                    <div>
+                                                                        <h4 class="card-title card-title-dash">la liste des commentaires</h4>
+                                                                        <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href=""> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new commentaires</button> </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="table-responsive  mt-1">
+                                                                    <table class="table" >
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>Id</th>
+                                                                            <th>Objet</th>
+                                                                            <th>Commentaire</th>
+                                                                            <th>actions</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+
+
                                                                         </tbody>
                                                                     </table>
                                                                 </div>

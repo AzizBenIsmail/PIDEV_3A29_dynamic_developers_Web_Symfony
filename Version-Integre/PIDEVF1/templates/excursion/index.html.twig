@@ -1,9 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'Front/front.html.twig' %}
 
-{% block title %}Excursion index{% endblock %}
+{% block title %}ReservationRestaurant index{% endblock %}
 
 {% block body %}
-    <h1>Excursion index</h1>
+
+<div id="main">
+    <!-- Post -->
+    <section class="post">
+        <header class="major">
+            <span class="date">Excursion index</span>
 
     <table class="table">
         <thead>
@@ -44,4 +49,6 @@
     </table>
 
     <a href="{{ path('excursion_new') }}">Create new</a>
+    </section>
+</div>
 {% endblock %}

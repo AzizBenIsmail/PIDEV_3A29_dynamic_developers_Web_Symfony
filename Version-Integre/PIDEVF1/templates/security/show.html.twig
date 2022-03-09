@@ -16,6 +16,14 @@
                 <td>{{ client.CIN }}</td>
             </tr>
             <tr>
+                <th>Image</th>
+                {% if client.image|length > 0 %}
+                    <td><img src="{{ asset('uploads/'~ client.image ) }}" width="450" height="250"></td>
+                {% else %}
+                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                {% endif %}
+            </tr>
+            <tr>
                 <th>UserName</th>
                 <td>{{ client.UserName }}</td>
             </tr>

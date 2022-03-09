@@ -1,11 +1,80 @@
-{% extends 'base.html.twig' %}
+{% extends 'Front/front.html.twig' %}
 
 {% block title %}New Excursion{% endblock %}
 
 {% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">
     <h1>Create new Excursion</h1>
+</span>
+            </header>
 
-    {{ include('excursion/_form.html.twig') }}
+            <div class="section-content">
+                {{ form_start(form , {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Client, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
+                    </fieldset>
+                </div>
 
-    <a href="{{ path('excursion_index') }}">back to list</a>
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Nom_Excursion, {'attr':{'placeholder': 'Nom_Excursion'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Description_Excursion, {'attr':{'placeholder': 'Description_Excursion...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Date, {'label':'Date' ,'attr':{'placeholder': 'Date.......'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Type_Excursion, {'label':'Type_Excursion' ,'attr':{'placeholder': 'Type_Excursion.......'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.valabilite, {'label':'valabilite' ,'attr':{'placeholder': 'valabilite.......'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Lieu, {'label':'Lieu' ,'attr':{'placeholder': 'Lieu.......'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Image, {'label':'Image' ,'attr':{'placeholder': 'Image.......'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <button type= "submit" class="btn btn-success"> Reserver ! </button>
+                    </fieldset>
+                </div>
+
+
+
+                {{ form_end(form) }}
+                <a href="{{ path('excursion_index') }}">back to list</a>
+
+            </div>
+        </section>
+    </div>
 {% endblock %}

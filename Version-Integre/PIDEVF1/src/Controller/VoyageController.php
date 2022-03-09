@@ -424,7 +424,7 @@ class VoyageController extends AbstractController
             /** @var UploadedFile $imageFile */
             $imageFile = $form->get('image')->getData();
 
-            if($imageFile){
+                if($imageFile){
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
                 try {

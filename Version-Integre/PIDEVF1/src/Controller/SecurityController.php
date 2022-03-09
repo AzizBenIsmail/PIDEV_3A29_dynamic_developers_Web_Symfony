@@ -12,6 +12,8 @@ use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
 use App\Repository\VoyageRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +24,12 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
+
+
+
+
+
+
     /**
      * @Route("/inscription", name="security_registration")
      */
@@ -32,9 +40,24 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            
-         $hash = $encoder->encodePassword($user, $user->getPassword());
-         $user->setPassword($hash);
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+
+           // if($imageFile){
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $user->setImage($newFilename);
+
+                $hash = $encoder->encodePassword($user, $user->getPassword());
+                 $user->setPassword($hash);
 
          $user->setActivationToken(md5(uniqid()));
 
@@ -52,8 +75,28 @@ class SecurityController extends AbstractController
            $mailer->send($message);
 
          return $this->redirectToRoute('security_login');
-        }
-
+          }
+//        }else {
+//            $hash = $encoder->encodePassword($user, $user->getPassword());
+//            $user->setPassword($hash);
+//
+//            $user->setActivationToken(md5(uniqid()));
+//
+//            $manager->persist($user);
+//            $manager->flush();
+//
+//            $message = (new \Swift_Message('Activation de votre compte'))
+//                ->setFrom('travel.me.pridev@gmail.com')
+//                ->setTo($user->getEmail())
+//                ->setBody(
+//                    $this->renderView('emails/activation.html.twig', ['token' => $user->getActivationToken()]),
+//                    'text/html'
+//                );
+//
+//            $mailer->send($message);
+//
+//            return $this->redirectToRoute('security_login');
+//        }
         
         return $this->render('security/registration.html.twig',
     [
