@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReservationExcursionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationExcursionRepository::class)
@@ -18,25 +19,45 @@ class ReservationExcursion
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $Date_Reservation_Excursion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservationExcursions")
      */
     private $Client;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Excursion::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Excursion::class, inversedBy="reservationExcursions" )
      */
-    private $Excursion;
+    private $ID_Excursion;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=255)
      */
-    private $Date_Reservation_Excursion;
+    private $Email;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nb;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDateReservationExcursion(): ?\DateTimeInterface
+    {
+        return $this->Date_Reservation_Excursion;
+    }
+
+    public function setDateReservationExcursion(\DateTimeInterface $Date_Reservation_Excursion): self
+    {
+        $this->Date_Reservation_Excursion = $Date_Reservation_Excursion;
+
+        return $this;
     }
 
     public function getClient(): ?User
@@ -51,26 +72,38 @@ class ReservationExcursion
         return $this;
     }
 
-    public function getExcursion(): ?Excursion
+    public function getIDExcursion(): ?Excursion
     {
-        return $this->Excursion;
+        return $this->ID_Excursion;
     }
 
-    public function setExcursion(?Excursion $Excursion): self
+    public function setIDExcursion(?Excursion $ID_Excursion): self
     {
-        $this->Excursion = $Excursion;
+        $this->ID_Excursion = $ID_Excursion;
 
         return $this;
     }
 
-    public function getDateReservationExcursion(): ?\DateTimeInterface
+    public function getEmail(): ?string
     {
-        return $this->Date_Reservation_Excursion;
+        return $this->Email;
     }
 
-    public function setDateReservationExcursion(\DateTimeInterface $Date_Reservation_Excursion): self
+    public function setEmail(string $Email): self
     {
-        $this->Date_Reservation_Excursion = $Date_Reservation_Excursion;
+        $this->Email = $Email;
+
+        return $this;
+    }
+
+    public function getNb(): ?int
+    {
+        return $this->nb;
+    }
+
+    public function setNb(?int $nb): self
+    {
+        $this->nb = $nb;
 
         return $this;
     }

@@ -1,0 +1,74 @@
+{% extends 'Front/front.html.twig' %}
+                  {% block body %}
+
+                      <div id="main">
+                          <!-- Post -->
+                          <section class="post">
+                              <header class="major">
+    <ul class="navbar">
+        <li><a href={{ path('excursion_new') }}  > Proposer Une Excursion </a></li>
+        <li><a href={{ path('reservation_excursion_index') }}> Parcourir Mes Reservation </a></li>
+        <li><a href={{ path('excursion_indexTrie') }} > Trier Par Prix  </a></li>
+        <li>
+            <a href="#">Type</a>
+            <ul>
+                <li><a href="{{ path('excursion_indexCulturelle') }}">Excursions Culturel</a></li>
+                <li><a href="{{ path('excursion_indexHistorique') }}" >Excursions Historique</a></li>
+            </ul>
+        </li>
+    </ul>
+<br> <br>
+    <form class="w_search">
+        <div class="sidebar-search">
+            <div class="input-group custom-search-form">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Search">
+            </div>
+            <!-- /input-group --></div></form >
+                                  <form id="tableac">
+                                  <table class="table">
+                                      <thead>
+                                      <tr>
+                                          <th>Id</th>
+                                          <th>Image</th>
+                                          <th>Nom_Excursion</th>
+                                          <th>prix</th>
+                                          <th>Date</th>
+                                          <th>Type_Excursion</th>
+                                          <th>Lieu</th>
+                                          <th>Valabilite</th>
+                                          <th>actions</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      {% for excursion in excursions %}
+                                          <tr>
+                                              <td>{{ excursion.id }}</td>
+                                              {% if excursion.image|length > 0 %}
+                                              <td><img src="{{ asset('uploads/'~ excursion.image ) }}" width="250" height="150"></td>
+                                              {% else %}
+                                              <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                                              {% endif %}
+                                              <td>{{ excursion.NomExcursion }}</td>
+                                              <td>{{ excursion.prix }}</td>
+                                              <td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</td>
+                                              <td>{{ excursion.TypeExcursion }}</td>
+                                              <td>{{ excursion.Lieu }}</td>
+                                              <td>{{ excursion.valabilite }}</td>
+                                              <td>
+                                                  <a href="{{ path('excursion_show', {'id': excursion.id}) }}">Resrver</a>
+                                              </td>
+                                          </tr>
+                                      {% else %}
+                                          <tr>
+                                              <td colspan="9">no records found</td>
+                                          </tr>
+                                      {% endfor %}
+                                      </tbody>
+                                  </table>
+                                  </form>
+    {{ knp_pagination_render(excursions) }}
+
+
+                  {% endblock %}
+
+

@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Excursion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Data\SearchData;
+use Knp\Component\Pager\PaginationInterface;
 
 /**
  * @method Excursion|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +49,45 @@ class ExcursionRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findExcursionByLieu($Lieu)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.Lieu LIKE :Lieu')
+            ->setParameter('Lieu', '%' . $Lieu . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function orderByDate()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.Date', 'DESC')
+            ->getQuery()->getResult();
+    }
+
+    public function orderByPrix()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.prix', 'ASC')
+            ->getQuery()->getResult();
+    }
+
+    public function searchType($Type_Excursion){
+        return $this->createQueryBuilder('e')
+            ->where('e.Type_Excursion LIKE :Type_Excursion')
+            ->setParameter('Type_Excursion', '%' . $Type_Excursion . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Excursion[]
+     */
+    public function findPlanBySujet($sujet){
+        return $this->createQueryBuilder('ex')
+            ->andWhere('ex.Lieu LIKE :sujet ')
+            ->setParameter('sujet', '%'.$sujet.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

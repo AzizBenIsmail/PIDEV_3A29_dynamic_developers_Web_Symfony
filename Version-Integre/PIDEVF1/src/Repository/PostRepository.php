@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,32 @@ class PostRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
+    }
+
+
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function add(Post $entity, bool $flush = true): void
+    {
+        $this->_em->persist($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(Post $entity, bool $flush = true): void
+    {
+        $this->_em->remove($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
     }
 
     // /**
@@ -47,4 +75,28 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function searchPost($HashtagP)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.HashtagP LIKE :HashtagP')
+            ->setParameter('HashtagP', '%'.$HashtagP.'%')
+            ->orderBy('s.DateP', 'DESC')
+            ->getQuery()
+            ->execute();
+    }
+
+    public function orderByDate()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.DateP', 'DESC')
+            ->getQuery()->getResult();
+    }
+
+    /**
+     * @return Post[]
+     */
+    public function search():array{
+        return $this->findAll();
+    }
+
 }

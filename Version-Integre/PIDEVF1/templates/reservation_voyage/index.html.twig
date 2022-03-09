@@ -88,9 +88,12 @@
                             </tbody>
 
                         </table>
+                        <div class="align-center"> {{ knp_pagination_render(reservation_voyages) }}</div>
+
                         <a href="{{ path('reservation_voyage_new') }}">Resrver New Voyage</a>
 
         </section>
+
     </div>
 
 {% endblock %}

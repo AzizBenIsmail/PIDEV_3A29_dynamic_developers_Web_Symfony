@@ -28,5 +28,11 @@ security:
 
             
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/activation, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/oubli_pass, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/reset_pass, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/back, roles: ROLE_ADMIN }
+         
