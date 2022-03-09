@@ -1,0 +1,38 @@
+<?php //%255BApp%255CEntity%255CReservationRestaurant%2524Nbr_Personne%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Column'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Column')),
+        clone ($p['Symfony\\Component\\Validator\\Constraints\\Length'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\Length')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'type' => [
+                'integer',
+            ],
+            'maxMessage' => [
+                1 => 'le Nombre de personne doit être au moins entre 1-9',
+            ],
+            'minMessage' => [
+                1 => 'le Nombre de personne doit être au moins entre 1-9',
+            ],
+            'max' => [
+                1 => 1,
+            ],
+            'min' => [
+                1 => 1,
+            ],
+            'groups' => [
+                1 => [
+                    'Default',
+                ],
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+    ],
+    []
+); }];
