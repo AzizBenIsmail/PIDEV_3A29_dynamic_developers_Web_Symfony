@@ -212,6 +212,81 @@
 							</ul>
 						</article>
 
+						<article class="post featured">
+							<header class="major">
+								<span class="date">La Liste Des Commentaire </span>
+								<table class="table">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Objet</th>
+										<th>Commentaire</th>
+										<th>actions</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for commentaire in commentaires %}
+										<tr>
+											<td>{{ commentaire.id }}</td>
+											<td>{{ commentaire.Objet }}</td>
+											<td>{{ commentaire.Commentaire }}</td>
+											<td>
+												<a href="{{ path('commentaire_show', {'id': commentaire.id}) }}">show</a>
+												<a href="{{ path('commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="4">no records found</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</header>
+							<ul class="actions special">
+								<li><a <a href="{{ path('commentaire_new') }}"class="button large">Ajouter Un commentaire</a></li>
+							</ul>
+						</article>
+
+						<article class="post featured">
+							<header class="major">
+								<span class="date">La Liste Des Reclamation </span>
+								<table class="table">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Objet</th>
+										<th>Type_De_Reclamation</th>
+										<th>Description_Reclamation</th>
+										<th>Date</th>
+										<th>actions</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for reclamation in reclamations %}
+										<tr>
+											<td>{{ reclamation.id }}</td>
+											<td>{{ reclamation.Objet }}</td>
+											<td>{{ reclamation.TypeDeReclamation }}</td>
+											<td>{{ reclamation.DescriptionReclamation }}</td>
+											<td>{{ reclamation.Date ? reclamation.Date|date('Y-m-d') : '' }}</td>
+											<td>
+												<a href="{{ path('reclamation_show', {'id': reclamation.id}) }}">show</a>
+												<a href="{{ path('reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="6">no records found</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</header>
+							<ul class="actions special">
+								<li><a <a href="{{ path('reclamation_new') }}"class="button large">Passer une reclamation</a></li>
+							</ul>
+						</article>
 						<!-- Footer -->
 
 					</div>

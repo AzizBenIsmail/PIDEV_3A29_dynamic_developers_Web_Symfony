@@ -620,24 +620,46 @@
                                                                         <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
                                                                     </div>
                                                                     <div>
-                                                                        <a href=""> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new commentaires</button> </a>
+                                                                        <a href="{{ path('excursion_new') }}"> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new EXcursion</button> </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="table-responsive  mt-1">
-                                                                    <table class="table" >
-                                                                        <thead>
+                                                                    <table class="table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Id</th>
+                                                                        <th>Nom_Excursion</th>
+                                                                        <th>Description_Excursion</th>
+                                                                        <th>Date</th>
+                                                                        <th>Type_Excursion</th>
+                                                                        <th>Lieu</th>
+                                                                        <th>Valabilite</th>
+                                                                        <th>Image</th>
+                                                                        <th>actions</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    {% for excursion in excursions %}
                                                                         <tr>
-                                                                            <th>Id</th>
-                                                                            <th>Objet</th>
-                                                                            <th>Commentaire</th>
-                                                                            <th>actions</th>
+                                                                            <td>{{ excursion.id }}</td>
+                                                                            <td>{{ excursion.NomExcursion }}</td>
+                                                                            <td>{{ excursion.DescriptionExcursion }}</td>
+                                                                            <td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</td>
+                                                                            <td>{{ excursion.TypeExcursion }}</td>
+                                                                            <td>{{ excursion.Lieu }}</td>
+                                                                            <td>{{ excursion.valabilite }}</td>
+                                                                            <td>{{ excursion.Image }}</td>
+                                                                            <td>
+                                                                                <a href="{{ path('excursion_show', {'id': excursion.id}) }}">show</a>
+                                                                                <a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
+                                                                            </td>
                                                                         </tr>
-                                                                        </thead>
-                                                                        <tbody>
-
-
-
-                                                                        </tbody>
+                                                                    {% else %}
+                                                                        <tr>
+                                                                            <td colspan="9">no records found</td>
+                                                                        </tr>
+                                                                    {% endfor %}
+                                                                    </tbody>
                                                                     </table>
                                                                 </div>
                                                             </div>
@@ -658,23 +680,87 @@
                                                                         <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
                                                                     </div>
                                                                     <div>
-                                                                        <a href=""> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new commentaires</button> </a>
+                                                                        <a href="{{ path('reservation_excursion_new') }}"> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new Excursion</button> </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="table-responsive  mt-1">
-                                                                    <table class="table" >
+                                                                    <table class="table">
                                                                         <thead>
                                                                         <tr>
                                                                             <th>Id</th>
-                                                                            <th>Objet</th>
-                                                                            <th>Commentaire</th>
+                                                                            <th>Date_Reservation_Excursion</th>
                                                                             <th>actions</th>
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
-
-
-
+                                                                        {% for reservation_excursion in reservation_excursions %}
+                                                                            <tr>
+                                                                                <td>{{ reservation_excursion.id }}</td>
+                                                                                <td>{{ reservation_excursion.DateReservationExcursion ? reservation_excursion.DateReservationExcursion|date('Y-m-d') : '' }}</td>
+                                                                                <td>
+                                                                                    <a href="{{ path('reservation_excursion_show', {'id': reservation_excursion.id}) }}">show</a>
+                                                                                    <a href="{{ path('reservation_excursion_edit', {'id': reservation_excursion.id}) }}">edit</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% else %}
+                                                                            <tr>
+                                                                                <td colspan="3">no records found</td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 d-flex flex-column">
+                                                <div class="row flex-grow">
+                                                    <div class="col-12 grid-margin stretch-card">
+                                                        <div class="card card-rounded">
+                                                            <div class="card-body">
+                                                                <div class="d-sm-flex justify-content-between align-items-start">
+                                                                    <div>
+                                                                        <h4 class="card-title card-title-dash">la liste des Reclamation</h4>
+                                                                        <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="{{ path('reclamation_new') }}"> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new Reclamation</button> </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="table-responsive  mt-1">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>Id</th>
+                                                                            <th>Objet</th>
+                                                                            <th>Type_De_Reclamation</th>
+                                                                            <th>Description_Reclamation</th>
+                                                                            <th>Date</th>
+                                                                            <th>actions</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {% for reclamation in reclamations %}
+                                                                            <tr>
+                                                                                <td>{{ reclamation.id }}</td>
+                                                                                <td>{{ reclamation.Objet }}</td>
+                                                                                <td>{{ reclamation.TypeDeReclamation }}</td>
+                                                                                <td>{{ reclamation.DescriptionReclamation }}</td>
+                                                                                <td>{{ reclamation.Date ? reclamation.Date|date('Y-m-d') : '' }}</td>
+                                                                                <td>
+                                                                                    <a href="{{ path('reclamation_show', {'id': reclamation.id}) }}">show</a>
+                                                                                    <a href="{{ path('reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% else %}
+                                                                            <tr>
+                                                                                <td colspan="6">no records found</td>
+                                                                            </tr>
+                                                                        {% endfor %}
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -696,11 +782,11 @@
                                                                         <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
                                                                     </div>
                                                                     <div>
-                                                                        <a href=""> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new commentaires</button> </a>
+                                                                        <a href="{{ path('commentaire_new') }}"> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new commentaires</button> </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="table-responsive  mt-1">
-                                                                    <table class="table" >
+                                                                    <table class="table">
                                                                         <thead>
                                                                         <tr>
                                                                             <th>Id</th>
@@ -710,47 +796,21 @@
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
-
-
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-8 d-flex flex-column">
-                                                <div class="row flex-grow">
-                                                    <div class="col-12 grid-margin stretch-card">
-                                                        <div class="card card-rounded">
-                                                            <div class="card-body">
-                                                                <div class="d-sm-flex justify-content-between align-items-start">
-                                                                    <div>
-                                                                        <h4 class="card-title card-title-dash">la liste des commentaires</h4>
-                                                                        <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href=""> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new commentaires</button> </a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="table-responsive  mt-1">
-                                                                    <table class="table" >
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th>Id</th>
-                                                                            <th>Objet</th>
-                                                                            <th>Commentaire</th>
-                                                                            <th>actions</th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        
-                                                                           
-                                                                    
+                                                                        {% for commentaire in commentaires %}
+                                                                            <tr>
+                                                                                <td>{{ commentaire.id }}</td>
+                                                                                <td>{{ commentaire.Objet }}</td>
+                                                                                <td>{{ commentaire.Commentaire }}</td>
+                                                                                <td>
+                                                                                    <a href="{{ path('commentaire_show', {'id': commentaire.id}) }}">show</a>
+                                                                                    <a href="{{ path('commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% else %}
+                                                                            <tr>
+                                                                                <td colspan="4">no records found</td>
+                                                                            </tr>
+                                                                        {% endfor %}
                                                                         </tbody>
                                                                     </table>
                                                                 </div>

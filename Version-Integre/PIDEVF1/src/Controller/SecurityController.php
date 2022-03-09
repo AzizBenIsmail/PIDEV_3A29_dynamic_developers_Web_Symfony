@@ -7,6 +7,9 @@ use App\Form\ResetPassType;
 use App\Form\RegistrationType;
 use App\Repository\CommentaireRepository;
 use App\Repository\ExcursionRepository;
+use App\Repository\ReclamationRepository;
+use App\Repository\ReservationExcursionRepository;
+use App\Repository\ReservationRestaurantRepository;
 use App\Repository\ReservationVoyageRepository;
 use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
@@ -244,12 +247,26 @@ class SecurityController extends AbstractController
      /**
      * @Route("/", name="client_index", methods={"GET"})
      */
-    public function index(UserRepository $clientRepository ,VoyageRepository $voyageRepository,RestaurantRepository $restaurantRepository,
-                          CommentaireRepository $commentaireRepository,ExcursionRepository $excursionRepository,ReservationVoyageRepository $reservationVoyageRepository): Response
+    public function index(UserRepository $clientRepository ,
+                          ReservationRestaurantRepository $reservationRestaurantRepository,
+                          VoyageRepository $voyageRepository,
+                          RestaurantRepository $restaurantRepository,
+                          CommentaireRepository $commentaireRepository,
+                          ExcursionRepository $excursionRepository,
+                          ReservationVoyageRepository $reservationVoyageRepository,
+                          ReclamationRepository $reclamationRepository,
+                          ReservationExcursionRepository $reservationExcursionRepository): Response
        {
            return $this->render('Back/Back.html.twig', [
-           'clients' => $clientRepository->findAll(),'voyages' => $voyageRepository->findAll(),'restaurants' => $restaurantRepository->findAll(),
-           'commentaires' => $commentaireRepository->findAll(),'excursions' => $excursionRepository->findAll(),'reservation_voyages' => $reservationVoyageRepository->findAll(),
+               'clients' => $clientRepository->findAll(),
+               'voyages' => $voyageRepository->findAll(),
+               'restaurants' => $restaurantRepository->findAll(),
+               'reservation_restaurants' => $reservationRestaurantRepository->findAll(),
+               'commentaires' => $commentaireRepository->findAll(),
+               'excursions' => $excursionRepository->findAll(),
+               'reservation_voyages' => $reservationVoyageRepository->findAll(),
+               'reclamations' => $reclamationRepository->findAll(),
+               'reservation_excursions' => $reservationExcursionRepository->findAll(),
            ]);
        }
 
