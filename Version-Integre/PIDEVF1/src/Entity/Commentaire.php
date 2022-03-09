@@ -24,7 +24,12 @@ class Commentaire
     private $Client;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="commentaires")
+     */
+    private $posts;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Objet;
 
@@ -49,7 +54,17 @@ class Commentaire
 
         return $this;
     }
+    public function getPosts(): ?Post
+    {
+        return $this->posts;
+    }
 
+    public function setPosts(?Post $posts): self
+    {
+        $this->posts = $posts;
+
+        return $this;
+    }
     public function getObjet(): ?string
     {
         return $this->Objet;

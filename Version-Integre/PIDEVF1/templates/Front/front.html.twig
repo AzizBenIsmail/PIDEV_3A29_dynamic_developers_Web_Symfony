@@ -26,6 +26,9 @@
 						<p>Discover Your Life ,
 							Travel Where You Want
 						</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
 					</div>
 
 				<!-- Header -->
@@ -43,9 +46,10 @@
 						{% else %}
 						<ul class="links">
 							<li class="active"><a href="{{ path('home') }}">Actuelle</a></li>
-							<li><a href="{{ path('voyage_index') }}">La liste des Voyage</a></li>
-							<li><a href="{{ path('excursion_index') }}">La liste des Excursion</a></li>
-							<li><a href="{{ path('restaurant_index') }}">La liste des restaurant</a></li>
+							<li><a href="{{ path('voyage_index') }}">Voyage</a></li>
+							<li><a href="{{ path('excursion_index') }}"> Excursion</a></li>
+							<li><a href="{{ path('restaurant_index') }}"> restaurant</a></li>
+							<li><a href="{{ path('post_new') }}">Acceuil</a></li>
 						</ul>
 						{% endif %}
 						<ul class="icons">
@@ -347,6 +351,7 @@
 
 			</div>
 
+
             {% block js %}
 		<!-- Scripts -->
 			<script src="{{ asset('Front/assets/js/jquery.min.js') }}"></script>
@@ -357,6 +362,7 @@
 			<script src="{{ asset('Front/assets/js/util.js') }}"></script>
 			<script src="{{ asset('Front/assets/js/main.js') }}"></script>
             {% endblock %}
+
 
 	</body>
 </html>

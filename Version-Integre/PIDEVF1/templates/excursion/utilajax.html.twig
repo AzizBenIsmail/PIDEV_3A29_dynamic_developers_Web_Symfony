@@ -1,29 +1,40 @@
-
-    {% for excursion in util %}
-        {% if excursion.valabilite is same as "Valide" %}
-            <article>
-                <header>
-                    <span class="date">{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</span>
-                    <h2> {{ excursion.NomExcursion }} <br />
-                        {{ excursion.Lieu }}</h2>
-                </header>
-                <a href="#" class="image fit">
-                    {% if excursion.image|length > 0 %}
-                        <img src="{{ asset('uploads/'~ excursion.image ) }}" alt="" />
-                    {% else %}
-                        <img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" alt="" />
-                    {% endif %}
-                </a>
-                <p>{{ excursion.DescriptionExcursion }}</p>
-                <p>{{ excursion.Prix }} DT</p>
-                <ul class="actions special">
-                    <li><a href="{{ path('excursion_show',{'id':excursion.id }) }}">Reserver Maintenant</a></li>
-                </ul>
-            </article>
+{% for excursion in excursions %}
+<thead>
+<tr>
+    <th>Id</th>
+    <th>Image</th>
+    <th>Nom_Excursion</th>
+    <th>prix</th>
+    <th>Date</th>
+    <th>Type_Excursion</th>
+    <th>Lieu</th>
+    <th>Valabilite</th>
+    <th>actions</th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <td>{{ excursion.id }}</td>
+        {% if excursion.image|length > 0 %}
+            <td><img src="{{ asset('uploads/'~ excursion.image ) }}" width="250" height="150"></td>
+        {% else %}
+            <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
         {% endif %}
-    {% else %}
+        <td>{{ excursion.NomExcursion }}</td>
+        <td>{{ excursion.prix }}</td>
+        <td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : '' }}</td>
+        <td>{{ excursion.TypeExcursion }}</td>
+        <td>{{ excursion.Lieu }}</td>
+        <td>{{ excursion.valabilite }}</td>
+        <td>
+            <a href="{{ path('excursion_show', {'id': excursion.id}) }}">Resrver</a>
+            <a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="9">no records found</td>
+    </tr>
 
-            <p colspan="15">no records found</p>
-
-    {% endfor %}
-    {% endfor %}
+</tbody>
+{% endfor %}
