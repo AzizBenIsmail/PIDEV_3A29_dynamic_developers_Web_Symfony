@@ -1,0 +1,99 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block title %}ReservationVoyage index{% endblock %}
+
+{% block body %}
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <fieldset>
+                    <div class="colums">
+
+                        <h1>ReservationVoyage index</h1>
+                        <div id="wrap">
+                            <ul class="navbar">
+                                <li>
+                                    <a href="{{ path('reservation_voyage_index')}}">Actualiser</a>
+                                </li>
+                                <li>
+                                    <a href="#">Trie</a>
+                                    <ul>
+                                        <li><a href="{{ path('order_By_Date_desc')}}">Trie par Date order Desc</a></li>
+                                        <li><a href="{{ path('order_By_Date_ASC')}}">Trie par Date order Asc</a></li>>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Travel_Class</a>
+                                    <ul>
+                                        <li><a href="{{ path('Economy')}}">Economy</a></li>
+                                        <li><a href="{{ path('Business')}}">Business</a></li>
+                                        <li><a href="{{ path('First')}}">First</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Categories d'âge</a>
+                                    <ul>
+                                        <li><a href="{{ path('Enfants')}}">Enfants</a></li>
+                                        <li><a href="{{ path('Adolescents')}}">Adolescents</a></li>
+                                        <li><a href="{{ path('Adultes')}}">Adultes</a></li>
+                                        <li><a href="{{ path('Aines')}}">Aines</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="btn btn-success" href="{{path('PDF_Reserver') }}">  PDF </a>
+                                    <script type="text/javascript">
+                                        function imprimer_page(){
+                                            window.print();
+                                        }
+                                    </script>
+                                </li>
+                            </ul>
+                        </div>
+                        <form>
+                            <input id="impression" class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1s" name="impression" type="button" onclick="imprimer_page()" value="Print this page" />
+                        </form>
+                        <table class="table">
+                            <tr>
+                                <th>Id</th>
+                                <th>Voyage</th>
+                                <th>Date_Reservation</th>
+                                <th>Travel_Class</th>
+                                <th>Age</th>
+                                <th>actions</th>
+                            </tr>
+                            {% for reservation_voyage in reservation_voyages %}
+                            <tbody>
+                            <tr>
+                                <td>{{ reservation_voyage.id }}</td>
+                                {% if reservation_voyage.voyage.image|length > 0 %}
+                                    <td><img src="{{ asset('uploads/'~ reservation_voyage.voyage.image ) }}" width="250" height="150"></td>
+                                {% else %}
+                                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                                {% endif %}
+                                <td>{{ reservation_voyage.DateReservation ? reservation_voyage.DateReservation|date('Y-m-d') : '' }}</td>
+                                <td>{{ reservation_voyage.TravelClass }}</td>
+                                <td>{{ reservation_voyage.Age }}</td>
+                                <td>
+                                    <a href="{{ path('reservation_voyage_show', {'id': reservation_voyage.id}) }}">show</a>
+                                    <a href="{{ path('reservation_voyage_edit', {'id': reservation_voyage.id}) }}">edit</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+                        <div class="align-center"> {{ knp_pagination_render(reservation_voyages) }}</div>
+
+                        <a href="{{ path('reservation_voyage_new') }}">Resrver New Voyage</a>
+
+        </section>
+
+    </div>
+
+{% endblock %}

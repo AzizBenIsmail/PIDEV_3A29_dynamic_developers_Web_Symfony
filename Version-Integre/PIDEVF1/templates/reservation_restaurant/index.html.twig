@@ -1,0 +1,50 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block title %}ReservationRestaurant index{% endblock %}
+
+{% block body %}
+
+<div id="main">
+    <!-- Post -->
+    <section class="post">
+        <header class="major">
+            <span class="date">ReservationRestaurant index</span>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reservation</th>
+                <th>Date_Reservation</th>
+                <th>Nbr_Personne</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation_restaurant in reservation_restaurants %}
+            <tr>
+                <td>{{ reservation_restaurant.id }}</td>
+                {% if reservation_restaurant.Restaurant.Image|length > 0 %}
+                    <td><img src="{{ asset('uploads/'~ reservation_restaurant.Restaurant.Image ) }}" width="200" height="100"></td>
+                {% else %}
+                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                {% endif %}
+                <td>{{ reservation_restaurant.DateReservation ? reservation_restaurant.DateReservation|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation_restaurant.NbrPersonne }}</td>
+                <td>
+                    <a href="{{ path('reservation_restaurant_show', {'id': reservation_restaurant.id}) }}">show</a>
+                    <a href="{{ path('reservation_restaurant_edit', {'id': reservation_restaurant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('reservation_restaurant_new') }}">Create new</a>
+    </section>
+</div>
+{% endblock %}

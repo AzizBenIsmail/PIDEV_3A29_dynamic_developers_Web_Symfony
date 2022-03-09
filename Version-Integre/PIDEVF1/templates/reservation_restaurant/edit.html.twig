@@ -1,0 +1,55 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block title %}Edit ReservationRestaurant{% endblock %}
+
+{% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">
+    <h1>Edit ReservationRestaurant</h1>
+</span>
+            </header>
+
+            <div class="section-content">
+                {{ form_start(form , {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Client, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Restaurant, {'attr':{'placeholder': 'Restaurant'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Date_Reservation, {'attr':{'placeholder': 'Date...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Nbr_Personne, {'label':'Nbr_Personne' ,'attr':{'placeholder': 'Nbr_Personnel..(1-9)'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <button type= "submit" class="btn btn-success"> Reserver ! </button>
+                    </fieldset>
+                </div>
+
+                {{ form_end(form) }}
+                <a href="{{ path('reservation_restaurant_index') }}">back to list</a>
+
+            </div>
+    {{ include('reservation_restaurant/_delete_form.html.twig') }}
+        </section>
+    </div>
+{% endblock %}
