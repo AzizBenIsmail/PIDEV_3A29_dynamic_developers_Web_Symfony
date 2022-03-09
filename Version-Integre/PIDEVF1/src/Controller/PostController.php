@@ -146,12 +146,16 @@ class PostController extends AbstractController
     /**
      * @Route("/delete/{id}", name="post_delete")
      */
-    public function Delete_Post($id, PostRepository $postRepository)
-    {   $post=$postRepository->find($id);
-        $em=$this->getDoctrine()->getManager();
-        $em->remove($post);
-        $em->flush();
-        return $this->redirectToRoute('post_new');
+    public function Delete_Post(Request $request,Post $post, PostRepository $postRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($post);
+            $entityManager->flush();
+        }
+
+
+        return $this->redirectToRoute('back');
     }
 
     /**

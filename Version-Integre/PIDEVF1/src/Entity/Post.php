@@ -50,6 +50,7 @@ class Post
 
     /**
      * @ORM\OneToMany(targetEntity=PostLike::class, mappedBy="post")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @Groups("post:read")
      */
     private $Likes;

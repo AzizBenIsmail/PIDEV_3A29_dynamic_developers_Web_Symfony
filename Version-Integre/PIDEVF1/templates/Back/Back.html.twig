@@ -820,6 +820,63 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 d-flex flex-column">
+                                                <div class="row flex-grow">
+                                                    <div class="col-12 grid-margin stretch-card">
+                                                        <div class="card card-rounded">
+                                                            <div class="card-body">
+                                                                <div class="d-sm-flex justify-content-between align-items-start">
+                                                                    <div>
+                                                                        <h4 class="card-title card-title-dash">la liste des publications</h4>
+                                                                        <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="{{ path('post_new') }}"> <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new post</button> </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="table-responsive  mt-1">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>IdPost</th>
+                                                                            <th>UserId</th>
+                                                                            <th>Description</th>
+                                                                            <th>Hashtag</th>
+                                                                            <th>Date</th>
+                                                                            <th>visibilite</th>
+                                                                            <th>likes</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {% for p in posts %}
+                                                                            <tr>
+                                                                                <td>{{ p.id }}</td>
+                                                                                <td>{{ p.Client }}</td>
+                                                                                <td>{{ p.DescriptionP }}</td>
+                                                                                <td>{{ p.HashtagP }}</td>
+                                                                                <td>{{ p.DateP ? p.DateP|date('Y-m-d') : '' }}</td>
+                                                                                <td>{{ p.Visibilite }}</td>
+                                                                                <td>{{ p.Likes | length }}</td>
+                                                                                <td>
+                                                                                    <a href="{{ path('post_delete', {'id': p.id}) }}">Delete</a>
+                                                                                    <a href="{{ path('post_edit', {'id': p.id}) }}">Edit</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% else %}
+                                                                            <tr>
+                                                                                <td colspan="4">no records found</td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

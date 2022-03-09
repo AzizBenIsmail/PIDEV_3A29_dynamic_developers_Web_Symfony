@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Repository\ClientRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\ExcursionRepository;
+use App\Repository\PostRepository;
 use App\Repository\ReclamationRepository;
 use App\Repository\ReservationExcursionRepository;
 use App\Repository\ReservationRestaurantRepository;
@@ -32,7 +33,8 @@ class BackController extends AbstractController
                           ExcursionRepository $excursionRepository,
                           ReservationVoyageRepository $reservationVoyageRepository,
                           ReclamationRepository $reclamationRepository,
-                          ReservationExcursionRepository $reservationExcursionRepository): Response
+                          ReservationExcursionRepository $reservationExcursionRepository,
+                          PostRepository $postRepository): Response
     { $reclamations=$reclamationRepository->findAll();
         return $this->render('Back/Back.html.twig', [
             'clients' => $clientRepository->findAll(),
@@ -44,7 +46,7 @@ class BackController extends AbstractController
             'reservation_voyages' => $reservationVoyageRepository->findAll(),
             'reclamations' => $reclamations,
             'reservation_excursions' => $reservationExcursionRepository->findAll(),
-
+             'posts'=>$postRepository->findAll(),
         ]);
 
     }
