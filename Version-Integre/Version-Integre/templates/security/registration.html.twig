@@ -1,0 +1,71 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block body %}
+   <div id="main">
+           <!-- Post -->
+	 <section class="post">
+		  <header class="major">
+		     <span class="date">Mars 10, 2022</span>
+			   <h1>S'inscrire</h1>
+		  </header>
+    <div class="section-content">
+              {{ form_start(form) }}
+          <div class="col-md-12">
+             <fieldset>
+              {{ form_row(form.CIN, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
+             </fieldset>
+          </div>
+
+          <div class="col-md-12">
+            <fieldset>
+             {{ form_row(form.UserName, {'attr':{'placeholder': 'Username'}}) }}
+            </fieldset>
+          </div>
+
+          <div class="col-md-12">
+            <fieldset>
+             {{ form_row(form.Numero, {'attr':{'placeholder': 'numero...'}}) }}
+            </fieldset>
+          </div>
+
+          <div class="col-md-12">
+            <fieldset>
+             {{ form_row(form.Email, {'label':'Email de clien' ,'attr':{'placeholder': 'Adresse email....'}}) }}
+            </fieldset>
+          </div>
+
+         <div class="col-md-12">
+            <fieldset>
+             {{ form_row(form.Adresse, {'attr':{'placeholder': 'Votre Adresse'}}) }}
+            </fieldset>
+         </div>
+
+         <div class="col-md-12">
+           <fieldset>
+             {{ form_row(form.Password, {'attr':{'placeholder': 'password'}}) }}
+           </fieldset>
+         </div>
+
+         <div class="col-md-12">
+            <fieldset>
+             {{ form_row(form.confirm_password, {'attr':{'placeholder': 'Confirm_password'}}) }}
+            </fieldset>
+         </div>
+
+         <div class="col-md-12">
+            <fieldset>
+             {{ form_row(form.image, {'attr':{'placeholder': 'votre image'}}) }}
+            </fieldset>
+         </div>
+
+         <div class="col-md-12">
+           <fieldset>
+             <button type= "submit" class="btn btn-success"> Inscription ! </button>
+           </fieldset>
+         </div>
+       {{ form_end(form) }}
+
+    </div>
+  </section>
+</div>
+{% endblock %}

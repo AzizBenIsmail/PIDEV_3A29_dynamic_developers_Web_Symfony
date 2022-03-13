@@ -1,0 +1,42 @@
+<h1 class="align-center">Bienvenue dans votre application Travel me </h1>
+
+<p>Voila la liste de tout les Voyages</p>
+<table class="table" border="5" >
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Image</th>
+        <th>Destination</th>
+        <th>Nom_Voyage</th>
+        <th>Duree_Voyage</th>
+        <th>Date</th>
+        <th>Valabilite</th>
+        <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for voyage in voyages %}
+        <tr>
+            <td>{{ voyage.id }}</td>
+            {% if voyage.image|length > 0 %}
+                <td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="250" height="150"></td>
+            {% else %}
+                <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+            {% endif %}
+            <td>{{ voyage.Destination }}</td>
+            <td>{{ voyage.NomVoyage }}</td>
+            <td>{{ voyage.DureeVoyage }}</td>
+            <td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
+            <td>{{ voyage.valabilite }}</td>
+            <td>
+                <a href="{{ path('voyage_show', {'id': voyage.id}) }}">show</a>
+                <a href="{{ path('voyage_edit', {'id': voyage.id}) }}">edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="8">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

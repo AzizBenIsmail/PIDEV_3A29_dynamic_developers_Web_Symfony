@@ -1,0 +1,46 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block body %}
+
+   <div id="main">
+           <!-- Post -->
+	 <section class="post">
+	 {% for message in app.flashes('message') %}
+            <div class="alert alert-success" role="alert">
+             {{ message }}
+            </div>
+         {% endfor %}
+         {% for message in app.flashes('warning') %}
+            <div class="alert alert-warning" role="alert">
+               {{ message }}
+            </div>
+         {% endfor %}
+         {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger" role="alert">
+               {{ message }}
+            </div>
+         {% endfor %}
+		<header class="major">
+		  <span class="date">Mars 10, 2022</span>
+			 <h1>Se<br />
+				Connecter</h1>
+			  </header>
+			    <form action="{{ path('security_login') }}" method="post">
+					<div class="row gtr-uniform">
+					  <div class="col-6 col-12-xsmall">
+					    <input type="email" name="_username" required id="demo-name"  placeholder="Adresse email...." />
+					  </div>
+					  <div class="col-6 col-12-xsmall">
+						<input type="password" name="_password" required id="demo-email"  placeholder="Mot de passe...." />
+					  </div>
+                      <div class="col-12">
+					  <ul class="actions">
+						  <li><input type="submit" value="Se Connecter" class="primary" /></li>
+						  <li><a href="{{ path('forgotten_password') }}">Mdp Oublier</a></li>
+					  </ul>
+					</div>
+   
+				</form>
+    </section> 
+</div>
+{% endblock %}

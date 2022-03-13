@@ -1,0 +1,65 @@
+{% extends 'Front/front.html.twig' %}
+
+{% block title %}Edit ReservationVoyage{% endblock %}
+
+{% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">Create new ReservationVoyage</span>
+            </header>
+
+            <div class="section-content">
+                {{ form_start(form , {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Client, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Voyage, {'attr':{'placeholder': 'Voyage'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Date_Reservation, {'attr':{'placeholder': 'numero...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Travel_Class, {'label':'Email de clien' ,'attr':{'placeholder': 'Adresse email....'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Age, {'attr':{'placeholder': 'Votre Age'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <button type= "submit" class="btn btn-success"> Reserver ! </button>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+
+                        <a href="{{ path('reservation_voyage_index') }}">back to list</a>
+                    </fieldset>
+                </div>
+
+                {{ form_end(form) }}
+                {{ include('reservation_voyage/_delete_form.html.twig') }}
+
+            </div>
+        </section>
+    </div>
+{% endblock %}

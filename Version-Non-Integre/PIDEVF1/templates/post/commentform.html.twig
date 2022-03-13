@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>TRAVEL ME</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ asset('front/assets/css/main.css') }}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/poststyle.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}"/>
+    <noscript><link rel="stylesheet" href="{{ asset('front/assets/css/noscript.css') }}" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+        <div class="logo"><img src="{{ asset('front/images/logo.png') }}" width="100" height="100" /></div>
+        <h1>TRAVEL
+            ME</h1>
+        <p>Discover Your Life ,
+            Travel Where You Want
+        </p>
+        <ul class="actions">
+            <li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="{{ path('post_new')}}" class="logo">TRAVEL ME</a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+        {% if not app.user %}
+            <ul class="links">
+                <li class="active"><a href="{{ path('security_login') }}">Se Connecter</a></li>
+                <li><a href="{{ path('security_registration') }}">Inscription</a></li>
+            </ul>
+        {% else %}
+            <ul class="links">
+                <li ><a href="{{ path('home') }}">Actuelle</a></li>
+                <li><a href="{{ path('voyage_index') }}"> Voyage</a></li>
+                <li><a href="{{ path('excursion_index') }}"> Excursion</a></li>
+                <li><a href="{{ path('restaurant_index') }}"> restaurant</a></li>
+                <li class="active"><a href="{{ path('post_new') }}">Acceuil</a></li>
+            </ul>
+        {% endif %}
+        <ul class="icons">
+            {% if not app.user %}
+                <li><a href="{{ path('security_login') }}" ><img src="https://img.icons8.com/external-aficons-studio-flat-aficons-studio/68/000000/external-login-user-interface-aficons-studio-flat-aficons-studio.png"/></a></li>
+            {% else %}
+                <li><a href="{{ path('security_logout') }}" ><img src="https://img.icons8.com/external-kmg-design-outline-color-kmg-design/32/000000/external-log-out-user-interface-kmg-design-outline-color-kmg-design.png"/></a></li>
+            {% endif %}
+            <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+            <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+            <li><a href="https://github.com/AzizBenIsmail/PIDEV-3A29-dynamic-developers" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+
+        <div class="container">
+            <div class="main-containt">
+                    <div class="post-container">
+                        <div class="post-rows"></div>
+                        <div class="user-profile">
+                            {% if p.visibilite is same as "Public"   %}
+                                <img src="{{ asset('uploads/'~ user.Image ) }}">
+                                <div>
+                                    <p>{{ p.Client.UserName }}</p>
+                                    <span>{{ p.DateP ? p.DateP|date('Y-m-d') : '' }}</span>
+                                </div>
+                            {% elseif p.visibilite is same as "Anonyme" %}
+                                <img src="{{ asset('front/images/anonyme.svg') }}" >
+                                <div>
+                                    <p>Utilisateur</p>
+                                    <span>{{ p.DateP ? p.DateP|date('Y-m-d') : '' }}</span>
+                                </div>
+                            {% else %}
+                                <img src="{{ asset('front/images/logo.png') }}">
+                                <div>
+                                    <p>TRAVEL ME</p>
+                                    <span>{{ p.DateP ? p.DateP|date('Y-m-d') : '' }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <p>{{ p.DescriptionP }}<a href="{{path('post_hashtag',{'id':p.id })}}" id="hashtag"> {{ p.HashtagP}} </a></p>
+                        {% if  p.ImageP|length > 0 %}
+                            <img src="{{ asset('uploads/'~ p.ImageP ) }}" class="post-img">
+                        {% else %}
+                            <p></p>
+                        {% endif %}
+                        <div class="post-rows">
+                            <div class="activity-icons">
+                                <div><a href="{{path('post_like',{'id':p.id })}}" class="btn btn-link js-like">
+                                        {% if app.user and p.isLikeByUser(app.user) %}
+                                            <i class="fas fa-thumbs-up" ></i>
+                                        {% else %}
+                                            <i class="far fa-thumbs-up" ></i>
+                                        {% endif %}
+                                        <span class="js-likes">{{ p.Likes | length }}</span>
+                                        <span class="js-label">J'aime</span>
+
+                                    </a></div>
+                                <div><img src="{{ asset('front/images/comments.png') }}"> {{ p.commentaires | length }} comments</div>
+                            </div >
+                            <div class="post-container">
+                                <div class="post-rows"></div>
+                                {% for c in p.commentaires %}
+                                <div class="user-profile">
+                                        <img src="{{ asset('uploads/'~ user.Image ) }}">
+                                        <div>
+                                            <p>{{ c.Client.UserName }}</p>
+
+                                        </div>
+                                </div>
+                                <p>{{ c.Commentaire }}</p>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        </div>
+
+                    <div class="write-post-container">
+                        <div class="user-profile">
+                            <img src="{{ asset('uploads/'~ user.Image ) }}">
+                        </div>
+                        <div class="post-input-container">
+                            <button  onclick="openForm()"><strong>Ajouter Un Commentaire</strong></button>
+                        </div>
+                    </div>
+
+                <a  href="{{ path('post_new') }}" ><button type="button" class="load-more-btn">Retourner a la Page d'accueil</button></a>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-popup">
+        <div class="form-popupc" id="popupForm">
+            <div class="comment">
+            <section class="post">
+                <h3 class="fermer" onclick="closeForm()">Fermer</h3>
+                <header>Ajouter Un Commentaire</header>
+                <div class="form">
+                    {{ form_start(formc,{'attr' :{'novalidate':'novalidate'}}) }}
+                    <div class="user-profile">
+                        <img src="{{ asset('uploads/'~ user.Image ) }}" alt="logo">
+                        <div class="details">
+                            <p>{{ user.UserName }}</p>
+                        </div>
+                    </div>
+                    {{form_widget(formc.Commentaire)}}
+                    <button type= "submit" class="btn btn-success"> Commenter ! </button>
+                    <div class="options">
+                    </div>
+
+                    {{ form_end(formc) }}
+                </div>
+            </section>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Copyright -->
+    <div id="copyright">
+        <ul><li>&copy; travel ME</li><li>2021/2022</li></ul>
+    </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="{{ asset('front/assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('front/assets/js/jquery.scrollex.min.js') }}"></script>
+<script src="{{ asset('front/assets/js/jquery.scrolly.min.js') }}"></script>
+<script src="{{ asset('front/assets/js/browser.min.js') }}"></script>
+<script src="{{ asset('front/assets/js/breakpoints.min.js') }}"></script>
+<script src="{{ asset('front/assets/js/util.js') }}"></script>
+<script src="{{ asset('front/assets/js/main.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function onClickBtnLike(event){
+        event.preventDefault();
+        const url=this.href;
+        const spanCount=this.querySelector('span.js-likes');
+        const icone= this.querySelector('i');
+        axios.get(url).then(function (response){
+            spanCount.textContent=response.data.likes;
+            if (icone.classList.contains('fas'))
+                icone.classList.replace('fas','far');
+            else
+                icone.classList.replace('far','fas');
+        })
+    }
+    document.querySelectorAll('a.js-like').forEach(function (link){
+        link.addEventListener('click',onClickBtnLike);
+    })
+</script>
+<script>
+    function openForm() {
+        document.getElementById("popupForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+    }
+</script>
+</body>
+</html>

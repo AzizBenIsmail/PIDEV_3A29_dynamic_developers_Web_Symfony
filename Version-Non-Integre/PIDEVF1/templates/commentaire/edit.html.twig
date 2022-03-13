@@ -1,0 +1,57 @@
+{% block title %}Edit Commentaire{% endblock %}
+
+{% extends 'Front/front.html.twig' %}
+
+
+{% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">
+    <h1>Edit Commentaire</h1>
+</span>
+            </header>
+
+            <div class="section-content">
+                {{ form_start(form , {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Client, {'label':'Votre CIN' ,'attr':{'placeholder': 'CIN...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Objet, {'attr':{'placeholder': 'Objet'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(form.Commentaire, {'attr':{'placeholder': 'Commentaire...'}}) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <button type= "submit" class="btn btn-success"> Reserver ! </button>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        <a href="{{ path('commentaire_index') }}">back to list</a>
+                    </fieldset>
+                </div>
+
+                {{ form_end(form) }}
+                {{ include('commentaire/_delete_form.html.twig') }}
+
+            </div>
+            <a href="{{ path('commentaire_index') }}">back to list</a>
+
+        </section>
+    </div>
+{% endblock %}
