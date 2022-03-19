@@ -1,0 +1,71 @@
+{% extends 'Front/front.html.twig' %}
+{% block body %}
+
+    <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">La Liste Des Users</span>
+            </header>
+            <div id="wrap">
+                <ul class="navbar">
+                    <li>
+                      <a href="{{ path('client_index')}}">Actualiser</a>
+                    </li>
+                    
+                    <li>
+                        
+                           <a href="{{ path('listUserWithSearch')}}">Recherche Par Email</a>                   
+                        
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="section-content">
+
+                {{ form(searchUser, {'attr': {'class':'form-horizontal','novalidate':'novalidate'}} ) }}
+
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th>Cin</th>
+                        <th>image</th>
+                        <th>UserName</th>
+                        <th>Numero</th>
+                        <th>Email</th>
+                        <th>Adresse</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for client in clients %}
+                        <tr>
+                            <td>{{ client.cin }}</td>
+                            {% if client.image|length > 0 %}
+                                <td><img src="{{ asset('uploads/'~ client.image ) }}" width="250" height="150"></td>
+                            {% else %}
+                                <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                            {% endif %}
+                            <td>{{ client.UserName }}</td>
+                            <td>{{ client.Numero }}</td>
+                            <td>{{ client.Email }}</td>
+                            <td>{{ client.Adresse }}</td>
+                            <td>
+                                <button>  <a href="{{ path('client_show', {'id': client.id}) }}">show</a> </button>
+                                 {{ include('security/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <button>   <a href="{{ path('security_registration') }}">Create new</a></button>
+            </div>
+
+        </section>
+    </div>
+{% endblock %}

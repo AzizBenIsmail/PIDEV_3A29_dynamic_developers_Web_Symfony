@@ -1,0 +1,40 @@
+<h1 class="align-center">Bienvenue dans votre application Travel me </h1>
+
+<p>Voila la liste de tout les Utilsateurs</p>
+<table class="table" border="5" >
+    <thead>
+    <tr>
+        <th>Cin</th>
+        <th>Image</th>
+        <th>UserName</th>
+        <th>Numero</th>
+        <th>Email</th>
+        <th>Adresse</th>
+        <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for client in Clients %}
+        <tr>
+            <td>{{ client.Cin }}</td>
+            {% if client.image|length > 0 %}
+                <td><img src="{{ asset('uploads/'~ client.image ) }}" width="250" height="150"></td>
+            {% else %}
+                <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+            {% endif %}
+            <td>{{ client.UserName }}</td>
+            <td>{{ client.Numero }}</td>
+            <td>{{ client.Email }}</td>
+            <td>{{ client.Adresse }}</td>
+            <td>
+                <a href="{{ path('client_index') }}"><button>back to list</button></a>
+                 {{ include('security/_delete_form.html.twig') }}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="8">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

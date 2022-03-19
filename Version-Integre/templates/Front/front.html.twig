@@ -1,0 +1,369 @@
+<!-- pour le logine seulement-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title> {% block title %} TRAVEL ME {% endblock %} </title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!-- plugins:css -->
+		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('Front/images/img.ico')}}">
+        {% block stylesheets %}
+		<link rel="stylesheet" href="{{ asset('Front/assets/css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{ asset('Front/assets/css/noscript.css') }}" /></noscript>
+
+        {% endblock %}
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<div class="logo"><img src="{{ asset('img/img.png') }}" width="150" height="150" /></div>
+						<h1>TRAVEL
+							ME</h1>
+						<p>Discover Your Life ,
+							Travel Where You Want
+						</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="{{ path('home') }}" class="logo">TRAVEL ME</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						{% if not app.user %}
+						<ul class="links">
+							<li class="active"><a href="{{ path('security_login') }}">Se Connecter</a></li>
+							<li><a href="{{ path('security_registration') }}">Inscription</a></li>
+						</ul>
+						{% else %}
+						<ul class="links">
+							<li class="active"><a href="{{ path('home') }}">Actuelle</a></li>
+							<li><a href="{{ path('voyage_index') }}">Voyage</a></li>
+							<li><a href="{{ path('excursion_index') }}"> Excursion</a></li>
+							<li><a href="{{ path('restaurant_index') }}"> restaurant</a></li>
+							<li><a href="{{ path('post_new') }}">Acceuil</a></li>
+						</ul>
+						{% endif %}
+						<ul class="icons">
+							{% if not app.user %}
+							<li><a href="{{ path('security_login') }}" ><img src="https://img.icons8.com/external-aficons-studio-flat-aficons-studio/68/000000/external-login-user-interface-aficons-studio-flat-aficons-studio.png"/></a></li>
+							{% else %}
+							<li><a href="{{ path('security_logout') }}" ><img src="https://img.icons8.com/external-kmg-design-outline-color-kmg-design/32/000000/external-log-out-user-interface-kmg-design-outline-color-kmg-design.png"/></a></li>
+							{% endif %}
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/AzizBenIsmail/PIDEV-3A29-dynamic-developers" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+				<!-- Main -->
+                  {% block body %}
+					<div id="main">
+
+						<!-- Featured Post -->
+						<article class="post featured">
+							<header class="major">
+								<span class="date">{{ app.user.UserName }}</span>
+							</header>
+							<a href="#" class="image main"> {% if app.user.image|length > 0 %}
+									<td><img src="{{ asset('uploads/'~ app.user.image ) }}" width="500" height="350"></td>
+								{% else %}
+									<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+								{% endif %}</a>
+
+						</article>
+
+						<article class="post featured">
+								<header class="major">
+									<span class="date">La Liste Des Voyage </span>
+									<table class="table" >
+										<thead>
+										<tr>
+											<th>Id</th>
+											<th>Image</th>
+											<th>Destination</th>
+											<th>Nom_Voyage</th>
+											<th>Duree_Voyage</th>
+											<th>Prix</th>
+											<th>Date</th>
+											<th>Valabilite</th>
+										</tr>
+										</thead>
+										<tbody>
+										{% for voyage in voyages %}
+											<tr>
+												<td>{{ voyage.id }}</td>
+												{% if voyage.image|length > 0 %}
+													<td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="250" height="150"></td>
+												{% else %}
+													<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+												{% endif %}
+												<td>{{ voyage.Destination }}</td>
+												<td>{{ voyage.NomVoyage }}</td>
+												<td>{{ voyage.DureeVoyage }}</td>
+												<td>{{ voyage.prix }}</td>
+												<td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
+												<td>{{ voyage.valabilite }}</td>
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="8">no records found</td>
+											</tr>
+										{% endfor %}
+										</tbody>
+									</table>
+									<div class="align-center"> {{ knp_pagination_render(voyages) }}</div>
+								</header>
+								<ul class="actions special">
+									<li><a <a href="{{ path('reservation_voyage_new') }}"class="button large">Reserver Voyage</a></li>
+								</ul>
+							</article>
+
+						<article class="post featured">
+							<header class="major">
+								<span class="date">La Liste Des Restaurant </span>
+								<table class="table">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Image</th>
+										<th>Nom_Restaurant</th>
+										<th>Adresse_Restaurant</th>
+										<th>Num_Tel_Restaurant</th>
+										<th>Description_Restaurant</th>
+										</tr>
+									</thead>
+									<tbody>
+									{% for restaurant in restaurants %}
+										<tr>
+											<td>{{ restaurant.id }}</td>
+											{% if restaurant.Image|length > 0 %}
+												<td><img src="{{ asset('uploads/'~ restaurant.Image ) }}" width="250" height="150"></td>
+											{% else %}
+												<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+											{% endif %}
+											<td>{{ restaurant.NomRestaurant }}</td>
+											<td>{{ restaurant.AdresseRestaurant }}</td>
+											<td>{{ restaurant.NumTelRestaurant }}</td>
+											<td>{{ restaurant.DescriptionRestaurant }}</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="7">no records found</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</header>
+							<ul class="actions special">
+								<li><a <a href="{{ path('reservation_restaurant_new') }}"class="button large">Reserver Restaurant</a></li>
+							</ul>
+						</article>
+
+						<!-- Posts -->
+						<article class="post featured">
+							<header class="major">
+								<span class="date">La Liste Des Excursion </span>
+								<table class="table">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Nom</th>
+										<th>Description_Excursion</th>
+										<th>Type_Excursion</th>
+										<th>Lieu</th>
+										<th>prix</th>
+										<th>Date</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for excursion in excursions %}
+										<tr>
+											<td>{{ excursion.id }}</td>
+											<td>                                {% if excursion.image|length > 0 %}
+											<td><img src="{{ asset('uploads/'~ excursion.image ) }}" width="250" height="150"></td>
+											{% else %}
+											<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+											{% endif %}</td>
+											<td>{{ excursion.DescriptionExcursion }}</td>
+											<td>{{ excursion.TypeExcursion }}</td>
+											<td>{{ excursion.Lieu }}</td>
+											<td>{{ excursion.prix }}</td>
+											<td>{{ excursion.Date ? excursion.Date|date('Y-m-d') : ''  }}</td>
+											<td>
+
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="4">no records found</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+
+							</header>
+							<ul class="actions special">
+								<li><a <a href="{{ path('excursion_index') }}"class="button large">Reserver Excursion</a></li>
+							</ul>
+						</article>
+
+						<article class="post featured">
+							<header class="major">
+								<span class="date">La Liste Des Commentaire </span>
+								<table class="table">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Objet</th>
+										<th>Commentaire</th>
+										<th>actions</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for commentaire in commentaires %}
+										<tr>
+											<td>{{ commentaire.id }}</td>
+											<td>{{ commentaire.Objet }}</td>
+											<td>{{ commentaire.Commentaire }}</td>
+											<td>
+												<a href="{{ path('commentaire_show', {'id': commentaire.id}) }}">show</a>
+												<a href="{{ path('commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="4">no records found</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</header>
+							<ul class="actions special">
+								<li><a <a href="{{ path('commentaire_new') }}"class="button large">Ajouter Un commentaire</a></li>
+							</ul>
+						</article>
+
+						<article class="post featured">
+							<header class="major">
+								<span class="date">La Liste Des Reclamation </span>
+								<table class="table">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Objet</th>
+										<th>Type_De_Reclamation</th>
+										<th>Description_Reclamation</th>
+										<th>Date</th>
+										<th>actions</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for reclamation in reclamations %}
+										<tr>
+											<td>{{ reclamation.id }}</td>
+											<td>{{ reclamation.Objet }}</td>
+											<td>{{ reclamation.TypeDeReclamation }}</td>
+											<td>{{ reclamation.DescriptionReclamation }}</td>
+											<td>{{ reclamation.Date ? reclamation.Date|date('Y-m-d') : '' }}</td>
+											<td>
+												<a href="{{ path('reclamation_show', {'id': reclamation.id}) }}">show</a>
+												<a href="{{ path('reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="6">no records found</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</header>
+							<ul class="actions special">
+								<li><a <a href="{{ path('reclamation_new') }}"class="button large">Passer une reclamation</a></li>
+							</ul>
+						</article>
+						<!-- Footer -->
+
+					</div>
+                       {% endblock %}
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section>
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>1234 Somewhere Road #87257<br />
+								Nashville, TN 00000-0000</p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p><a href="#">(000) 000-0000</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">info@untitled.tld</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+
+            {% block js %}
+		<!-- Scripts -->
+			<script src="{{ asset('Front/assets/js/jquery.min.js') }}"></script>
+			<script src="{{ asset('Front/assets/js/jquery.scrollex.min.js') }}"></script>
+			<script src="{{ asset('Front/assets/js/jquery.scrolly.min.js') }}"></script>
+			<script src="{{ asset('Front/assets/js/browser.min.js') }}"></script>
+			<script src="{{ asset('Front/assets/js/breakpoints.min.js') }}"></script>
+			<script src="{{ asset('Front/assets/js/util.js') }}"></script>
+			<script src="{{ asset('Front/assets/js/main.js') }}"></script>
+            {% endblock %}
+
+
+
+	</body>
+</html>

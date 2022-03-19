@@ -1,0 +1,54 @@
+{% extends 'Front/front.html.twig' %}
+
+ {% block title %}Restaurant{% endblock %}
+
+{% block body %}
+
+<div id="main">
+    <!-- Post -->
+    <section class="post">
+        <header class="major">
+            <fieldset>
+                <div class="colums">
+    <h1>Restaurant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ restaurant.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                {% if restaurant.Image|length > 0 %}
+                    <td><img src="{{ asset('uploads/'~ restaurant.Image ) }}" width="600" height="350"></td>
+                {% else %}
+                    <td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Nom_Restaurant</th>
+                <td>{{ restaurant.NomRestaurant }}</td>
+            </tr>
+            <tr>
+                <th>Adresse_Restaurant</th>
+                <td>{{ restaurant.AdresseRestaurant }}</td>
+            </tr>
+            <tr>
+                <th>Num_Tel_Restaurant</th>
+                <td>{{ restaurant.NumTelRestaurant }}</td>
+            </tr>
+            <tr>
+                <th>Description_Restaurant</th>
+                <td>{{ restaurant.DescriptionRestaurant }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('restaurant_index') }}">back to list</a>
+
+    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+
+    {{ include('restaurant/_delete_form.html.twig') }}
+{% endblock %}
