@@ -22,12 +22,14 @@ class ReservationVoyage
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=true,onDelete="CASCADE")
+     * @Groups("post:read")
      */
     private $Client;
 
     /**
      * @ORM\ManyToOne(targetEntity=Voyage::class)
      * @ORM\JoinColumn(nullable=true)
+     * @Groups("post:read")
      */
     private $Voyage;
 

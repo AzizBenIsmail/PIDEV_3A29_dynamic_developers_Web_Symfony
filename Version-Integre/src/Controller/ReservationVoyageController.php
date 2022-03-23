@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ReservationVoyage;
+use App\Entity\User;
 use App\Entity\Voyage;
 use App\Form\ReservationVoyageType;
 use App\Repository\ReservationVoyageRepository;
@@ -65,17 +66,56 @@ class ReservationVoyageController extends AbstractController
     /**
          * @Route("/AddReserVoyageJSON", name="AddReserVoyageJSON")
      */
-    public function AddReserVoyageJSON(Request $request,NormalizerInterface $Normalizer)
+    public function AddReserVoyageJSON(MailerInterface $mailer,Request $request,NormalizerInterface $Normalizer)
     {
         $em= $this->getDoctrine()->getManager();
         $ReservationVoyage = new ReservationVoyage();
-        $ReservationVoyage->setClient($request->get('Client'));
-        $ReservationVoyage->setVoyage($request->get('Voyage'));
+        $voy=$em->getRepository(Voyage::class)->find($request->get('Voyage'));
+        $cli=$em->getRepository(User::class)->findOneBy(["CIN"=>$request->get('Client')]);
+        $ReservationVoyage->setClient($em->getRepository(User::class)->findOneBy(["CIN"=>$request->get('Client')]));
+        $ReservationVoyage->setVoyage($em->getRepository(Voyage::class)->find($request->get('Voyage')));
         $ReservationVoyage->setTravelClass($request->get('TravelClass'));
       //  $ReservationVoyage->setDateReservation($request->get('DateReservation'));
         $ReservationVoyage->setAge($request->get('Age'));
         $em->persist($ReservationVoyage);
         $em->flush();
+        $path = $this->getParameter('kernel.project_dir').'/public';
+        $pathqr = $this->getParameter('kernel.project_dir').'/public/Front/images';
+
+
+        $result=Builder::create()
+            ->writer(new PngWriter())
+            ->data("Date Voyage :"." | Duree :".$voy->getDureeVoyage()."  | Prix : ".$voy->getPrix()."  |   ")
+            ->encoding(new Encoding('UTF-8'))
+            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+            ->size(300)
+            ->margin(10)
+            ->labelText("")
+            ->logoPath($pathqr."/img.png")
+            ->labelAlignment(new LabelAlignmentCenter())
+            ->labelMargin(new Margin(15, 5, 5, 5))
+            ->logoResizeToWidth('100')
+            ->logoResizeToHeight('100')
+            ->build();
+
+
+        $namePng =uniqid('',''). '.png';
+        $result->saveToFile( $pathqr.'/qr-code/'.$namePng);
+
+        //mailing
+        //on cree le message
+        $message = (new TemplatedEmail())
+            //ili bech yeb3ath
+            ->from('travel.me.pidev@gmail.com')
+            //ili bech ijih l message
+            ->to($cli->getEmail())
+            ->subject("Confirmation de Reservation")
+            ->html("<p>bonjour,". $cli->getUserName()."</p><p> Ceci est une confirmation de votre reservation ". $voy->getNomVoyage()."</p><p> Merci pour votre Confiance </p>")
+            ->embedFromPath($pathqr.'/qr-code/'.$namePng)
+            ->embedFromPath($path.'/uploads/'.$voy->getImage());
+
+        //on envoi l email
+        $mailer->send($message);
         $jsonContent = $Normalizer->normalize($ReservationVoyage,'json',['groups'=>'post:read']);
         return new Response(json_encode($jsonContent));
     }
