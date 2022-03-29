@@ -28,6 +28,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("/voyage")
@@ -87,12 +88,45 @@ class VoyageController extends AbstractController
     //recuperation Json
 
     /**
-     * @Route("/AllVoyageJSON", name="AllVoyageJSON")
+     * @Route("/order_By_NomJSON", name="order_By_NomJSON")
      */
-    public function AllVoyageJSON(NormalizerInterface $Normalizer)
+    public function Torder_By_NomJSON(NormalizerInterface $Normalizer , VoyageRepository $voyageRepository)
     {
         $repository= $this->getDoctrine()->getRepository(Voyage::class);
-        $Voyage = $repository->findAll();
+        $Voyage = $voyageRepository->order_By_Nom();
+        $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/order_By_DestJSON", name="order_By_DestJSON")
+     */
+    public function order_By_DestJSON(NormalizerInterface $Normalizer, VoyageRepository $voyageRepository)
+    {
+        $repository= $this->getDoctrine()->getRepository(Voyage::class);
+        $Voyage = $voyageRepository->orderByDest();
+        $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/order_By_PrixJSON", name="order_By_PrixJSON")
+     */
+    public function order_By_PrixJSON(NormalizerInterface $Normalizer, VoyageRepository $voyageRepository)
+    {
+        $repository= $this->getDoctrine()->getRepository(Voyage::class);
+        $Voyage = $voyageRepository->order_By_Prix();
+        $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/AllVoyageJSON", name="AllVoyageJSON")
+     */
+    public function AllVoyageJSON(NormalizerInterface $Normalizer, VoyageRepository $voyageRepository)
+    {
+        $repository= $this->getDoctrine()->getRepository(Voyage::class);
+        $Voyage = $voyageRepository->findAll();
         $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
         return new Response(json_encode($jsonContent));
     }
@@ -126,6 +160,7 @@ class VoyageController extends AbstractController
      */
     public function UpdateVoyageJSON($id,Request $request,NormalizerInterface $Normalizer)
     {
+       // $id = $request->get("id");
         $em = $this->getDoctrine()->getManager();
         $Voyage = $this->getDoctrine()->getRepository(Voyage::class)->find($id);
         $Voyage->setDestination($request->get('Destination'));
@@ -138,21 +173,27 @@ class VoyageController extends AbstractController
         $em->flush();
         $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
         return new Response("Update successfully".json_encode($jsonContent));
+
     }
 
     //Supprimer d'un voyage a partie du json
 
     /**
      * @Route("/DeleteVoyageJSON/{id}", name="DeleteVoyageJSON")
+     * @Method("DELETE")
      */
     public function DeleteVoyageJSON($id,Request $request,NormalizerInterface $Normalizer)
     {
+       // $id = $request->get("id");
         $em = $this->getDoctrine()->getManager();
         $Voyage = $this->getDoctrine()->getRepository(Voyage::class)->find($id);
+        if($Voyage!=null ) {
         $em->remove($Voyage);
         $em->flush();
         $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
         return new Response("Delete successfully".json_encode($jsonContent));
+        }else{
+            return new JsonResponse("id agence invalide.");}
     }
 
     //trie selon date special

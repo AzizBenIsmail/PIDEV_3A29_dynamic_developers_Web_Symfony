@@ -41,7 +41,7 @@ class ReservationVoyage
 
     /**
      * @ORM\Column(type="string", length=255,nullable=true)
-     * @Assert\Choice({"Economy class", "First class", "Business class"})
+         * @Assert\Choice({"Economy class", "First class", "Business class"})
      * @Groups("post:read")
      */
     private $Travel_Class;
