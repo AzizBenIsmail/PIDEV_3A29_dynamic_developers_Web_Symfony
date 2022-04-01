@@ -192,12 +192,12 @@
      {# -------------------------------------partie profile------------------------------------------------#}
                     <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                         {% if app.user.image|length > 0 %}
+                       {#   {% if app.user.image|length > 0 %}
                                                                                     <td><img class="img-xs rounded-circle" src="{{ asset('uploads/'~ app.user.image ) }}" alt="Profile image"></td>
                                                                                 {% else %}
                                                                                     <td><img class="img-xs rounded-circle" src="{{ asset('uploads/'~ "Not found.jpg" ) }}" alt="Profile image"></td>
                                                                                 {% endif %}
-                           
+                           #}
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                             <div class="dropdown-header text-center">
                                 <img class="img-md rounded-circle" src="{{ asset('Back/images/faces/face8.jpg') }}" alt="Profile image">

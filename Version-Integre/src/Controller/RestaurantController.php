@@ -41,6 +41,63 @@ class RestaurantController extends AbstractController
         ]);
     }
 
+    /**
+         * @Route("/AddrestaurantsJSON", name="AddrestaurantsJSON")
+     */
+    public function AddrestaurantsJSON(Request $request,NormalizerInterface $Normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $Restaurant = new Restaurant();
+        $Restaurant->setNomRestaurant($request->get('Nom_Restaurant'));
+        $Restaurant->setAdresseRestaurant($request->get('Adresse_Restaurant'));
+        $Restaurant->setNumTelRestaurant($request->get('Num_Tel_Restaurant'));
+        $Restaurant->setDescriptionRestaurant($request->get('Description_Restaurant'));
+        $Restaurant->setImage($request->get('Image'));
+        $em->persist($Restaurant);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($Restaurant,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    //miss ajour d'un voyage a partie du json
+
+    /**
+     * @Route("/UpdaterestaurantsJSON/{id}", name="UpdaterestaurantsJSON")
+     */
+    public function UpdaterestaurantsJSON($id,Request $request,NormalizerInterface $Normalizer)
+    {
+        // $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $Restaurant = $this->getDoctrine()->getRepository(Restaurant::class)->find($id);
+        $Restaurant->setNomRestaurant($request->get('Nom_Restaurant'));
+        $Restaurant->setAdresseRestaurant($request->get('Adresse_Restaurant'));
+        $Restaurant->setNumTelRestaurant($request->get('Num_Tel_Restaurant'));
+        $Restaurant->setDescriptionRestaurant($request->get('Description_Restaurant'));
+        $Restaurant->setImage($request->get('Image'));
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($Restaurant,'json',['groups'=>'post:read']);
+        return new Response("Update successfully".json_encode($jsonContent));
+    }
+
+    //Supprimer d'un voyage a partie du json
+
+    /**
+     * @Route("/DeleterestaurantsJSON/{id}", name="DeleterestaurantsJSON")
+     */
+    public function DeleterestaurantsJSON($id,Request $request,NormalizerInterface $Normalizer)
+    {
+        // $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $Restaurant = $this->getDoctrine()->getRepository(Restaurant::class)->find($id);
+        if($Restaurant!=null ) {
+            $em->remove($Restaurant);
+            $em->flush();
+            $jsonContent = $Normalizer->normalize($Restaurant,'json',['groups'=>'post:read']);
+            return new Response("Delete successfully".json_encode($jsonContent));
+        }else{
+            return new JsonResponse("id agence invalide.");}
+    }
+
     //Exporter pdf (composer require dompdf/dompdf)
     /**
      * @Route("/pdf", name="PDF_Restaurant", methods={"GET"})
