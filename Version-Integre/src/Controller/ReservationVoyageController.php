@@ -75,7 +75,7 @@ class ReservationVoyageController extends AbstractController
         $ReservationVoyage->setClient($em->getRepository(User::class)->findOneBy(["CIN"=>$request->get('Client')]));
         $ReservationVoyage->setVoyage($em->getRepository(Voyage::class)->find($request->get('Voyage')));
         $ReservationVoyage->setTravelClass($request->get('TravelClass'));
-      //  $ReservationVoyage->setDateReservation($request->get('DateReservation'));
+        //$ReservationVoyage->setDateReservation(new \DateTime('@'.strtotime('now')));
         $ReservationVoyage->setAge($request->get('Age'));
         $em->persist($ReservationVoyage);
         $em->flush();
@@ -120,6 +120,22 @@ class ReservationVoyageController extends AbstractController
         return new Response(json_encode($jsonContent));
     }
 
+    /**
+     * @Route("/deletedReservationVoyage/{id}", name="deletedReservationVoyage")
+     */
+    public function deletedReservationVoyage($id,Request $request,NormalizerInterface $Normalizer)
+    {
+        // $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $ReservationVoyage = $this->getDoctrine()->getRepository(ReservationVoyage::class)->find($id);
+        if($ReservationVoyage!=null ) {
+            $em->remove($ReservationVoyage);
+            $em->flush();
+            $jsonContent = $Normalizer->normalize($ReservationVoyage,'json',['groups'=>'post:read']);
+            return new Response("Delete successfully".json_encode($jsonContent));
+        }else{
+            return new JsonResponse("id agence invalide.");}
+    }
 
     //Exporter pdf
 

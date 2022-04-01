@@ -85,6 +85,22 @@ class VoyageController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/searchUserJSON", name="usersearch")
+     */
+    public function searchUser(Request $request,NormalizerInterface $normalizer)
+    {
+        $repository = $this->getDoctrine()->getRepository(Voyage::class);
+        $requestString=$request->get('search');
+        $Voyage = $repository->findPlanBySujet($requestString);
+
+
+        $jsonContent =$normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+        return new JsonResponse($jsonContent);
+    }
+
+
     //recuperation Json
 
     /**
@@ -144,7 +160,7 @@ class VoyageController extends AbstractController
         $Voyage->setNomVoyage($request->get('NomVoyage'));
         $Voyage->setDureeVoyage($request->get('DureeVoyage'));
         $Voyage->setPrix($request->get('PrixVoyage'));
-        //$Voyage->setDate($request->get('Date'));
+        $Voyage->setDate($request->get(new \DateTime('@'.strtotime('10 janvier 2022'))));
         $Voyage->setValabilite($request->get('Valabilite'));
         $Voyage->setImage($request->get('Image'));
         $em->persist($Voyage);
@@ -167,13 +183,12 @@ class VoyageController extends AbstractController
         $Voyage->setNomVoyage($request->get('NomVoyage'));
         $Voyage->setDureeVoyage($request->get('DureeVoyage'));
         $Voyage->setPrix($request->get('PrixVoyage'));
-        //$Voyage->setDate($request->get('Date'));
+        $Voyage->setDate(new \DateTime('@'.strtotime('10 September 2000')));
         $Voyage->setValabilite($request->get('Valabilite'));
         $Voyage->setImage($request->get('Image'));
         $em->flush();
         $jsonContent = $Normalizer->normalize($Voyage,'json',['groups'=>'post:read']);
         return new Response("Update successfully".json_encode($jsonContent));
-
     }
 
     //Supprimer d'un voyage a partie du json
