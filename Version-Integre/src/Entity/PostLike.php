@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PostLikeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PostLikeRepository::class)
@@ -14,6 +15,7 @@ class PostLike
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 

@@ -160,7 +160,7 @@ class VoyageController extends AbstractController
         $Voyage->setNomVoyage($request->get('NomVoyage'));
         $Voyage->setDureeVoyage($request->get('DureeVoyage'));
         $Voyage->setPrix($request->get('PrixVoyage'));
-        $Voyage->setDate($request->get(new \DateTime('@'.strtotime('10 janvier 2022'))));
+        $Voyage->setDate(new \DateTime('@'.strtotime('Now')));
         $Voyage->setValabilite($request->get('Valabilite'));
         $Voyage->setImage($request->get('Image'));
         $em->persist($Voyage);

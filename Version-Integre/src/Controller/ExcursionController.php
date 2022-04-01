@@ -18,11 +18,16 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("/excursion")
@@ -45,6 +50,132 @@ class ExcursionController extends AbstractController
             'excursions' => $e,
 
         ]);
+    }
+
+    /******************Ajouter Excursion*****************************************/
+    /**
+     * @Route("/addExcursionJSON", name="add_Excursion")
+     * @Method("POST")
+     */
+
+    public function ajouterExcursionAction(Request $request)
+    {
+        $Excursion= new Excursion();
+        $nom=$request->query->get("nom");
+        $description=$request->query->get("description");
+        $lieu=$request->query->get("lieu");
+        $type=$request->query->get("type");
+        $date=$request->query->get("date");
+        $valabilite=$request->query->get("valabilite");
+        $image=$request->query->get("image");
+        $prix=$request->query->get("prix");
+        $em = $this->getDoctrine()->getManager();
+        $Excursion->setNomExcursion($nom);
+        $Excursion->setDescriptionExcursion($description);
+        $Excursion->setLieu($lieu);
+        $Excursion->setTypeExcursion($type);
+      //  $expire_date= new \DateTime($date);
+        $Excursion->setDate(new \DateTime('@'.strtotime('28 September 2022')));
+        $Excursion->setValabilite($valabilite);
+        $Excursion->setImage($image);
+        $Excursion->setPrix($prix);
+
+        $em->persist($Excursion);
+        $em->flush();
+
+        return $this->json($Excursion,200,[],['groups'=>'excursion:read']);
+
+    }
+
+    /******************Supprimer Excursion*****************************************/
+
+    /**
+     * @Route("/deleteExcursionJSON", name="delete_Excursion")
+     * @Method("DELETE")
+     */
+
+    public function deleteExcursionAction(Request $request) {
+
+        $id = $request->get("id");
+
+        $em = $this->getDoctrine()->getManager();
+        $Excursion= $em->getRepository(Excursion::class)->find($id);
+        if($Excursion!=null ) {
+            $em->remove($Excursion);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serialize->normalize("Excursiona ete supprimee avec success.");
+            return new JsonResponse($formatted);
+
+        }
+        return new JsonResponse("id Excursion invalide.");
+
+
+    }
+
+    /******************Modifier Excursion*****************************************/
+    /**
+     * @Route("/updateExcursionJSON", name="update_Excursion")
+     * @Method("PUT")
+     */
+    public function modifierExcursionAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $Excursion= $this->getDoctrine()->getManager()
+            ->getRepository(Excursion::class)
+            ->find($request->get("id"));
+        $Excursion->setNomExcursion($request->get("nom"));
+        $Excursion->setDescriptionExcursion($request->get("description"));
+        $Excursion->setLieu($request->get("lieu"));
+        $Excursion->setTypeExcursion($request->get("type"));
+        $Excursion->setDate($request->get("date"));
+        $Excursion->setValabilite($request->get("valabilite"));
+        $Excursion->setImage($request->get("image"));
+        $Excursion->setPrix($request->get("prix"));
+
+        $em->persist($Excursion);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize("Excursion a ete modifiee avec success.");
+        return new JsonResponse($formatted);
+
+    }
+
+
+
+    /******************affichage Excursion*****************************************/
+
+    /**
+     * @Route("/displayExcursionsJSON", name="display_Excursion")
+     */
+    public function allExcursionAction(NormalizerInterface $Normalizer)
+    {
+
+        $Excursion= $this->getDoctrine()->getManager()->getRepository(Excursion::class)->findAll();
+
+        return $this->json($Excursion,200,[],['groups'=>'excursion:read']);
+    }
+
+    /******************Detail Excursion*****************************************/
+
+    /**
+     * @Route("/detailExcursionJSON", name="detail_Excursion")
+     * @Method("GET")
+     */
+
+    //Detail Post
+    public function detailExcursionAction(Request $request)
+    {
+        $id = $request->get("id");
+
+        $em = $this->getDoctrine()->getManager();
+        $Excursion= $this->getDoctrine()->getManager()->getRepository(Excursion::class)->find($id);
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getDescription();
+        });
+        return $this->json($Excursion,200,[],['groups'=>'excursion:read']);
     }
     /**
      * @Route("/AllExcursionJSON", name="AllExcursionJSON")

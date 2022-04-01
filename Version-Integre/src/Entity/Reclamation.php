@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ReclamationRepository::class)
@@ -14,11 +15,13 @@ class Reclamation
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("reclamation:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("reclamation:read")
      */
     private $Objet;
 
@@ -30,16 +33,19 @@ class Reclamation
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("reclamation:read")
      */
     private $Type_De_Reclamation;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("reclamation:read")
      */
     private $Description_Reclamation;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("reclamation:read")
      */
     private $Date;
 

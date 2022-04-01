@@ -16,14 +16,19 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("/post")
@@ -31,6 +36,150 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PostController extends AbstractController
 {
+
+    /******************Ajouter Post*****************************************/
+    /**
+     * @Route("/addPostJSON", name="add_Post")
+     * @Method("POST")
+     */
+
+    public function ajouterPostAction(Request $request)
+    {
+        $Post = new Post();
+        $description = $request->query->get("description");
+        $hashtag=$request->query->get("hashtag");
+        $visibilite=$request->query->get("visibilite");
+        $image=$request->query->get("image");
+        $em = $this->getDoctrine()->getManager();
+        $date = new \DateTime('now');
+
+        $Post->setImageP($image);
+        $Post->setDescriptionP($description);
+        $Post->setHashtagP($hashtag);
+        $Post->setVisibilite($visibilite);
+        $Post->setDateP($date);
+
+        $em->persist($Post);
+        $em->flush();
+
+        return $this->json($Post,200,[],['groups'=>'post:read']);
+
+    }
+
+    /******************Supprimer Post*****************************************/
+
+    /**
+     * @Route("/deletePostJSON", name="delete_Post")
+     * @Method("DELETE")
+     */
+
+    public function deletePostAction(Request $request) {
+
+        $id = $request->get("id");
+
+        $em = $this->getDoctrine()->getManager();
+        $Post = $em->getRepository(Post::class)->find($id);
+        if($Post!=null ) {
+            $em->remove($Post);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serialize->normalize("Post a ete supprimee avec success.");
+            return new JsonResponse($formatted);
+
+        }
+        return new JsonResponse("id Post invalide.");
+
+
+    }
+
+    /******************Modifier Post*****************************************/
+    /**
+     * @Route("/updatePostJSON", name="update_Post")
+     * @Method("PUT")
+     */
+    public function modifierPostAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $Post = $this->getDoctrine()->getManager()
+            ->getRepository(Post::class)
+            ->find($request->get("id"));
+
+        $Post->setDescriptionP($request->get("description"));
+        $Post->setHashtagP($request->get("hashtag"));
+        $Post->setVisibilite($request->get("visibilite"));
+
+        $em->persist($Post);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize("Post a ete modifiee avec success.");
+        return new JsonResponse($formatted);
+
+    }
+
+
+
+    /******************affichage Post*****************************************/
+
+    /**
+     * @Route("/displayPostsJSON", name="display_Post")
+     */
+    public function allPostAction(NormalizerInterface $Normalizer)
+    {
+
+        $Post = $this->getDoctrine()->getManager()->getRepository(Post::class)->findAll();
+
+        return $this->json($Post,200,[],['groups'=>'post:read']);
+    }
+
+    /**
+     * @Route("/displayPostshJSON", name="display_Posth")
+
+     */
+    public function allPosthAction(Request $request ,PostRepository $postRepository)
+    {
+        $id = $request->get("id");
+        $Post = $this->getDoctrine()->getManager()->getRepository(Post::class)->SearchPost($postRepository->find($id)->getHashtagP());
+        return $this->json($Post,200,[],['groups'=>'post:read']);
+
+    }
+
+
+    /******************Detail Post*****************************************/
+
+    /**
+     * @Route("/detailPostJSON", name="detail_Post")
+     * @Method("GET")
+     */
+
+    //Detail Post
+    public function detailPostAction(Request $request)
+    {
+        $id = $request->get("id");
+
+        $em = $this->getDoctrine()->getManager();
+        $Post = $this->getDoctrine()->getManager()->getRepository(Post::class)->find($id);
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getDescription();
+        });
+        return $this->json($Post,200,[],['groups'=>'post:read']);
+    }
+    /**
+     * @Route ("/nblike",name="post_likenb")
+     * @param PostLikeRepository $likeRepository
+     * @param Request $request
+     * @return Response
+     */
+    public function nblikejson(PostLikeRepository $likeRepository , Request $request):Response
+    {
+        $p=$request->get("idpost");
+        $post=$this->getDoctrine()->getManager()->getRepository(Post::class)->findOneBy(array('id' => $p),null,1,0);
+        return $this->json($likeRepository->count(['post'=>$post]));
+
+
+    }
+
     /**
      * @Route("/", name="newsfeed")
      */

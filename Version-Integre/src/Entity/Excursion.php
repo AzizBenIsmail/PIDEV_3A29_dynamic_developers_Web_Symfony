@@ -19,6 +19,8 @@ class Excursion
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("post:read")
+     * @Groups("excursion:read")
+     * @Groups("ReservationExcursion:read")
      */
     private $id;
 
@@ -32,6 +34,7 @@ class Excursion
      *      maxMessage = "Le de Nom_Excursion ne peut pas etre plus {{ limit }} characters"
      * )
      * @Groups("post:read")
+     * @Groups("excursion:read")
      */
     private $Nom_Excursion;
 
@@ -43,23 +46,27 @@ class Excursion
      *      minMessage = "l'objet doit être au moins {{ limit }} characters"
      * )
      * @Groups("post:read")
+     * @Groups("excursion:read")
      */
     private $Description_Excursion;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("excursion:read")
      */
     private $Date;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("post:read")
+     * @Groups("excursion:read")
      */
     private $Type_Excursion;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("post:read")
+     * @Groups("excursion:read")
      */
     private $Lieu;
 
@@ -67,12 +74,14 @@ class Excursion
      * @ORM\Column(type="string", length=255)
      * @Assert\Choice({"Valide","Proposition"})
      * @Groups("post:read")
+     * @Groups("excursion:read")
      */
     private $valabilite;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("post:read")
+     * @Groups("excursion:read")
      */
     private $Image;
 
@@ -84,6 +93,7 @@ class Excursion
     /**
      * @ORM\Column(type="float")
      * @Groups("post:read")
+     * @Groups("excursion:read")
      */
     private $prix;
 

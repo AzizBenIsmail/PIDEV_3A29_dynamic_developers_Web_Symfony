@@ -64,6 +64,58 @@ class ReservationVoyageController extends AbstractController
     }
 
     /**
+     * @Route("/Devenirpemium", name="Devenirpemium")
+     */
+    public function Devenirpemium(MailerInterface $mailer,Request $request,NormalizerInterface $Normalizer)
+    {
+        $path = $this->getParameter('kernel.project_dir').'/public';
+        $em= $this->getDoctrine()->getManager();
+        $ReservationVoyage = new ReservationVoyage();
+        $cli=$em->getRepository(User::class)->findOneBy(["CIN"=>$request->get('CIN')]);
+
+        $pathqr = $this->getParameter('kernel.project_dir').'/public/Front/images';
+
+
+        $result=Builder::create()
+            ->writer(new PngWriter())
+            ->data(" | Bonjour MR :".$cli->getUserName()." | Votre MDP & Login : Premium|Premium")
+            ->encoding(new Encoding('UTF-8'))
+            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+            ->size(300)
+            ->margin(10)
+            ->labelText("")
+            ->logoPath($pathqr."/img.png")
+            ->labelAlignment(new LabelAlignmentCenter())
+            ->labelMargin(new Margin(15, 5, 5, 5))
+            ->logoResizeToWidth('100')
+            ->logoResizeToHeight('100')
+            ->build();
+
+
+        $namePng =uniqid('',''). '.png';
+        $result->saveToFile( $pathqr.'/qr-code/'.$namePng);
+
+        //mailing
+        //on cree le message
+
+        $message = (new TemplatedEmail())
+            //ili bech yeb3ath
+            ->from('travel.me.pidev@gmail.com')
+            //ili bech ijih l message
+            ->to($cli->getEmail())
+            ->subject("Confirmation de Reservation")
+            ->html("<p>bonjour,". $cli->getUserName()."</p><p> Bonjour voicie Votra mdp : (Premuim) et login : (Premuim) pour devenir Premium </p><p> Merci pour votre Confiance </p>")
+            ->embedFromPath($path.'/uploads/'.$cli->getImage())
+            ->embedFromPath($pathqr.'/qr-code/'.$namePng);
+
+
+        //on envoi l email
+        $mailer->send($message);
+        $jsonContent = $Normalizer->normalize($ReservationVoyage,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
          * @Route("/AddReserVoyageJSON", name="AddReserVoyageJSON")
      */
     public function AddReserVoyageJSON(MailerInterface $mailer,Request $request,NormalizerInterface $Normalizer)

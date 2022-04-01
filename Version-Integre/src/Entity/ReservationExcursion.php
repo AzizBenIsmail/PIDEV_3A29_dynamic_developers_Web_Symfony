@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReservationExcursionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationExcursionRepository::class)
@@ -15,11 +16,13 @@ class ReservationExcursion
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("ReservationExcursion:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups("ReservationExcursion:read")
      */
     private $Date_Reservation_Excursion;
 
@@ -30,16 +33,19 @@ class ReservationExcursion
 
     /**
      * @ORM\ManyToOne(targetEntity=Excursion::class, inversedBy="reservationExcursions" )
+     * @Groups("ReservationExcursion:read")
      */
     private $ID_Excursion;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("ReservationExcursion:read")
      */
     private $Email;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("ReservationExcursion:read")
      */
     private $nb;
 
