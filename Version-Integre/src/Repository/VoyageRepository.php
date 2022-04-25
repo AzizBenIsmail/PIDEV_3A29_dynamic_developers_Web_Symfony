@@ -51,12 +51,12 @@ class VoyageRepository extends ServiceEntityRepository
             ->orderBy('s.Destination', 'ASC')
             ->getQuery()->getResult();
     }
-    public function order_By_Nom()
-    {
-        return $this->createQueryBuilder('s')
-            ->orderBy('s.Nom_Voyage', 'ASC')
-            ->getQuery()->getResult();
-    }
+        public function order_By_Nom()
+        {
+            return $this->createQueryBuilder('s')
+                ->orderBy('s.Nom_Voyage', 'ASC')
+                ->getQuery()->getResult();
+        }
     public function order_By_Date()
     {
         return $this->createQueryBuilder('s')

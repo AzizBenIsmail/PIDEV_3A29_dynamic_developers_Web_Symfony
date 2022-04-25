@@ -333,7 +333,6 @@ class VoyageController extends AbstractController
 
     //Selection selon Continent_Amerique
 
-
     /**
      * @Route("/Continent_Amerique", name="Continent_Amerique" ,methods={"GET"})
      */
