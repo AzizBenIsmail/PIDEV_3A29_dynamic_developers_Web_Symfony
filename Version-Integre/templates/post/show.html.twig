@@ -83,19 +83,19 @@
                                 <img src="{{ asset('uploads/'~ user.Image ) }}">
                                 <div>
                                     <p>{{ p.Client.UserName }}</p>
-                                    <span>{{ p.DateP ? p.DateP|date('Y-m-d') : '' }}</span>
+                                    <span>{{ p.DateP ? p.DateP|date('yyyy-MM-dd HH:mm:ss') : '' }}</span>
                                 </div>
                             {% elseif p.visibilite is same as "Anonyme" %}
                                 <img src="{{ asset('front/images/anonyme.svg') }}">
                                 <div>
                                     <p>Utilisateur</p>
-                                    <span>{{ p.DateP ? p.DateP|date('Y-m-d') : '' }}</span>
+                                    <span>{{ p.DateP ? p.DateP|date('yyyy-MM-dd HH:mm:ss') : '' }}</span>
                                 </div>
                             {% else %}
                                 <img src="{{ asset('front/images/logo.png') }}">
                                 <div>
                                     <p>TRAVEL ME</p>
-                                    <span>{{ p.DateP ? p.DateP|date('Y-m-d') : '' }}</span>
+                                    <span>{{ p.DateP ? p.DateP|date('yyyy-MM-dd HH:mm:ss') : '' }}</span>
                                 </div>
                             {% endif %}
                         </div>

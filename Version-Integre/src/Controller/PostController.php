@@ -204,7 +204,7 @@ class PostController extends AbstractController
         $Post = new Post();
         $user=$this->getUser()->getUsername();
         $client=$userRepository->findOneBy(array('UserName' =>$user),null,1,0);
-        $Post->setClient(2);
+        $Post->setClient($client);
         $Post->setDateP(new \DateTime('now'));
         $form = $this->createForm(PostType::class, $Post);
         $form->handleRequest($request);
@@ -230,6 +230,7 @@ class PostController extends AbstractController
                 $this->addFlash('message','le Posta bien ete ajouter ');
                 return $this->redirectToRoute('post_new', [], Response::HTTP_SEE_OTHER);
             }else{
+                $Post->setImageP("null");
                 $entityManager->persist($Post);
                 $entityManager->flush();
                 $this->addFlash('message','le Posta bien ete ajouter ');
@@ -250,10 +251,11 @@ class PostController extends AbstractController
     public function show(Post $post,Request $request,UserRepository $userRepository): Response
     {   //partie commentaires
         $comment=new Commentaire();
-        $comment->setObjet('');
+
         $user=$this->getUser()->getUsername();
         $client=$userRepository->findOneBy(array('UserName' =>$user),null,1,0);
         $comment->setClient($client);
+        $comment->setDateC(new \DateTime('now'));
         $form=$this->createForm(CommentaireType::class,$comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){

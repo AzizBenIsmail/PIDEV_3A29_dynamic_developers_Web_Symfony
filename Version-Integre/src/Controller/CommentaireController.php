@@ -42,13 +42,12 @@ class CommentaireController extends AbstractController
     {
         $Commentaire = new Commentaire();
         $description = $request->query->get("description");
-        $objet=$request->query->get("objet");
+        $Commentaire->setDateC(new \DateTime('now'));
         $post=$request->query->get("postid");
         $em = $this->getDoctrine()->getManager();
 
         $Commentaire->setPosts($this->getDoctrine()->getManager()->getRepository(Post::class)->find($post));
         $Commentaire->setCommentaire($description);
-        $Commentaire->setObjet($objet);
 
         $em->persist($Commentaire);
         $em->flush();
@@ -96,7 +95,7 @@ class CommentaireController extends AbstractController
             ->find($request->get("id"));
 
         $Commentaire->setCommentaire($request->get("description"));
-        $Commentaire->setObjet($request->get("objet"));;
+
 
         $em->persist($Commentaire);
         $em->flush();
@@ -162,7 +161,7 @@ class CommentaireController extends AbstractController
     {
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);
-        $commentaire->setObjet("Commentaire");
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

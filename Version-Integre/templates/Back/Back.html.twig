@@ -802,7 +802,7 @@
                                                                         <thead>
                                                                         <tr>
                                                                             <th>Id</th>
-                                                                            <th>Objet</th>
+
                                                                             <th>Commentaire</th>
                                                                             <th>actions</th>
                                                                         </tr>
@@ -811,7 +811,7 @@
                                                                         {% for commentaire in commentaires %}
                                                                             <tr>
                                                                                 <td>{{ commentaire.id }}</td>
-                                                                                <td>{{ commentaire.Objet }}</td>
+
                                                                                 <td>{{ commentaire.Commentaire }}</td>
                                                                                 <td>
                                                                                     <a href="{{ path('commentaire_show', {'id': commentaire.id}) }}">show</a>

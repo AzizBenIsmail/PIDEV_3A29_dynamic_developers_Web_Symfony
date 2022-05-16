@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) {
+    public function registration(Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer) {
         
         $user = new User();
         $form = $this->createForm(registrationType::class, $user);
@@ -78,8 +78,8 @@ class SecurityController extends AbstractController
                 }
                 $user->setImage($newFilename);
 
-                $hash = $encoder->encodePassword($user, $user->getPassword());
-                $user->setPassword($hash);
+                #$hash = $encoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($user->getPassword());
 
                 $user->setActivationToken(md5(uniqid()));
 
@@ -219,7 +219,7 @@ class SecurityController extends AbstractController
      /**
      * @Route("/reset_pass/{token}", name="app_reset_password")
      */
-    public function resetPassword($token, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager){
+    public function resetPassword($token, Request $request, EntityManagerInterface $manager){
         // On cherche l'utilisateur avec le token fourni
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['reset_token' => $token]);
 
@@ -233,8 +233,8 @@ class SecurityController extends AbstractController
             
             $user->setResetToken(null);
 
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
+            #$hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($user->getPassword());
             
             $manager->persist($user);
             $manager->flush();
@@ -355,15 +355,15 @@ class SecurityController extends AbstractController
     /**
      * @Route("/{id}/edit", name="client_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, User $client, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder): Response
+    public function edit(Request $request, User $client, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RegistrationType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $hash = $encoder->encodePassword($client, $client->getPassword());
-            $client->setPassword($hash);
+            #$hash = $encoder->encodePassword($client, $client->getPassword());
+            $client->setPassword($client->getPassword());
             $entityManager->flush();
 
             return $this->redirectToRoute('client_index', [], Response::HTTP_SEE_OTHER);

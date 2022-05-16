@@ -21,7 +21,7 @@ class Commentaire
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      *
      */
     private $Client;
@@ -32,19 +32,13 @@ class Commentaire
     private $posts;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("post:read")
-     */
-    private $Objet;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Groups("post:read")
      */
     private $Commentaire;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_c;
 
@@ -75,17 +69,7 @@ class Commentaire
 
         return $this;
     }
-    public function getObjet(): ?string
-    {
-        return $this->Objet;
-    }
 
-    public function setObjet(string $Objet): self
-    {
-        $this->Objet = $Objet;
-
-        return $this;
-    }
 
     public function getCommentaire(): ?string
     {
