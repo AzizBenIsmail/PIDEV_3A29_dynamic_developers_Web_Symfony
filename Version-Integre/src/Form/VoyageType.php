@@ -27,7 +27,7 @@ class VoyageType extends AbstractType
             ->add('date')
             ->add('valabilite',null, [
                 'attr' => [
-                    'placeholder' => 'Disponibilite...(oui/non/bientot disponible)',
+                    'placeholder' => 'Disponibilite...(Bientot Disponible/Disponible/Non_Disponible)',
                 ]])
             ->add('Clien')
             ->add('image',FileType::class,[

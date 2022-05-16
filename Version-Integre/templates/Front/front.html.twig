@@ -102,7 +102,7 @@
 											<tr>
 												<td>{{ voyage.id }}</td>
 												{% if voyage.image|length > 0 %}
-													<td><img src="{{ asset('uploads/'~ voyage.image ) }}" width="250" height="150"></td>
+													<td><img src="{{ asset( 'uploads/'~voyage.image ) }}" width="250" height="150"></td>
 												{% else %}
 													<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
 												{% endif %}

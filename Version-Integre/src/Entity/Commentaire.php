@@ -43,6 +43,11 @@ class Commentaire
      */
     private $Commentaire;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date_c;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +95,18 @@ class Commentaire
     public function setCommentaire(string $Commentaire): self
     {
         $this->Commentaire = $Commentaire;
+
+        return $this;
+    }
+
+    public function getDateC(): ?\DateTimeInterface
+    {
+        return $this->date_c;
+    }
+
+    public function setDateC(?\DateTimeInterface $date_c): self
+    {
+        $this->date_c = $date_c;
 
         return $this;
     }

@@ -44,7 +44,7 @@ class Post
     private $HashtagP;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * @Groups("post:read")
      */
     private $DateP;

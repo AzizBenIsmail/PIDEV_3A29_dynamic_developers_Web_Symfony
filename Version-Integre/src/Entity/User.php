@@ -84,7 +84,7 @@ class User implements UserInterface
     public $confirm_password;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=true)
      * @Groups("post:read")
      */
     private $roles = [];

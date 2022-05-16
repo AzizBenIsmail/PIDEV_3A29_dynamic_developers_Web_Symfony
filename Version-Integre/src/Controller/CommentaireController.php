@@ -162,6 +162,7 @@ class CommentaireController extends AbstractController
     {
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);
+        $commentaire->setObjet("Commentaire");
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

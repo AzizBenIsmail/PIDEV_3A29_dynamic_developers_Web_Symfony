@@ -127,7 +127,7 @@ class ReservationVoyageController extends AbstractController
         $ReservationVoyage->setClient($em->getRepository(User::class)->findOneBy(["CIN"=>$request->get('Client')]));
         $ReservationVoyage->setVoyage($em->getRepository(Voyage::class)->find($request->get('Voyage')));
         $ReservationVoyage->setTravelClass($request->get('TravelClass'));
-        //$ReservationVoyage->setDateReservation(new \DateTime('@'.strtotime('now')));
+        $ReservationVoyage->setDateReservation(new \DateTime('@'.strtotime('Now')));
         $ReservationVoyage->setAge($request->get('Age'));
         $em->persist($ReservationVoyage);
         $em->flush();

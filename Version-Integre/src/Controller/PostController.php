@@ -204,7 +204,7 @@ class PostController extends AbstractController
         $Post = new Post();
         $user=$this->getUser()->getUsername();
         $client=$userRepository->findOneBy(array('UserName' =>$user),null,1,0);
-        $Post->setClient($client);
+        $Post->setClient(2);
         $Post->setDateP(new \DateTime('now'));
         $form = $this->createForm(PostType::class, $Post);
         $form->handleRequest($request);

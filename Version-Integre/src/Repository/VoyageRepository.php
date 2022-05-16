@@ -51,12 +51,12 @@ class VoyageRepository extends ServiceEntityRepository
             ->orderBy('s.Destination', 'ASC')
             ->getQuery()->getResult();
     }
-        public function order_By_Nom()
-        {
-            return $this->createQueryBuilder('s')
-                ->orderBy('s.Nom_Voyage', 'ASC')
-                ->getQuery()->getResult();
-        }
+    public function order_By_Nom()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.Nom_Voyage', 'ASC')
+            ->getQuery()->getResult();
+    }
     public function order_By_Date()
     {
         return $this->createQueryBuilder('s')
@@ -251,7 +251,7 @@ class VoyageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.valabilite = :val')
-            ->setParameter('val','Oui')
+            ->setParameter('val','Disponible')
             ->getQuery()->getResult();
     }
 
@@ -259,7 +259,7 @@ class VoyageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.valabilite = :val')
-            ->setParameter('val','Non' )
+            ->setParameter('val','Non_Disponible' )
             ->getQuery()->getResult();
     }
 
@@ -267,7 +267,7 @@ class VoyageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.valabilite = :val')
-            ->setParameter('val','Bientot disponible' )
+            ->setParameter('val','Bientot Disponible' )
             ->getQuery()->getResult();
     }
 
