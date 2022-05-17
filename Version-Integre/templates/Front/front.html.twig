@@ -71,14 +71,13 @@
 						<!-- Featured Post -->
 						<article class="post featured">
 							<header class="major">
-								<span class="date">{#{{ app.user.UserName }}#}</span>
+								<span class="date">{{ app.user.UserName }}</span>
 							</header>
-							{#  	<a href="#" class="image main"> {% if app.user.image|length > 0 %}
+							<a href="#" class="image main"> {% if app.user.image|length > 0 %}
 									<td><img src="{{ asset('uploads/'~ app.user.image ) }}" width="500" height="350"></td>
 								{% else %}
 									<td><img src="{{ asset('uploads/'~ "Not found.jpg" ) }}" width="250" height="150"></td>
 								{% endif %}</a>
-#}
 						</article>
 
 						<article class="post featured">

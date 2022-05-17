@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReservationRestaurantController extends AbstractController
 {
     /**
-     * @Route("/", name="reservation_restaurant_index", methods={"GET"})
+     * @Route("/restaurant_index", name="reservation_restaurant_index", methods={"GET"})
      */
     public function index(ReservationRestaurantRepository $reservationRestaurantRepository): Response
     {
